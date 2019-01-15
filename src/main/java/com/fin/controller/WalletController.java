@@ -4,7 +4,6 @@ import com.fin.entity.Wallet;
 import com.fin.repository.WalletRepository;
 
 import javax.inject.Inject;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
