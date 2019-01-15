@@ -1,3 +1,7 @@
 .idea/
 Lotos.iml
-persistance.xml
+src/main/resources/META-INF/persistence.xml
+web/WEB-INF/classes/
+web/WEB-INF/lib/
+target/
+out/
