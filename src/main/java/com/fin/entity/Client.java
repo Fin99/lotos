@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,20 +12,19 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Wallet implements Serializable {
-
+public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column
-    private double account;
+    private String username;
+    @Column
+    private String password;
+    @Column
+    private String token;
 
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("id", this.id)
-                .add("account", this.account)
-                .build();
+    public Client(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
-
 }

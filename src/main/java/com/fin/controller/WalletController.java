@@ -2,6 +2,7 @@ package com.fin.controller;
 
 import com.fin.entity.Wallet;
 import com.fin.repository.WalletRepository;
+import com.fin.security.Secured;
 
 import javax.inject.Inject;
 import javax.json.JsonObject;
@@ -24,6 +25,7 @@ public class WalletController {
     }
 
     @GET
+    @Secured
     @Path("/get/{indexWallet}")
     public JsonObject get(@PathParam("indexWallet") long indexWallet) {
         return walletRepository.find(indexWallet).toJson();
