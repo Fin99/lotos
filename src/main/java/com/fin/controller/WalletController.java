@@ -6,7 +6,6 @@ import com.fin.security.Secured;
 
 import javax.inject.Inject;
 import javax.json.JsonObject;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -19,9 +18,10 @@ public class WalletController {
     WalletRepository walletRepository;
 
     @POST
+    @Secured
     @Path("/add")
-    public JsonObject save(@Valid Wallet wal) {
-        return this.walletRepository.create(wal).toJson();
+    public JsonObject save() {
+        return this.walletRepository.create(new Wallet()).toJson();
     }
 
     @GET

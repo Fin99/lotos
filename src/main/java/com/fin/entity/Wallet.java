@@ -15,9 +15,9 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 public class Wallet implements Serializable {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "wallet_id", sequenceName = "wallet_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_id")
     private long id;
 
     @Column

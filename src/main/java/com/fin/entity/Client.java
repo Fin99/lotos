@@ -14,7 +14,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Client implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "client_id", sequenceName = "client_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_id")
     private long id;
     @Column
     private String username;
