@@ -2,9 +2,11 @@ package com.fin.controller;
 
 import com.fin.entity.Wallet;
 import com.fin.repository.WalletRepository;
+import com.fin.security.Role;
 import com.fin.security.Secured;
 
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,9 +27,14 @@ public class WalletController {
     }
 
     @GET
-    @Secured
+    @Secured({Role.ROLE})
     @Path("/get/{indexWallet}")
     public JsonObject get(@PathParam("indexWallet") long indexWallet) {
-        return walletRepository.find(indexWallet).toJson();
+        Wallet wallet = walletRepository.find(indexWallet);
+        if (wallet != null) {
+            return wallet.toJson();
+        } else {
+            return Json.createObjectBuilder().build();
+        }
     }
 }

@@ -1,11 +1,13 @@
 package com.fin.entity;
 
+import com.fin.security.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table
@@ -23,6 +25,10 @@ public class Client implements Serializable {
     private String password;
     @Column
     private String token;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "client_role", joinColumns = {@JoinColumn(name = "client_id")})
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public Client(String username, String password) {
         this.username = username;

@@ -1,15 +1,15 @@
 package com.fin.repository;
 
 import com.fin.entity.Client;
+import com.fin.security.Role;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Singleton;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import java.util.List;
 
 @Singleton
@@ -61,19 +61,25 @@ public class ClientRepository {
     }
 
     public boolean checkToken(String token) {
-        em.getTransaction().begin();
-        String query = "SELECT c FROM Client c WHERE c.token='" + token + "'";
-        Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
-        em.getTransaction().commit();
+        Client client = findByToken(token);
         return client != null;
     }
 
     public Client findByToken(String token) {
         em.getTransaction().begin();
-        String query = "SELECT c FROM Client c WHERE Client.token='" + token + "'";
+        String query = "SELECT c FROM Client c WHERE c.token='" + token + "'";
         Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
         em.getTransaction().commit();
         return client;
+    }
+
+    public boolean checkRoleByUsername(String username, List<Role> roles) {
+        em.getTransaction().begin();
+        String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
+        Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
+        boolean containsRole = client.getRoles().containsAll(roles);
+        em.getTransaction().commit();
+        return containsRole;
     }
 
     @PreDestroy
