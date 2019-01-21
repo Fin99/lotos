@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 @Singleton
 @Named("parentRepository")
@@ -29,6 +30,19 @@ public class ParentRepository {
         em.getTransaction().commit();
         return parent;
     }
+
+    public Parent findByClient(Client client) {
+        em.getTransaction().begin();
+        String query = "SELECT p FROM Parent p WHERE p.client.id='" + client.getId() + "'";
+        Parent parent = getParentOrNull(em.createQuery(query, Parent.class).getResultList());
+        em.getTransaction().commit();
+        return parent;
+    }
+
+    private Parent getParentOrNull(List<Parent> resultList) {
+        return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
 
     @PreDestroy
     public void preDestroy() {

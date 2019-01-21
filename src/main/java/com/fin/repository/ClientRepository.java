@@ -24,14 +24,6 @@ public class ClientRepository {
         em = entityManagerFactory.createEntityManager();
     }
 
-    public boolean isExist(String username) {
-        em.getTransaction().begin();
-        String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
-        Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
-        em.getTransaction().commit();
-        return client != null;
-    }
-
     public Client authenticate(Client client) {
         em.getTransaction().begin();
         String username = client.getUsername();
@@ -40,10 +32,6 @@ public class ClientRepository {
         Client authClient = getClientOrNull(em.createQuery(query, Client.class).getResultList());
         em.getTransaction().commit();
         return authClient;
-    }
-
-    private Client getClientOrNull(List<Client> resultList) {
-        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     public void create(Client client) {
@@ -71,6 +59,14 @@ public class ClientRepository {
         return client;
     }
 
+    public Client findByUsername(String username) {
+        em.getTransaction().begin();
+        String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
+        Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
+        em.getTransaction().commit();
+        return client;
+    }
+
     public boolean checkRoleByUsername(String username, List<Role> roles) {
         em.getTransaction().begin();
         String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
@@ -88,5 +84,9 @@ public class ClientRepository {
         if (em.isOpen() && em != null) {
             em.close();
         }
+    }
+
+    private Client getClientOrNull(List<Client> resultList) {
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 }

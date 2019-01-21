@@ -43,7 +43,7 @@ public class AuthenticationController {
         roles.add(Role.PARENT);
         parent.getClient().setRoles(roles);
 
-        if (clientRepository.isExist(parent.getClient().getUsername())) {
+        if (clientRepository.findByUsername(parent.getClient().getUsername()) == null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
         clientRepository.create(parent.getClient());
@@ -65,13 +65,9 @@ public class AuthenticationController {
         String password = credentials.getPassword();
 
         try {
-
             Client client = authenticate(username, password);
-
             String token = issueToken(client);
-
             return Response.ok(Json.createObjectBuilder().add("token", token).build()).build();
-
         } catch (Exception e) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
