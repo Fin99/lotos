@@ -23,6 +23,10 @@ public class Wallet implements Serializable {
     @Column
     private double account;
 
+    public Wallet(double account) {
+        this.account = account;
+    }
+
     public JsonObject toJson() {
         return Json.createObjectBuilder()
                 .add("id", this.id)

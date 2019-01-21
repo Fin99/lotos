@@ -23,11 +23,10 @@ public class WalletRepository {
     }
 
 
-    public Wallet create(Wallet wallet) {
+    public void create(Wallet wallet) {
         em.getTransaction().begin();
         em.persist(wallet);
         em.getTransaction().commit();
-        return wallet;
     }
 
     public Wallet find(long id) {

@@ -19,13 +19,6 @@ public class WalletController {
     @Inject
     WalletRepository walletRepository;
 
-    @POST
-    @Secured
-    @Path("/add")
-    public JsonObject save() {
-        return this.walletRepository.create(new Wallet()).toJson();
-    }
-
     @GET
     @Secured({Role.PARENT})
     @Path("/get/{indexWallet}")

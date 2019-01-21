@@ -2,8 +2,10 @@ package com.fin.controller;
 
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
+import com.fin.entity.Wallet;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
+import com.fin.repository.WalletRepository;
 import com.fin.security.Credentials;
 import com.fin.security.Role;
 
@@ -25,12 +27,14 @@ import java.util.Set;
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class AuthenticationController {
-
     @Inject
     ClientRepository clientRepository;
 
     @Inject
     ParentRepository parentRepository;
+
+    @Inject
+    WalletRepository walletRepository;
 
     @POST
     @Path("/registration/parent")
@@ -43,6 +47,10 @@ public class AuthenticationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
         clientRepository.create(parent.getClient());
+
+        Wallet wallet = new Wallet(0);
+        walletRepository.create(wallet);
+        parent.setWallet(wallet);
 
         parentRepository.create(parent);
 
