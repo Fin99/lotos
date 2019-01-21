@@ -25,20 +25,22 @@ public class AuthenticationController {
     ClientRepository clientRepository;
 
     @POST
-    @Path("/registration")
-    public Response registrationClient(Credentials credentials) {
-        String username = credentials.getUsername();
-        String password = credentials.getPassword();
-
-        if (clientRepository.isExist(username)) {
-            return Response.status(Response.Status.CONFLICT).build();
-        }
-
-        Client client = clientRepository.create(new Client(username, password));
-
-        String token = issueToken(client);
-
-        return Response.ok(Json.createObjectBuilder().add("token", token).build()).build();
+    @Path("/registration/parent")
+    public Response registrationParent(Credentials credentials) {
+        //TODO
+//        String username = credentials.getUsername();
+//        String password = credentials.getPassword();
+//
+//        if (clientRepository.isExist(username)) {
+//            return Response.status(Response.Status.CONFLICT).build();
+//        }
+//
+//        Client client = clientRepository.create(new Client(username, password));
+//
+//        String token = issueToken(client);
+//
+//        return Response.ok(Json.createObjectBuilder().add("token", token).build()).build();
+        return null;
     }
 
     @POST
