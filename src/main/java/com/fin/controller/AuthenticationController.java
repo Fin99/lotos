@@ -17,8 +17,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 @Path("/authentication")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -34,7 +35,9 @@ public class AuthenticationController {
     @POST
     @Path("/registration/parent")
     public Response registrationParent(Parent parent) {
-        parent.getClient().setRoles(Collections.singleton(Role.PARENT));
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.PARENT);
+        parent.getClient().setRoles(roles);
 
         if (clientRepository.isExist(parent.getClient().getUsername())) {
             return Response.status(Response.Status.CONFLICT).build();
