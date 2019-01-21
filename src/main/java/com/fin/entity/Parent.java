@@ -22,7 +22,7 @@ public class Parent implements Serializable {
     @Column
     private String surname;
     @Column
-    private char varchar;
+    private char sex;
     @Column
     private String phone_number;
     @OneToOne

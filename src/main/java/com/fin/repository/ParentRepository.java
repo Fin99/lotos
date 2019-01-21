@@ -1,5 +1,8 @@
 package com.fin.repository;
 
+import com.fin.entity.Client;
+import com.fin.entity.Parent;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
@@ -18,6 +21,13 @@ public class ParentRepository {
     public void init() {
         entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
         em = entityManagerFactory.createEntityManager();
+    }
+
+    public Parent create(Parent parent) {
+        em.getTransaction().begin();
+        em.persist(parent);
+        em.getTransaction().commit();
+        return parent;
     }
 
     @PreDestroy

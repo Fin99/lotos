@@ -27,7 +27,7 @@ public class WalletController {
     }
 
     @GET
-    @Secured({Role.ROLE})
+    @Secured({Role.PARENT})
     @Path("/get/{indexWallet}")
     public JsonObject get(@PathParam("indexWallet") long indexWallet) {
         Wallet wallet = walletRepository.find(indexWallet);

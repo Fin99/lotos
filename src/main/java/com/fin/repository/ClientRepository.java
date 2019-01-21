@@ -24,7 +24,6 @@ public class ClientRepository {
         em = entityManagerFactory.createEntityManager();
     }
 
-
     public boolean isExist(String username) {
         em.getTransaction().begin();
         String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
@@ -47,11 +46,10 @@ public class ClientRepository {
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 
-    public Client create(Client client) {
+    public void create(Client client) {
         em.getTransaction().begin();
         em.persist(client);
         em.getTransaction().commit();
-        return client;
     }
 
     public void update(Client client) {

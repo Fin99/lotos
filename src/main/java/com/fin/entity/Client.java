@@ -30,8 +30,9 @@ public class Client implements Serializable {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public Client(String username, String password) {
+    public Client(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 }
