@@ -1,6 +1,4 @@
-package com.fin.repository;
-
-import com.fin.entity.money.Wallet;
+package com.fin.repository.medical;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -11,8 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @Singleton
-@Named("walletRepository")
-public class WalletRepository {
+@Named("illRepository")
+public class IllRepository {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager em;
 
@@ -20,20 +18,6 @@ public class WalletRepository {
     public void init() {
         entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
         em = entityManagerFactory.createEntityManager();
-    }
-
-
-    public void create(Wallet wallet) {
-        em.getTransaction().begin();
-        em.persist(wallet);
-        em.getTransaction().commit();
-    }
-
-    public Wallet find(long id) {
-        em.getTransaction().begin();
-        Wallet wallet = em.find(Wallet.class, id);
-        em.getTransaction().commit();
-        return wallet;
     }
 
     @PreDestroy

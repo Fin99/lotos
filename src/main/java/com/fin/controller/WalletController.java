@@ -6,7 +6,7 @@ import com.fin.entity.money.Refill;
 import com.fin.entity.money.Wallet;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
-import com.fin.repository.RefillRepository;
+import com.fin.repository.money.RefillRepository;
 import com.fin.security.Role;
 import com.fin.security.Secured;
 

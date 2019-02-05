@@ -5,7 +5,7 @@ import com.fin.entity.Parent;
 import com.fin.entity.money.Wallet;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
-import com.fin.repository.WalletRepository;
+import com.fin.repository.money.WalletRepository;
 import com.fin.security.Credentials;
 import com.fin.security.Role;
 
