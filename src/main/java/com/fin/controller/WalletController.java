@@ -2,8 +2,8 @@ package com.fin.controller;
 
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
-import com.fin.entity.Refill;
-import com.fin.entity.Wallet;
+import com.fin.entity.money.Refill;
+import com.fin.entity.money.Wallet;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.RefillRepository;
@@ -11,8 +11,6 @@ import com.fin.security.Role;
 import com.fin.security.Secured;
 
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;

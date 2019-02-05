@@ -1,4 +1,4 @@
-package com.fin.entity;
+package com.fin.entity.money;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

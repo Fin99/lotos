@@ -1,8 +1,7 @@
 package com.fin.repository;
 
-import com.fin.entity.Parent;
-import com.fin.entity.Refill;
-import com.fin.entity.Wallet;
+import com.fin.entity.money.Refill;
+import com.fin.entity.money.Wallet;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

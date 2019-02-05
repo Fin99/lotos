@@ -1,5 +1,6 @@
 package com.fin.entity;
 
+import com.fin.entity.money.Wallet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

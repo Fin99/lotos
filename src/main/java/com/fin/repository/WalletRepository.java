@@ -1,6 +1,6 @@
 package com.fin.repository;
 
-import com.fin.entity.Wallet;
+import com.fin.entity.money.Wallet;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

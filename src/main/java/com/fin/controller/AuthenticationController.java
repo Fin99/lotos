@@ -2,7 +2,7 @@ package com.fin.controller;
 
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
-import com.fin.entity.Wallet;
+import com.fin.entity.money.Wallet;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.WalletRepository;
