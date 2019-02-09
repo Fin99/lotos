@@ -43,7 +43,7 @@ public class AuthenticationController {
         roles.add(Role.PARENT);
         parent.getClient().setRoles(roles);
 
-        if (clientRepository.findByUsername(parent.getClient().getUsername()) == null) {
+        if (clientRepository.findByUsername(parent.getClient().getUsername()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
         clientRepository.create(parent.getClient());
