@@ -33,10 +33,13 @@ public class MedicalBook implements Serializable {
     private char sex;
     @Column
     private String policy;
-    @ManyToMany(mappedBy = "medical_book_allergy")
+    @ManyToMany
+    @JoinTable(name = "medical_book_allergy")
     private Set<Allergy> allergySet;
-    @ManyToMany(mappedBy = "medical_book_ill")
+    @ManyToMany
+    @JoinTable(name = "medical_book_ill")
     private Set<Ill> illSet;
-    @ManyToMany(mappedBy = "medical_book_vacination")
+    @ManyToMany
+    @JoinTable(name = "medical_book_vacination")
     private Set<Vaccination> vaccinationSet;
 }

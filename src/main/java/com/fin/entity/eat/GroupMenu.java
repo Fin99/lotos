@@ -16,17 +16,17 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 public class GroupMenu implements Serializable {
-    @EmbeddedId
-    private GroupMenuId groupMenuId;
+    @Id
+    @SequenceGenerator(name = "group_menu_id", sequenceName = "group_menu_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_menu_id")
+    private long id;
+    @OneToOne
+    private Group group;
+    @OneToOne
+    private Menu menu;
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     @Column
     private Date date;
-
-    @Embeddable
-    public static class GroupMenuId implements Serializable {
-        private Group group;
-        private Menu menu;
-    }
 }

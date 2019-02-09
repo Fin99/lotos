@@ -24,6 +24,7 @@ public class Elective implements Serializable {
     private String name;
     @ManyToOne
     private Teacher teacher;
-    @ManyToMany(mappedBy = "children_elective")
+    @ManyToMany
+    @JoinTable(name = "chidlren_elective")
     private Set<Children> childrenSet;
 }

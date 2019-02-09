@@ -20,6 +20,7 @@ public class Security implements Serializable {
     @OneToOne
     private Employee employee;
 
-    @ManyToMany(mappedBy = "security_camera")
+    @ManyToMany
+    @JoinTable(name = "security_camera")
     private Set<Camera> cameraSet;
 }

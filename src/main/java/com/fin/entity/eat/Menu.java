@@ -27,6 +27,7 @@ public class Menu implements Serializable {
     private Meal snack;
     @ManyToOne
     private Meal dinner;
-    @ManyToMany(mappedBy = "group_menu")
+    @ManyToMany
+    @JoinTable(name = "group_menu")
     private Set<Group> groupSet;
 }
