@@ -26,7 +26,7 @@ public class Parent implements Serializable {
     private String surname;
     @Column
     private char sex;
-    @Column
+    @Column(name = "phone_number")
     private String phoneNumber;
     @OneToOne
     private Client client;
