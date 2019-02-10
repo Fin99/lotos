@@ -30,34 +30,6 @@ public class AuthenticationController {
     @Inject
     ClientRepository clientRepository;
 
-    @Inject
-    ParentRepository parentRepository;
-
-    @Inject
-    WalletRepository walletRepository;
-
-    @POST
-    @Path("/registration/parent")
-    public Response registrationParent(Parent parent) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.PARENT);
-        parent.getClient().setRoles(roles);
-
-        if (clientRepository.findByUsername(parent.getClient().getUsername()) != null) {
-            return Response.status(Response.Status.CONFLICT).build();
-        }
-        clientRepository.create(parent.getClient());
-
-        Wallet wallet = new Wallet(0);
-        walletRepository.create(wallet);
-        parent.setWallet(wallet);
-
-        parentRepository.create(parent);
-
-        String token = issueToken(parent.getClient());
-        return Response.ok(Json.createObjectBuilder().add("token", token).build()).build();
-    }
-
     @POST
     @Path("/authenticate")
     public Response authenticateClient(Credentials credentials) {

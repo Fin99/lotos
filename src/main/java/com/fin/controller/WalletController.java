@@ -7,6 +7,7 @@ import com.fin.entity.money.Wallet;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.money.RefillRepository;
+import com.fin.repository.money.WalletRepository;
 import com.fin.security.Role;
 import com.fin.security.Secured;
 
@@ -27,6 +28,8 @@ public class WalletController {
     ClientRepository clientRepository;
     @Inject
     RefillRepository refillRepository;
+    @Inject
+    WalletRepository walletRepository;
 
     @Context
     SecurityContext securityContext;
@@ -49,8 +52,15 @@ public class WalletController {
     @POST
     @Secured({Role.ADMIN})
     @Path("/refill")
+    public Response create(Wallet wallet) {
+        walletRepository.create(wallet);
+        return Response.ok(wallet.toJson()).build();
+    }
+
+    @POST
+    @Secured({Role.ADMIN})
+    @Path("/refill")
     public Response refill(Refill refill) {
-        System.out.println(refill.toJson());
         refillRepository.refill(refill);
         return Response.ok().build();
     }

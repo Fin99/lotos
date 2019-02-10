@@ -1,6 +1,8 @@
 package com.fin.repository;
 
+import com.fin.entity.Children;
 import com.fin.entity.Client;
+import com.fin.entity.Parent;
 import com.fin.security.Role;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +24,13 @@ public class ChildrenRepository {
     public void init() {
         entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
         em = entityManagerFactory.createEntityManager();
+    }
+
+    public Children create(Children children) {
+        em.getTransaction().begin();
+        em.persist(children);
+        em.getTransaction().commit();
+        return children;
     }
 
     @PreDestroy

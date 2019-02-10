@@ -27,8 +27,10 @@ public class Children implements Serializable {
     private MedicalBook medicalBook;
     @OneToOne
     private Group group;
-    @OneToOne
+    @ManyToOne
     private Parent parent1;
-    @OneToOne
+    @ManyToOne
     private Parent parent2;
+    @OneToOne
+    private Client client;
 }
