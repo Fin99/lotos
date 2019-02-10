@@ -31,6 +31,12 @@ public class ParentRepository {
         return parent;
     }
 
+    public void update(Parent parent) {
+        em.getTransaction().begin();
+        em.merge(parent);
+        em.getTransaction().commit();
+    }
+
     public Parent findByClient(Client client) {
         em.getTransaction().begin();
         String query = "SELECT p FROM Parent p WHERE p.client.id='" + client.getId() + "'";

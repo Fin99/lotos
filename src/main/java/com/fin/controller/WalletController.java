@@ -45,16 +45,27 @@ public class WalletController {
         if (wallet != null) {
             return Response.ok(wallet.toJson()).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
         }
     }
 
     @POST
-    @Secured({Role.ADMIN})
-    @Path("/refill")
-    public Response create(Wallet wallet) {
-        walletRepository.create(wallet);
-        return Response.ok(wallet.toJson()).build();
+    @Secured({Role.PARENT})
+    @Path("/create")
+    public Response create() {
+        Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
+        Parent parent = parentRepository.findByClient(client);
+        if(parent.getWallet() == null) {
+            Wallet wallet = new Wallet(0);
+            walletRepository.create(wallet);
+
+            parent.setWallet(wallet);
+            parentRepository.update(parent);
+
+            return Response.ok(wallet.toJson()).build();
+        } else {
+            return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
+        }
     }
 
     @POST
