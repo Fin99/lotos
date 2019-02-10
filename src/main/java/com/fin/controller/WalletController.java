@@ -41,7 +41,7 @@ public class WalletController {
         Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
         Parent parent = parentRepository.findByClient(client);
 
-        Wallet wallet = parent.getWallet();
+        Wallet wallet = walletRepository.find(parent.getWallet().getId());
         if (wallet != null) {
             return Response.ok(wallet.toJson()).build();
         } else {
