@@ -68,7 +68,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
     private void checkPermissions(List<Role> allowedRoles) throws Exception {
         String name = securityContext.getUserPrincipal().getName();
-        if (!clientRepository.checkRoleByUsername(name, Collections.singletonList(Role.ADMIN)) ||
+        if (!clientRepository.checkRoleByUsername(name, Collections.singletonList(Role.ADMIN)) &&
                 !clientRepository.checkRoleByUsername(name, allowedRoles)) {
             throw new Exception();
         }
