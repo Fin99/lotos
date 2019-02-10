@@ -99,9 +99,7 @@ public class RegistrationController {
             return false;
         }
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        client.setRoles(roles);
+        client.setRole(role);
 
         clientRepository.create(client);
         return true;

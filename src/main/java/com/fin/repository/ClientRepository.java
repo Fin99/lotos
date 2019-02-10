@@ -71,7 +71,7 @@ public class ClientRepository {
         em.getTransaction().begin();
         String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
         Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
-        boolean containsRole = client.getRoles().containsAll(roles);
+        boolean containsRole = roles.contains(client.getRole());
         em.getTransaction().commit();
         return containsRole;
     }

@@ -1,34 +1,33 @@
 package com.fin.controller;
 
 import com.fin.entity.Client;
-import com.fin.entity.Parent;
-import com.fin.entity.money.Wallet;
 import com.fin.repository.ClientRepository;
-import com.fin.repository.ParentRepository;
-import com.fin.repository.money.WalletRepository;
 import com.fin.security.Credentials;
-import com.fin.security.Role;
+import com.fin.security.Secured;
 
 import javax.inject.Inject;
 import javax.json.Json;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.json.JsonObject;
+import javax.naming.AuthenticationException;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
-@Path("/authentication")
+@Path("/auth")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-public class AuthenticationController {
+public class AuthController {
     @Inject
     ClientRepository clientRepository;
+
+    @Context
+    SecurityContext securityContext;
+
 
     @POST
     @Path("/authenticate")
@@ -39,17 +38,27 @@ public class AuthenticationController {
         try {
             Client client = authenticate(username, password);
             String token = issueToken(client);
-            return Response.ok(Json.createObjectBuilder().add("token", token).build()).build();
-        } catch (Exception e) {
+            JsonObject object = Json.createObjectBuilder().add("token", token).build();
+            return Response.ok(object).build();
+        } catch (AuthenticationException e) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
     }
 
-    private Client authenticate(String username, String password) throws Exception {
+    @GET
+    @Secured
+    @Path("/authorization")
+    public Response authorizationClient() {
+        Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
+        JsonObject object = Json.createObjectBuilder().add("role", client.getRole().toString()).build();
+        return Response.ok(object).build();
+    }
+
+    private Client authenticate(String username, String password) throws AuthenticationException {
         Client client = clientRepository.authenticate(new Client(username, password, null));
 
         if (client == null) {
-            throw new Exception();
+            throw new AuthenticationException();
         }
 
         return client;

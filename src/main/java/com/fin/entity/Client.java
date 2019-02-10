@@ -25,14 +25,12 @@ public class Client implements Serializable {
     private String password;
     @Column
     private String token;
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "client_role", joinColumns = {@JoinColumn(name = "client_id")})
     @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    private Role role;
 
-    public Client(String username, String password, Set<Role> roles) {
+    public Client(String username, String password, Role role) {
         this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
     }
 }
