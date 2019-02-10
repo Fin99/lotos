@@ -35,10 +35,9 @@ public class RegistrationController {
     EmployeeRepository employeeRepository;
 
     @POST
-    @Secured({Role.CHIEF})
     @Path("/parent")
     public Response registrationParent(Parent parent) {
-        if (createClient(parent.getClient(), Role.PARENT)) {
+        if (!createClient(parent.getClient(), Role.PARENT)) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
@@ -48,7 +47,6 @@ public class RegistrationController {
     }
 
     @POST
-    @Secured({Role.CHIEF})
     @Path("/children")
     public Response registrationChildren(Children children) {
         if (createClient(children.getClient(), Role.EDUCATOR)) {
@@ -61,7 +59,6 @@ public class RegistrationController {
     }
 
     @POST
-    @Secured({Role.CHIEF})
     @Path("/employee")
     public Response registrationEmployee(Employee employee) {
         if (createClient(employee.getClient(), parseRole(employee.getTypeEmployee()))) {
