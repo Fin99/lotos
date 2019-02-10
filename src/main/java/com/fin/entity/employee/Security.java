@@ -2,6 +2,7 @@ package com.fin.entity.employee;
 
 import com.fin.entity.employee.Employee;
 import com.fin.entity.security.Camera;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,4 +24,8 @@ public class Security implements Serializable {
     @ManyToMany
     @JoinTable(name = "security_camera")
     private Set<Camera> cameraSet;
+
+    public Security(Employee employee) {
+        this.employee = employee;
+    }
 }

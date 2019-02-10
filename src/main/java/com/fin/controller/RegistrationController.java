@@ -3,9 +3,11 @@ package com.fin.controller;
 import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
+import com.fin.entity.employee.Employee;
 import com.fin.repository.ChildrenRepository;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
+import com.fin.repository.employee.EmployeeRepository;
 import com.fin.security.Role;
 import com.fin.security.Secured;
 
@@ -29,6 +31,8 @@ public class RegistrationController {
     ParentRepository parentRepository;
     @Inject
     ChildrenRepository childrenRepository;
+    @Inject
+    EmployeeRepository employeeRepository;
 
     @POST
     @Secured({Role.CHIEF})
@@ -56,7 +60,41 @@ public class RegistrationController {
         return Response.ok().build();
     }
 
+    @POST
+    @Secured({Role.CHIEF})
+    @Path("/employee")
+    public Response registrationEmployee(Employee employee) {
+        if (createClient(employee.getClient(), parseRole(employee.getTypeEmployee()))) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
+        employeeRepository.create(employee);
+
+        return Response.ok().build();
+    }
+
+    private Role parseRole(Employee.TypeEmployee typeEmployee) {
+        switch (typeEmployee) {
+            case BABYSITTER:
+                return Role.BABYSITTER;
+            case CHIEF:
+                return Role.CHIEF;
+            case EDUCATOR:
+                return Role.EDUCATOR;
+            case SECURITY:
+                return Role.SECURITY;
+            case TEACHER:
+                return Role.TEACHER;
+            default:
+                return null;
+        }
+    }
+
     private boolean createClient(Client client, Role role) {
+        if (role == null) {
+            return false;
+        }
+
         if (clientRepository.findByUsername(client.getUsername()) != null) {
             return false;
         }
