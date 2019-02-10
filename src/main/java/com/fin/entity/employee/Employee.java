@@ -34,4 +34,14 @@ public class Employee implements Serializable {
     private double salary;
     @OneToOne
     private Client client;
+
+    private TypeEmployee typeEmployee;
+
+    public enum TypeEmployee{
+        BABYSITTER,
+        CHIEF,
+        EDUCATOR,
+        SECURITY,
+        TEACHER
+    }
 }
