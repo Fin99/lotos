@@ -16,6 +16,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Secured
@@ -39,7 +40,6 @@ public class AuthorizationFilter implements ContainerRequestFilter {
         List<Role> methodRoles = extractRoles(resourceMethod);
 
         try {
-
             if (methodRoles.isEmpty()) {
                 if (!classRoles.isEmpty()) {
                     checkPermissions(classRoles);
@@ -47,10 +47,8 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             } else {
                 checkPermissions(methodRoles);
             }
-
         } catch (Exception e) {
-            requestContext.abortWith(
-                    Response.status(Response.Status.FORBIDDEN).build());
+            requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
         }
     }
 
@@ -69,7 +67,9 @@ public class AuthorizationFilter implements ContainerRequestFilter {
     }
 
     private void checkPermissions(List<Role> allowedRoles) throws Exception {
-        if (!clientRepository.checkRoleByUsername(securityContext.getUserPrincipal().getName(), allowedRoles)) {
+        String name = securityContext.getUserPrincipal().getName();
+        if (!clientRepository.checkRoleByUsername(name, Collections.singletonList(Role.ADMIN)) ||
+                !clientRepository.checkRoleByUsername(name, allowedRoles)) {
             throw new Exception();
         }
     }
