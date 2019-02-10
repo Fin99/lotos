@@ -24,6 +24,7 @@ import java.util.Set;
 @Path("/registration")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+@Secured({Role.CHIEF})
 public class RegistrationController {
     @Inject
     ClientRepository clientRepository;
