@@ -27,7 +27,7 @@ public class Parent implements Serializable {
     @Column
     private char sex;
     @Column
-    private String phone_number;
+    private String phoneNumber;
     @OneToOne
     private Client client;
     @OneToOne
@@ -39,7 +39,7 @@ public class Parent implements Serializable {
                 .add("name", name)
                 .add("surname", surname)
                 .add("sex", sex)
-                .add("phone_number", phone_number)
+                .add("phoneNumber", phoneNumber)
                 .add("wallet", wallet.toJson())
                 .build();
     }
