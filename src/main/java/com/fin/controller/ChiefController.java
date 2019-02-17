@@ -6,6 +6,8 @@ import com.fin.entity.employee.Employee;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.employee.EmployeeRepository;
 import com.fin.security.Credentials;
+import com.fin.security.Role;
+import com.fin.security.Secured;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -18,6 +20,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 @Path("/chief")
+@Secured(Role.CHIEF)
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class ChiefController {
