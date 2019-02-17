@@ -1,6 +1,6 @@
 package com.fin.repository.employee;
 
-import com.fin.entity.Children;
+import com.fin.entity.Client;
 import com.fin.entity.employee.*;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 @Singleton
 @Named("employeeRepository")
@@ -45,6 +46,18 @@ public class EmployeeRepository {
         }
         em.getTransaction().commit();
         return employee;
+    }
+
+    public Employee findByClient(Client client) {
+        em.getTransaction().begin();
+        String query = "SELECT e FROM Employee e WHERE e.client.id='" + client.getId() + "'";
+        Employee employee = getEmployeeOrNull(em.createQuery(query, Employee.class).getResultList());
+        em.getTransaction().commit();
+        return employee;
+    }
+
+    private Employee getEmployeeOrNull(List<Employee> resultList) {
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     @PreDestroy

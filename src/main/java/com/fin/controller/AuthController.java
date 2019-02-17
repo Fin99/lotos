@@ -28,7 +28,6 @@ public class AuthController {
     @Context
     SecurityContext securityContext;
 
-
     @POST
     @Path("/authenticate")
     public Response authenticateClient(Credentials credentials) {
