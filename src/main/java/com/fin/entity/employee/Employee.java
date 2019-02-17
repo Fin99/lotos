@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -44,4 +46,18 @@ public class Employee implements Serializable {
         SECURITY,
         TEACHER
     }
+
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+                .add("id", id)
+                .add("phone", phone)
+                .add("passport", passport)
+                .add("inn", inn)
+                .add("name", name)
+                .add("surname", surname)
+                .add("position", position)
+                .add("salary", salary)
+                .build();
+    }
+
 }
