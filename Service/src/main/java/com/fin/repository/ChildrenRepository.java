@@ -1,9 +1,6 @@
 package com.fin.repository;
 
 import com.fin.entity.Children;
-import com.fin.entity.Client;
-import com.fin.entity.Parent;
-import com.fin.security.Role;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,7 +9,6 @@ import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.List;
 
 @Singleton
 @Named("childrenRepository")

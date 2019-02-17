@@ -1,6 +1,5 @@
 package com.fin.entity.medical;
 
-import com.fin.entity.security.Camera;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

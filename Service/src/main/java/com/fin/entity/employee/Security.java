@@ -1,6 +1,5 @@
 package com.fin.entity.employee;
 
-import com.fin.entity.employee.Employee;
 import com.fin.entity.security.Camera;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

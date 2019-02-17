@@ -1,7 +1,7 @@
 .idea/
-Lotos.iml
-src/main/resources/META-INF/persistence.xml
-web/WEB-INF/classes/
-web/WEB-INF/lib/
-target/
-out/
+*.iml
+**/persistence.xml
+*.class
+*.jar
+**/target/
+**/out/
