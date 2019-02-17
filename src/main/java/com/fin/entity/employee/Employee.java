@@ -37,6 +37,7 @@ public class Employee implements Serializable {
     @OneToOne
     private Client client;
 
+    @Transient
     private TypeEmployee typeEmployee;
 
     public enum TypeEmployee{
