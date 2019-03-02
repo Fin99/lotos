@@ -13,14 +13,8 @@ import javax.persistence.Persistence;
 @Singleton
 @Named("walletRepository")
 public class WalletRepository {
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager em;
-
-    @PostConstruct
-    public void init() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
-        em = entityManagerFactory.createEntityManager();
-    }
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
+    private EntityManager em = entityManagerFactory.createEntityManager();
 
 
     public void create(Wallet wallet) {

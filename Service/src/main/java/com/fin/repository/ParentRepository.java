@@ -15,14 +15,8 @@ import java.util.List;
 @Singleton
 @Named("parentRepository")
 public class ParentRepository {
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager em;
-
-    @PostConstruct
-    public void init() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
-        em = entityManagerFactory.createEntityManager();
-    }
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
+    private EntityManager em = entityManagerFactory.createEntityManager();
 
     public Parent create(Parent parent) {
         em.getTransaction().begin();
@@ -38,10 +32,8 @@ public class ParentRepository {
     }
 
     public Parent findByClient(Client client) {
-        em.getTransaction().begin();
         String query = "SELECT p FROM Parent p WHERE p.client.id='" + client.getId() + "'";
         Parent parent = getParentOrNull(em.createQuery(query, Parent.class).getResultList());
-        em.getTransaction().commit();
         return parent;
     }
 

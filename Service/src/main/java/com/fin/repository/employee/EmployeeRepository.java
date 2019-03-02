@@ -15,14 +15,8 @@ import java.util.List;
 @Singleton
 @Named("employeeRepository")
 public class EmployeeRepository {
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager em;
-
-    @PostConstruct
-    public void init() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
-        em = entityManagerFactory.createEntityManager();
-    }
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
+    private EntityManager em = entityManagerFactory.createEntityManager();
 
     public Employee create(Employee employee) {
         em.getTransaction().begin();

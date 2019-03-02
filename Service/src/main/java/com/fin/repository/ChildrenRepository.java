@@ -13,14 +13,8 @@ import javax.persistence.Persistence;
 @Singleton
 @Named("childrenRepository")
 public class ChildrenRepository {
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager em;
-
-    @PostConstruct
-    public void init() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
-        em = entityManagerFactory.createEntityManager();
-    }
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
+    private EntityManager em = entityManagerFactory.createEntityManager();
 
     public Children create(Children children) {
         em.getTransaction().begin();

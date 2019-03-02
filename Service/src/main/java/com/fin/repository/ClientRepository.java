@@ -15,22 +15,14 @@ import java.util.List;
 @Singleton
 @Named("clientRepository")
 public class ClientRepository {
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager em;
-
-    @PostConstruct
-    public void init() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
-        em = entityManagerFactory.createEntityManager();
-    }
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
+    private EntityManager em = entityManagerFactory.createEntityManager();
 
     public Client authenticate(Client client) {
-        em.getTransaction().begin();
         String username = client.getUsername();
         String password = client.getPassword();
         String query = "SELECT c FROM Client c WHERE c.username='" + username + "' and c.password='" + password + "'";
         Client authClient = getClientOrNull(em.createQuery(query, Client.class).getResultList());
-        em.getTransaction().commit();
         return authClient;
     }
 
@@ -52,27 +44,20 @@ public class ClientRepository {
     }
 
     public Client findByToken(String token) {
-        em.getTransaction().begin();
         String query = "SELECT c FROM Client c WHERE c.token='" + token + "'";
         Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
-        em.getTransaction().commit();
         return client;
     }
 
     public Client findByUsername(String username) {
-        em.getTransaction().begin();
         String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
         Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
-        em.getTransaction().commit();
         return client;
     }
 
     public boolean checkRoleByUsername(String username, List<Role> roles) {
-        em.getTransaction().begin();
-        String query = "SELECT c FROM Client c WHERE c.username='" + username + "'";
-        Client client = getClientOrNull(em.createQuery(query, Client.class).getResultList());
+        Client client = findByUsername(username);
         boolean containsRole = roles.contains(client.getRole());
-        em.getTransaction().commit();
         return containsRole;
     }
 
