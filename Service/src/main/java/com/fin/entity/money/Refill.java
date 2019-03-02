@@ -13,13 +13,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class Refill implements Serializable {
     @Id
-    @SequenceGenerator(name = "refill_id", sequenceName = "refill_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "refill_id", sequenceName = "refill_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "refill_id")
     private long id;
 

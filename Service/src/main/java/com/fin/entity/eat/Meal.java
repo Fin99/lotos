@@ -9,13 +9,13 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class Meal implements Serializable {
     @Id
-    @SequenceGenerator(name = "meal_id", sequenceName = "meal_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "meal_id", sequenceName = "meal_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "meal_id")
     private long id;
     @Column

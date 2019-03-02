@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor

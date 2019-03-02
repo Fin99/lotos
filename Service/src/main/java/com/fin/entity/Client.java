@@ -9,13 +9,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class Client implements Serializable {
     @Id
-    @SequenceGenerator(name = "client_id", sequenceName = "client_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "client_id", sequenceName = "client_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_id")
     private long id;
     @Column

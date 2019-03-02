@@ -11,13 +11,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class Diary implements Serializable {
     @Id
-    @SequenceGenerator(name = "diary_id", sequenceName = "diary_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "diary_id", sequenceName = "diary_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diary_id")
     private long id;
     @ManyToOne

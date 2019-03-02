@@ -11,13 +11,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class GroupMenu implements Serializable {
     @Id
-    @SequenceGenerator(name = "group_menu_id", sequenceName = "group_menu_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "group_menu_id", sequenceName = "group_menu_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_menu_id")
     private long id;
     @OneToOne

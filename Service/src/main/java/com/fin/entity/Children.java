@@ -10,13 +10,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
-public class Children implements Serializable {
+public class    Children implements Serializable {
     @Id
-    @SequenceGenerator(name = "children_id", sequenceName = "children_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "children_id", sequenceName = "children_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "children_id")
     private long id;
     @Column
@@ -24,6 +24,7 @@ public class Children implements Serializable {
     @Column
     private String surname;
     @OneToOne
+    @JoinColumn(name = "medical_book_id")
     private MedicalBook medicalBook;
     @OneToOne
     private Group group;

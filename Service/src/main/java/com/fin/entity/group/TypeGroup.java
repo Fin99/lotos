@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class TypeGroup implements Serializable {
     @Id
-    @SequenceGenerator(name = "type_group_id", sequenceName = "type_group_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "type_group_id", sequenceName = "type_group_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_group_id")
     private long id;
     @Column

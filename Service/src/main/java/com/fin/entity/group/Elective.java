@@ -11,13 +11,13 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class Elective implements Serializable {
     @Id
-    @SequenceGenerator(name = "elective_id", sequenceName = "elective_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "elective_id", sequenceName = "elective_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "elective_id")
     private long id;
     @Column

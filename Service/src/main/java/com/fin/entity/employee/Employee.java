@@ -11,13 +11,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
 public class Employee implements Serializable {
     @Id
-    @SequenceGenerator(name = "employee_id", sequenceName = "employee_id_seq", allocationSize = 1)
+    @SequenceGenerator(schema = "lotos", name = "employee_id", sequenceName = "employee_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id")
     private long id;
     @Column
@@ -30,8 +30,6 @@ public class Employee implements Serializable {
     private String name;
     @Column
     private String surname;
-    @Column
-    private String position;
     @Column
     private double salary;
     @OneToOne
@@ -56,8 +54,8 @@ public class Employee implements Serializable {
                 .add("inn", inn)
                 .add("name", name)
                 .add("surname", surname)
-                .add("position", position)
                 .add("salary", salary)
+                .add("typeEmployee", typeEmployee.toString())
                 .build();
     }
 

@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(schema = "lotos")
 @Setter
 @Getter
 @NoArgsConstructor
