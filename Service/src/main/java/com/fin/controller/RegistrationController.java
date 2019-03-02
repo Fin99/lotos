@@ -48,7 +48,7 @@ public class RegistrationController {
     @POST
     @Path("/children")
     public Response registrationChildren(Children children) {
-        if (createClient(children.getClient(), Role.EDUCATOR)) {
+        if (!createClient(children.getClient(), Role.CHILDREN)) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
@@ -60,7 +60,7 @@ public class RegistrationController {
     @POST
     @Path("/employee")
     public Response registrationEmployee(Employee employee) {
-        if (createClient(employee.getClient(), parseRole(employee.getTypeEmployee()))) {
+        if (!createClient(employee.getClient(), parseRole(employee.getTypeEmployee()))) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
