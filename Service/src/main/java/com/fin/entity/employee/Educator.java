@@ -16,9 +16,15 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-public class Educator implements Serializable {
-    @Id
-    @OneToOne
-    private Employee employee;
+public class Educator extends Employee implements Serializable {
+    public Educator(Employee employee) {
+        this.name = employee.getName();
+        this.client = employee.getClient();
+        this.id = employee.getId();
+        this.inn = employee.getInn();
+        this.passport = employee.getPassport();
+        this.phone = employee.getPhone();
+        this.salary = employee.getSalary();
+        this.surname = employee.getSurname();
+    }
 }

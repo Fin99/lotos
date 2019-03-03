@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(schema = "lotos")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Setter
 @Getter
 @NoArgsConstructor
@@ -19,24 +20,24 @@ public class Employee implements Serializable {
     @Id
     @SequenceGenerator(schema = "lotos", name = "employee_id", sequenceName = "employee_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id")
-    private long id;
+    protected long id;
     @Column
-    private String phone;
+    protected String phone;
     @Column
-    private String passport;
+    protected String passport;
     @Column
-    private String inn;
+    protected String inn;
     @Column
-    private String name;
+    protected String name;
     @Column
-    private String surname;
+    protected String surname;
     @Column
-    private double salary;
+    protected double salary;
     @OneToOne
-    private Client client;
+    protected Client client;
 
     @Transient
-    private TypeEmployee typeEmployee;
+    protected TypeEmployee typeEmployee;
 
     public enum TypeEmployee{
         BABYSITTER,
@@ -55,7 +56,7 @@ public class Employee implements Serializable {
                 .add("name", name)
                 .add("surname", surname)
                 .add("salary", salary)
-                .add("typeEmployee", typeEmployee.toString())
+//                .add("typeEmployee", typeEmployee.toString())
                 .build();
     }
 
