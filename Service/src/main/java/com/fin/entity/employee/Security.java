@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -33,4 +36,16 @@ public class Security extends Employee implements Serializable {
         this.surname = employee.getSurname();
     }
 
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+                .add("id", id)
+                .add("phone", phone)
+                .add("passport", passport)
+                .add("inn", inn)
+                .add("name", name)
+                .add("surname", surname)
+                .add("salary", salary)
+                .add("typeEmployee", "SECURITY")
+                .build();
+    }
 }

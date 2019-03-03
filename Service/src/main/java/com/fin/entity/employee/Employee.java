@@ -56,7 +56,6 @@ public class Employee implements Serializable {
                 .add("name", name)
                 .add("surname", surname)
                 .add("salary", salary)
-//                .add("typeEmployee", typeEmployee.toString())
                 .build();
     }
 
