@@ -1,9 +1,9 @@
 package com.fin.repository.employee;
 
 import com.fin.entity.Client;
-import com.fin.entity.employee.*;
+import com.fin.entity.employee.Chief;
+import com.fin.entity.employee.Employee;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -18,39 +18,24 @@ public class EmployeeRepository {
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
     private EntityManager em = entityManagerFactory.createEntityManager();
 
-    public Employee create(Employee employee) {
+    public <T extends Employee> T createEmployee(T employee) {
         em.getTransaction().begin();
         em.persist(employee);
-        switch (employee.getTypeEmployee()){
-            case BABYSITTER:
-                em.persist(new Babysitter(employee));
-                break;
-            case CHIEF:
-                em.persist(new Chief(employee));
-                break;
-            case EDUCATOR:
-                em.persist(new Educator(employee));
-                break;
-            case SECURITY:
-                em.persist(new Security(employee));
-                break;
-            case TEACHER:
-                em.persist(new Teacher(employee));
-                break;
-        }
         em.getTransaction().commit();
         return employee;
     }
 
     public Employee findByClient(Client client) {
-        em.getTransaction().begin();
         String query = "SELECT e FROM Employee e WHERE e.client.id='" + client.getId() + "'";
-        Employee employee = getEmployeeOrNull(em.createQuery(query, Employee.class).getResultList());
-        em.getTransaction().commit();
-        return employee;
+        return getEntityOrNull(em.createQuery(query, Employee.class).getResultList());
     }
 
-    private Employee getEmployeeOrNull(List<Employee> resultList) {
+    public Chief findChief(Employee employee) {
+        String query = "SELECT c FROM Chief c WHERE c.id='" + employee.getId() + "'";
+        return getEntityOrNull(em.createQuery(query, Chief.class).getResultList());
+    }
+
+    private <T> T getEntityOrNull(List<T> resultList) {
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 

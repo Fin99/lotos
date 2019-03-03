@@ -3,7 +3,7 @@ package com.fin.controller;
 import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
-import com.fin.entity.employee.Employee;
+import com.fin.entity.employee.*;
 import com.fin.repository.ChildrenRepository;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.ParentRepository;
@@ -64,7 +64,23 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        employeeRepository.create(employee);
+        switch (employee.getTypeEmployee()) {
+            case BABYSITTER:
+                employeeRepository.createEmployee(new Babysitter(employee));
+                break;
+            case CHIEF:
+                employeeRepository.createEmployee(new Chief(employee));
+                break;
+            case EDUCATOR:
+                employeeRepository.createEmployee(new Educator(employee));
+                break;
+            case SECURITY:
+                employeeRepository.createEmployee(new Security(employee));
+                break;
+            case TEACHER:
+                employeeRepository.createEmployee(new Teacher(employee));
+                break;
+        }
 
         return Response.ok().build();
     }

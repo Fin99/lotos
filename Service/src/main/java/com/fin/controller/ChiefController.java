@@ -2,6 +2,7 @@ package com.fin.controller;
 
 
 import com.fin.entity.Client;
+import com.fin.entity.employee.Chief;
 import com.fin.entity.employee.Employee;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.employee.EmployeeRepository;
@@ -47,6 +48,11 @@ public class ChiefController {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        return Response.ok(employee.toJson()).build();
+        Chief chief= employeeRepository.findChief(employee);
+        if (chief == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok(chief.toJson()).build();
     }
 }
