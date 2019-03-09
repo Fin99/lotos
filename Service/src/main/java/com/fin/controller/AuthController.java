@@ -2,8 +2,10 @@ package com.fin.controller;
 
 import com.fin.entity.Client;
 import com.fin.repository.ClientRepository;
+import com.fin.repository.MainRepository;
 import com.fin.security.Credentials;
 import com.fin.security.Secured;
+import sun.applet.Main;
 
 import javax.inject.Inject;
 import javax.json.Json;
@@ -24,6 +26,8 @@ import java.util.Random;
 public class AuthController {
     @Inject
     ClientRepository clientRepository;
+    @Inject
+    MainRepository mainRepository;
 
     @Context
     SecurityContext securityContext;
@@ -69,7 +73,7 @@ public class AuthController {
 
         client.setToken(token);
 
-        clientRepository.update(client);
+        mainRepository.update(client);
 
         return token;
     }

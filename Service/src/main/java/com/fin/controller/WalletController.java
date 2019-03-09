@@ -5,6 +5,7 @@ import com.fin.entity.Parent;
 import com.fin.entity.money.Refill;
 import com.fin.entity.money.Wallet;
 import com.fin.repository.ClientRepository;
+import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.money.RefillRepository;
 import com.fin.repository.money.WalletRepository;
@@ -30,6 +31,8 @@ public class WalletController {
     RefillRepository refillRepository;
     @Inject
     WalletRepository walletRepository;
+    @Inject
+    MainRepository mainRepository;
 
     @Context
     SecurityContext securityContext;
@@ -60,7 +63,7 @@ public class WalletController {
             walletRepository.create(wallet);
 
             parent.setWallet(wallet);
-            parentRepository.update(parent);
+            mainRepository.update(parent);
 
             return Response.ok(wallet.toJson()).build();
         } else {

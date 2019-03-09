@@ -6,6 +6,7 @@ import com.fin.entity.Parent;
 import com.fin.entity.employee.*;
 import com.fin.repository.ChildrenRepository;
 import com.fin.repository.ClientRepository;
+import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.employee.EmployeeRepository;
 import com.fin.security.Role;
@@ -32,6 +33,8 @@ public class RegistrationController {
     ChildrenRepository childrenRepository;
     @Inject
     EmployeeRepository employeeRepository;
+    @Inject
+    MainRepository mainRepository;
 
     @POST
     @Path("/parent")
@@ -40,7 +43,7 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        parentRepository.create(parent);
+        mainRepository.create(parent);
 
         return Response.ok().build();
     }
@@ -52,7 +55,7 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        childrenRepository.create(children);
+        mainRepository.create(children);
 
         return Response.ok().build();
     }
@@ -66,19 +69,19 @@ public class RegistrationController {
 
         switch (employee.getTypeEmployee()) {
             case BABYSITTER:
-                employeeRepository.createEmployee(new Babysitter(employee));
+                mainRepository.create(new Babysitter(employee));
                 break;
             case CHIEF:
-                employeeRepository.createEmployee(new Chief(employee));
+                mainRepository.create(new Chief(employee));
                 break;
             case EDUCATOR:
-                employeeRepository.createEmployee(new Educator(employee));
+                mainRepository.create(new Educator(employee));
                 break;
             case SECURITY:
-                employeeRepository.createEmployee(new Security(employee));
+                mainRepository.create(new Security(employee));
                 break;
             case TEACHER:
-                employeeRepository.createEmployee(new Teacher(employee));
+                mainRepository.create(new Teacher(employee));
                 break;
         }
 
@@ -113,7 +116,7 @@ public class RegistrationController {
 
         client.setRole(role);
 
-        clientRepository.create(client);
+        mainRepository.create(client);
         return true;
     }
 }
