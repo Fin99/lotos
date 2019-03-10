@@ -30,15 +30,9 @@ public class ChiefController {
     SecurityContext securityContext;
 
     @Inject
-    MainRepository mainRepository;
-    @Inject
     ClientRepository clientRepository;
     @Inject
     EmployeeRepository employeeRepository;
-    @Inject
-    ChildrenRepository childrenRepository;
-    @Inject
-    ParentRepository parentRepository;
 
     @GET
     @Path("/info")
@@ -63,76 +57,5 @@ public class ChiefController {
         return Response.ok(chief.toJson()).build();
     }
 
-    @POST
-    @Path("/remove/children")
-    public Response removeChildren(Client username) {
-        String chiefUsername = securityContext.getUserPrincipal().getName();
-        if (chiefUsername.equals(username.getUsername())) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Client removeClient = clientRepository.findByUsername(username.getUsername());
-        if (removeClient == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Children removeChildren = childrenRepository.findByClient(removeClient);
-        if (removeChildren == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        mainRepository.remove(removeChildren);
-        mainRepository.remove(removeClient);
-
-        return Response.ok().build();
-    }
-
-    @POST
-    @Path("/remove/parent")
-    public Response removeParent(Client username) {
-        String chiefUsername = securityContext.getUserPrincipal().getName();
-        if (chiefUsername.equals(username.getUsername())) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Client removeClient = clientRepository.findByUsername(username.getUsername());
-        if (removeClient == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Parent removeChildren = parentRepository.findByClient(removeClient);
-        if (removeChildren == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        mainRepository.remove(removeChildren);
-        mainRepository.remove(removeClient);
-
-        return Response.ok().build();
-    }
-
-    @POST
-    @Path("/remove/employee")
-    public Response removeEmployee(Client username) {
-        String chiefUsername = securityContext.getUserPrincipal().getName();
-        if (chiefUsername.equals(username.getUsername())) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Client removeClient = clientRepository.findByUsername(username.getUsername());
-        if (removeClient == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Employee removeChildren = employeeRepository.findByClient(removeClient);
-        if (removeChildren == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        mainRepository.remove(removeChildren);
-        mainRepository.remove(removeClient);
-
-        return Response.ok().build();
-    }
 
 }
