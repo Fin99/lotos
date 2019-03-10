@@ -4,9 +4,11 @@ import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.*;
+import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
+import com.fin.repository.place.ItemRepository;
 import com.fin.repository.place.PlaceRepository;
 import com.fin.security.Role;
 import com.fin.security.Secured;
@@ -30,6 +32,8 @@ public class RegistrationController {
     MainRepository mainRepository;
     @Inject
     PlaceRepository placeRepository;
+    @Inject
+    ItemRepository itemRepository;
 
     @POST
     @Path("/parent")
@@ -57,12 +61,24 @@ public class RegistrationController {
 
     @POST
     @Path("/place")
-    public Response registrationChildren(Place place) {
+    public Response registrationPlace(Place place) {
         if (placeRepository.findPlace(place.getName()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
         mainRepository.create(place);
+
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/item")
+    public Response registrationItem(Item item) {
+        if (itemRepository.findItem(item.getId()) != null) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
+        mainRepository.create(item);
 
         return Response.ok().build();
     }

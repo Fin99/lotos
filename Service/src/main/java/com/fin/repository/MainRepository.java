@@ -27,10 +27,10 @@ public class MainRepository {
         em.getTransaction().commit();
     }
 
-    public <T> void remove(T entity) {
+    public void remove(Class classEntity, long id) {
         em.getTransaction().begin();
-        entity = em.merge(entity);
-        em.remove(entity);
+        Object entityRef = em.find(classEntity, id);
+        em.remove(entityRef);
         em.getTransaction().commit();
     }
 

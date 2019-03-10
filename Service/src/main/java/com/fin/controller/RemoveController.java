@@ -4,12 +4,14 @@ import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
+import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
 import com.fin.repository.ChildrenRepository;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.employee.EmployeeRepository;
+import com.fin.repository.place.ItemRepository;
 import com.fin.repository.place.PlaceRepository;
 import com.fin.security.Role;
 import com.fin.security.Secured;
@@ -44,6 +46,8 @@ public class RemoveController {
     ParentRepository parentRepository;
     @Inject
     PlaceRepository placeRepository;
+    @Inject
+    ItemRepository itemRepository;
 
     @POST
     @Path("/children")
@@ -63,8 +67,8 @@ public class RemoveController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(removeChildren);
-        mainRepository.remove(removeClient);
+        mainRepository.remove(removeChildren.getClass(), removeChildren.getId());
+        mainRepository.remove(removeClient.getClass(), removeClient.getId());
 
         return Response.ok().build();
     }
@@ -82,13 +86,13 @@ public class RemoveController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Parent removeChildren = parentRepository.findByClient(removeClient);
-        if (removeChildren == null) {
+        Parent removeParent = parentRepository.findByClient(removeClient);
+        if (removeParent == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(removeChildren);
-        mainRepository.remove(removeClient);
+        mainRepository.remove(removeParent.getClass(), removeParent.getId());
+        mainRepository.remove(removeClient.getClass(), removeClient.getId());
 
         return Response.ok().build();
     }
@@ -106,13 +110,13 @@ public class RemoveController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Employee removeChildren = employeeRepository.findByClient(removeClient);
-        if (removeChildren == null) {
+        Employee removeEmployee = employeeRepository.findByClient(removeClient);
+        if (removeEmployee == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(removeChildren);
-        mainRepository.remove(removeClient);
+        mainRepository.remove(removeEmployee.getClass(), removeEmployee.getId());
+        mainRepository.remove(removeClient.getClass(), removeClient.getId());
 
         return Response.ok().build();
     }
@@ -125,7 +129,20 @@ public class RemoveController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(place);
+        mainRepository.remove(place.getClass(), place.getId());
+
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/item")
+    public Response removeItem(Item item){
+        item = itemRepository.findItem(item.getId());
+        if(item == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        mainRepository.remove(item.getClass(), item.getId());
 
         return Response.ok().build();
     }

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,4 +21,12 @@ public class Place implements Serializable {
     private long id;
     @Column
     private String name;
+
+    public JsonObject toJson() {
+        System.out.println(id);
+        return Json.createObjectBuilder()
+                .add("id", id)
+                .add("name", name)
+                .build();
+    }
 }

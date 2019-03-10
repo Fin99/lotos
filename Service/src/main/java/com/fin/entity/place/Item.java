@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,4 +33,15 @@ public class Item implements Serializable {
     private double price;
     @Column
     private String note;
+
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+                .add("id", id)
+//                .add("place", place.toJson())
+                .add("shelfLife", shelfLife.toString())
+                .add("name", name)
+                .add("price", price)
+                .add("note", note)
+                .build();
+    }
 }
