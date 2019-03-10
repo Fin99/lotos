@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -29,16 +30,32 @@ public class Babysitter extends Employee implements Serializable {
 
     @Override
     public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("id", id)
-                .add("phone", phone)
-                .add("passport", passport)
-                .add("inn", inn)
-                .add("name", name)
-                .add("surname", surname)
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        builder.add("id", id)
                 .add("salary", salary)
-                .add("typeEmployee", "BABYSITTER")
-                .build();
+                .add("typeEmployee", "BABYSITTER");
+
+        if (name != null) {
+            builder.add("name", name);
+        }
+        if (surname != null) {
+            builder.add("surname", surname);
+        }
+        if (inn != null) {
+            builder.add("inn", inn);
+        }
+        if (passport != null) {
+            builder.add("passport", passport);
+        }
+        if (phone != null) {
+            builder.add("phone", phone);
+        }
+        if (client != null) {
+            builder.add("client", client.toJson());
+        }
+
+        return builder.build();
     }
 }
 

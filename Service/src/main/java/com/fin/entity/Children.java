@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -34,4 +37,34 @@ public class    Children implements Serializable {
     private Parent parent2;
     @OneToOne
     private Client client;
+
+    public JsonObject toJson() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        builder.add("id", id);
+
+        if (name != null) {
+            builder.add("name", name);
+        }
+        if (surname != null) {
+            builder.add("surname", surname);
+        }
+        if (medicalBook != null) {
+            builder.add("medicalBook", medicalBook.toJson());
+        }
+        if (group != null) {
+            builder.add("group", group.toJson());
+        }
+        if (parent1 != null) {
+            builder.add("parent1", parent1.toJson());
+        }
+        if (parent2 != null) {
+            builder.add("parent2", parent2.toJson());
+        }
+        if (client != null) {
+            builder.add("client", client.toJson());
+        }
+
+        return builder.build();
+    }
 }

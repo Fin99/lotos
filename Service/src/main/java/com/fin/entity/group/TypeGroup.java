@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -29,4 +32,21 @@ public class TypeGroup implements Serializable {
     private boolean speech;
     @Column
     private boolean intellectual;
+
+    public JsonObject toJson() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        builder.add("id", id)
+                .add("numberGroup", numberGroup)
+                .add("maxNumberGroup", maxNumberGroup)
+                .add("maxNumberChildren", maxNumberChildren)
+                .add("speech", speech)
+                .add("intellectual", intellectual);
+
+        if (name != null) {
+            builder.add("name", name);
+        }
+
+        return builder.build();
+    }
 }

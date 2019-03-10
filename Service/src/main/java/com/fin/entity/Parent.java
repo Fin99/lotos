@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -34,14 +35,28 @@ public class Parent implements Serializable {
     private Wallet wallet;
 
     public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("id", id)
-                .add("name", name)
-                .add("surname", surname)
-                .add("sex", sex)
-                .add("phoneNumber", phoneNumber)
-                .add("wallet", wallet.toJson())
-                .build();
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        builder.add("id", id)
+                .add("sex", sex);
+
+        if (name != null) {
+            builder.add("name", name);
+        }
+        if (surname != null) {
+            builder.add("surname", surname);
+        }
+        if (phoneNumber != null) {
+            builder.add("phoneNumber", phoneNumber);
+        }
+        if (wallet != null) {
+            builder.add("wallet", wallet.toJson());
+        }
+        if (client != null) {
+            builder.add("client", client.toJson());
+        }
+
+        return builder.build();
     }
 
 }

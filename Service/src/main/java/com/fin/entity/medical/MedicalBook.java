@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,4 +45,43 @@ public class MedicalBook implements Serializable {
     @ManyToMany
     @JoinTable(name = "medical_book_vacination")
     private Set<Vaccination> vaccinationSet;
+
+    public JsonObject toJson() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        builder.add("id", id)
+                .add("growth", growth)
+                .add("weight", weight)
+                .add("sex", sex);
+
+        if (dateOfBirth != null) {
+            builder.add("dateOfBirth", dateOfBirth.toString());
+        }
+        if (policy != null) {
+            builder.add("policy", policy);
+        }
+        if (allergySet != null) {
+            JsonArrayBuilder allergyBuilder = Json.createArrayBuilder();
+            for (Allergy allergy : allergySet) {
+                allergyBuilder.add(allergy.toJson());
+            }
+            builder.add("allergy", allergyBuilder.build());
+        }
+        if (illSet != null) {
+            JsonArrayBuilder illBuilder = Json.createArrayBuilder();
+            for (Ill ill : illSet) {
+                illBuilder.add(ill.toJson());
+            }
+            builder.add("ill", illBuilder.build());
+        }
+        if (vaccinationSet != null) {
+            JsonArrayBuilder vaccinationBuilder = Json.createArrayBuilder();
+            for (Vaccination vaccination : vaccinationSet) {
+                vaccinationBuilder.add(vaccination.toJson());
+            }
+            builder.add("vaccination", vaccinationBuilder.build());
+        }
+
+        return builder.build();
+    }
 }

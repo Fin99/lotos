@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -32,4 +35,31 @@ public class Group implements Serializable {
     private Educator educator1;
     @ManyToOne
     private Educator educator2;
+
+    public JsonObject toJson() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        builder.add("id", id);
+
+        if (name != null) {
+            builder.add("name", name);
+        }
+        if (typeGroup != null) {
+            builder.add("typeGroup", typeGroup.toJson());
+        }
+        if (teacher != null) {
+            builder.add("teacher", teacher.toJson());
+        }
+        if (babysitter != null) {
+            builder.add("babysitter", babysitter.toJson());
+        }
+        if (educator1 != null) {
+            builder.add("educator1", educator1.toJson());
+        }
+        if (educator2 != null) {
+            builder.add("educator2", educator2.toJson());
+        }
+
+        return builder.build();
+    }
 }
