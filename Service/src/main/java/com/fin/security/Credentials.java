@@ -2,6 +2,7 @@ package com.fin.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.json.Json;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Credentials implements Serializable {
 
     private String username;
