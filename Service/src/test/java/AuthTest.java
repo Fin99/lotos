@@ -3,6 +3,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -13,7 +14,7 @@ public class AuthTest {
 
     @BeforeClass
     public static void init() {
-        RestAssured.baseURI = "http://192.168.0.104";
+        RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8080;
     }
 
