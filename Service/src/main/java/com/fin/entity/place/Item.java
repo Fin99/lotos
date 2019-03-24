@@ -6,10 +6,12 @@ import lombok.Setter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(schema = "lotos")
@@ -35,13 +37,23 @@ public class Item implements Serializable {
     private String note;
 
     public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("id", id)
-//                .add("place", place.toJson())
-                .add("shelfLife", shelfLife.toString())
-                .add("name", name)
-                .add("price", price)
-                .add("note", note)
-                .build();
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        builder.add("id", id)
+                .add("price", price);
+
+        if (name != null) {
+            builder.add("name", name);
+        }
+        if (shelfLife != null) {
+            builder.add("shelfLife", shelfLife.toString());
+        }
+        if (note != null) {
+            builder.add("note", note);
+        }
+        if (place != null) {
+            builder.add("place", place.toJson());
+        }
+        return builder.build();
     }
 }

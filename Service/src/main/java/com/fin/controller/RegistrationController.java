@@ -62,13 +62,13 @@ public class RegistrationController {
     @POST
     @Path("/place")
     public Response registrationPlace(Place place) {
-        if (placeRepository.findPlace(place.getName()) != null) {
+        if (placeRepository.findPlace(place.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
         mainRepository.create(place);
 
-        return Response.ok().build();
+        return Response.ok(place.toJson()).build();
     }
 
     @POST
@@ -78,9 +78,13 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
+        if(item.getPlace() != null){
+            item.setPlace(placeRepository.findPlace(item.getPlace().getId()));
+        }
+
         mainRepository.create(item);
 
-        return Response.ok().build();
+        return Response.ok(item.toJson()).build();
     }
 
     @POST

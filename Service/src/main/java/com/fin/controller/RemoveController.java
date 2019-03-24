@@ -123,8 +123,8 @@ public class RemoveController {
 
     @POST
     @Path("/place")
-    public Response removePlace(Place name){
-        Place place = placeRepository.findPlace(name.getName());
+    public Response removePlace(Place placeId) {
+        Place place = placeRepository.findPlace(placeId.getId());
         if(place == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
