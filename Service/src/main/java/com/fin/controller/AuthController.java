@@ -5,7 +5,6 @@ import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
 import com.fin.security.Credentials;
 import com.fin.security.Secured;
-import sun.applet.Main;
 
 import javax.inject.Inject;
 import javax.json.Json;

@@ -14,7 +14,7 @@ public class AuthTest {
 
     @BeforeClass
     public static void init() {
-        RestAssured.baseURI = "http://localhost";
+        RestAssured.baseURI = "http://192.168.0.104";
         RestAssured.port = 8080;
     }
 
