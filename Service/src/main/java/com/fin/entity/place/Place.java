@@ -11,13 +11,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(schema = "lotos")
+@Table
 @Setter
 @Getter
 @NoArgsConstructor
 public class Place implements Serializable {
     @Id
-    @SequenceGenerator(schema = "lotos", name = "place_id", sequenceName = "place_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "place_id", sequenceName = "place_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "place_id")
     private long id;
     @Column

@@ -15,13 +15,13 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(schema = "lotos")
+@Table
 @Setter
 @Getter
 @NoArgsConstructor
 public class MedicalBook implements Serializable {
     @Id
-    @SequenceGenerator(schema = "lotos", name = "medical_book_id", sequenceName = "medical_book_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "medical_book_id", sequenceName = "medical_book_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medical_book_id")
     private long id;
     @Column

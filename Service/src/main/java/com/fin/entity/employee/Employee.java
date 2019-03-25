@@ -12,14 +12,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(schema = "lotos")
+@Table
 @Inheritance(strategy = InheritanceType.JOINED)
 @Setter
 @Getter
 @NoArgsConstructor
 public class Employee implements Serializable {
     @Id
-    @SequenceGenerator(schema = "lotos", name = "employee_id", sequenceName = "employee_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "employee_id", sequenceName = "employee_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id")
     protected long id;
     @Column
