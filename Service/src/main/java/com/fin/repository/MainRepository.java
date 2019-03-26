@@ -15,27 +15,42 @@ public class MainRepository {
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
     private EntityManager em = entityManagerFactory.createEntityManager();
 
+    public static <T> T getElementOrNull(List<T> resultList) {
+        return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
     public <T> void create(T entity) {
-        em.getTransaction().begin();
+        if(!em.getTransaction().isActive()){
+            em.getTransaction().begin();
+        }
         em.persist(entity);
         em.getTransaction().commit();
     }
 
     public <T> void update(T entity) {
-        em.getTransaction().begin();
+        if(!em.getTransaction().isActive()){
+            em.getTransaction().begin();
+        }
         em.merge(entity);
         em.getTransaction().commit();
     }
 
-    public void remove(Class classEntity, long id) {
-        em.getTransaction().begin();
-        Object entityRef = em.find(classEntity, id);
-        em.remove(entityRef);
+    public <T> T find(Class<T> classEntity, long id) {
+        if(!em.getTransaction().isActive()){
+            em.getTransaction().begin();
+        }
+        T entity = em.find(classEntity, id);
         em.getTransaction().commit();
+        return entity;
     }
 
-    public static <T> T getElementOrNull(List<T> resultList) {
-        return resultList.isEmpty() ? null : resultList.get(0);
+    public <T> void remove(Class<T> classEntity, long id) {
+        if(!em.getTransaction().isActive()){
+            em.getTransaction().begin();
+        }
+        T entityRef = em.find(classEntity, id);
+        em.remove(entityRef);
+        em.getTransaction().commit();
     }
 
     @PreDestroy
