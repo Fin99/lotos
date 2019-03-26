@@ -124,8 +124,8 @@ public class RemoveController {
     @POST
     @Path("/place")
     public Response removePlace(Place placeId) {
-        Place place = placeRepository.findPlace(placeId.getId());
-        if(place == null){
+        Place place = mainRepository.find(Place.class, placeId.getId());
+        if (place == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -136,9 +136,9 @@ public class RemoveController {
 
     @POST
     @Path("/item")
-    public Response removeItem(Item item){
-        item = itemRepository.findItem(item.getId());
-        if(item == null){
+    public Response removeItem(Item item) {
+        item = mainRepository.find(Item.class, item.getId());
+        if (item == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

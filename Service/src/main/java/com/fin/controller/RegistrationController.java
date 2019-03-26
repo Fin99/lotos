@@ -62,7 +62,7 @@ public class RegistrationController {
     @POST
     @Path("/place")
     public Response registrationPlace(Place place) {
-        if (placeRepository.findPlace(place.getId()) != null) {
+        if (mainRepository.find(Place.class, place.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
@@ -74,12 +74,12 @@ public class RegistrationController {
     @POST
     @Path("/item")
     public Response registrationItem(Item item) {
-        if (itemRepository.findItem(item.getId()) != null) {
+        if (mainRepository.find(Item.class, item.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        if(item.getPlace() != null){
-            item.setPlace(placeRepository.findPlace(item.getPlace().getId()));
+        if (item.getPlace() != null) {
+            item.setPlace(mainRepository.find(Place.class, item.getPlace().getId()));
         }
 
         mainRepository.create(item);

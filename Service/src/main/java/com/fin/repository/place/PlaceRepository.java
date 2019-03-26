@@ -1,7 +1,5 @@
 package com.fin.repository.place;
 
-import com.fin.entity.place.Place;
-
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -14,10 +12,6 @@ import javax.persistence.Persistence;
 public class PlaceRepository {
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
     private EntityManager em = entityManagerFactory.createEntityManager();
-
-    public Place findPlace(long id) {
-        return em.find(Place.class, id);
-    }
 
     @PreDestroy
     public void preDestroy() {
