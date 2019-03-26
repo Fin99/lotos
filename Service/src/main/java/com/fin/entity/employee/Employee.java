@@ -34,7 +34,7 @@ public class Employee implements Serializable {
     protected String surname;
     @Column
     protected double salary;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     protected Client client;
 
     @Transient
