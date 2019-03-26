@@ -34,19 +34,11 @@ public class Employee implements Serializable {
     protected String surname;
     @Column
     protected double salary;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     protected Client client;
 
     @Transient
     protected TypeEmployee typeEmployee;
-
-    public enum TypeEmployee{
-        BABYSITTER,
-        CHIEF,
-        EDUCATOR,
-        SECURITY,
-        TEACHER
-    }
 
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
@@ -74,6 +66,14 @@ public class Employee implements Serializable {
         }
 
         return builder.build();
+    }
+
+    public enum TypeEmployee {
+        BABYSITTER,
+        CHIEF,
+        EDUCATOR,
+        SECURITY,
+        TEACHER
     }
 
 }

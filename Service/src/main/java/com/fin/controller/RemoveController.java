@@ -68,7 +68,6 @@ public class RemoveController {
         }
 
         mainRepository.remove(removeChildren.getClass(), removeChildren.getId());
-        mainRepository.remove(removeClient.getClass(), removeClient.getId());
 
         return Response.ok().build();
     }
@@ -92,7 +91,6 @@ public class RemoveController {
         }
 
         mainRepository.remove(removeParent.getClass(), removeParent.getId());
-        mainRepository.remove(removeClient.getClass(), removeClient.getId());
 
         return Response.ok().build();
     }
@@ -116,7 +114,6 @@ public class RemoveController {
         }
 
         mainRepository.remove(removeEmployee.getClass(), removeEmployee.getId());
-        mainRepository.remove(removeClient.getClass(), removeClient.getId());
 
         return Response.ok().build();
     }

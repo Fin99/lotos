@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-public class    Children implements Serializable {
+public class Children implements Serializable {
     @Id
     @SequenceGenerator(name = "children_id", sequenceName = "children_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "children_id")
@@ -35,7 +35,7 @@ public class    Children implements Serializable {
     private Parent parent1;
     @ManyToOne
     private Parent parent2;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Client client;
 
     public JsonObject toJson() {

@@ -38,9 +38,11 @@ public class RegistrationController {
     @POST
     @Path("/parent")
     public Response registrationParent(Parent parent) {
-        if (!createClient(parent.getClient(), Role.PARENT)) {
+        if (clientRepository.findByUsername(parent.getClient().getUsername()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
+
+        parent.getClient().setRole(Role.PARENT);
 
         mainRepository.create(parent);
 
@@ -50,9 +52,11 @@ public class RegistrationController {
     @POST
     @Path("/children")
     public Response registrationChildren(Children children) {
-        if (!createClient(children.getClient(), Role.CHILDREN)) {
+        if (clientRepository.findByUsername(children.getClient().getUsername()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
+
+        children.getClient().setRole(Role.PARENT);
 
         mainRepository.create(children);
 
@@ -90,9 +94,11 @@ public class RegistrationController {
     @POST
     @Path("/employee")
     public Response registrationEmployee(Employee employee) {
-        if (!createClient(employee.getClient(), parseRole(employee.getTypeEmployee()))) {
+        if (clientRepository.findByUsername(employee.getClient().getUsername()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
+
+        employee.getClient().setRole(parseRole(employee.getTypeEmployee()));
 
         switch (employee.getTypeEmployee()) {
             case BABYSITTER:
