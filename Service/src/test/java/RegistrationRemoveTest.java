@@ -73,16 +73,19 @@ public class RegistrationRemoveTest {
 
         registrationRequest.body(parent.toJson().toString());
 
-        int registrationStatus = registrationRequest.post("/registration/parent").getStatusCode();
+        Response response = registrationRequest.post("/registration/parent");
+        int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
+
+        long idParent = response.getBody().jsonPath().getLong("id");
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken());
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("username", parent.getClient().getUsername()).build().toString());
+                .add("id", idParent).build().toString());
 
         int removeStatus = removeRequest.post("/remove/parent").getStatusCode();
 

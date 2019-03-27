@@ -46,7 +46,7 @@ public class RegistrationController {
 
         mainRepository.create(parent);
 
-        return Response.ok().build();
+        return Response.ok(parent.toJson()).build();
     }
 
     @POST
@@ -60,7 +60,7 @@ public class RegistrationController {
 
         mainRepository.create(children);
 
-        return Response.ok().build();
+        return Response.ok(children.toJson()).build();
     }
 
     @POST

@@ -34,6 +34,15 @@ public class Parent implements Serializable, Jsonable {
     @OneToOne
     private Wallet wallet;
 
+    public Parent(String name, String surname, Character sex, String phoneNumber, Client client, Wallet wallet) {
+        this.name = name;
+        this.surname = surname;
+        this.sex = sex;
+        this.phoneNumber = phoneNumber;
+        this.client = client;
+        this.wallet = wallet;
+    }
+
     @Override
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();

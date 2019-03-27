@@ -22,7 +22,6 @@ public class AuthTest {
     public void testAuthenticate() {
         RequestSpecification request = RestAssured.given();
         request.header("Content-Type", "application/json");
-        System.out.println(chief.toJson());
         request.body(chief.toJson().toString());
 
         int status = request.post("/auth/authenticate").getStatusCode();

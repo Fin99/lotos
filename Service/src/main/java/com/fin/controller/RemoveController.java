@@ -70,22 +70,18 @@ public class RemoveController {
 
     @POST
     @Path("/parent")
-    public Response removeParent(Client username) {
-        if (isChiefWantDeleteSelf(username.getUsername())) {
+    public Response removeParent(Parent parentId) {
+        Parent parent = mainRepository.find(Parent.class, parentId.getId());
+        if (parent == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Client removeClient = clientRepository.findByUsername(username.getUsername());
-        if (removeClient == null) {
+        Client client = mainRepository.find(Client.class, parent.getClient().getId());
+        if (isChiefWantDeleteSelf(client.getUsername())) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Parent removeParent = parentRepository.findByClient(removeClient);
-        if (removeParent == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        mainRepository.remove(Parent.class, removeParent.getId());
+        mainRepository.remove(Parent.class, parentId.getId());
 
         return Response.ok().build();
     }
