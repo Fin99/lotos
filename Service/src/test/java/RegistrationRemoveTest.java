@@ -210,7 +210,7 @@ public class RegistrationRemoveTest {
 
         place.setId(idPlace);
         item.setPlace(place);
-        registrationItemRequest.body(item.toJson());
+        registrationItemRequest.body(item.toJson().toString());
 
         Response responseItem = registrationItemRequest.post("/registration/item");
         int registrationItemStatus = responseItem.getStatusCode();
