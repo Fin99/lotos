@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Parent implements Serializable {
+public class Parent implements Serializable, Jsonable {
     @Id
     @SequenceGenerator(name = "parent_id", sequenceName = "parent_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parent_id")
@@ -26,7 +26,7 @@ public class Parent implements Serializable {
     @Column
     private String surname;
     @Column
-    private char sex;
+    private Character sex;
     @Column(name = "phone_number")
     private String phoneNumber;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -34,6 +34,7 @@ public class Parent implements Serializable {
     @OneToOne
     private Wallet wallet;
 
+    @Override
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
