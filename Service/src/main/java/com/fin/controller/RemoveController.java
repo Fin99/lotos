@@ -4,6 +4,7 @@ import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
+import com.fin.entity.group.Group;
 import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
 import com.fin.repository.ChildrenRepository;
@@ -52,11 +53,6 @@ public class RemoveController {
     @POST
     @Path("/children")
     public Response removeChildren(Client username) {
-        String chiefUsername = securityContext.getUserPrincipal().getName();
-        if (chiefUsername.equals(username.getUsername())) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
         Client removeClient = clientRepository.findByUsername(username.getUsername());
         if (removeClient == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -67,7 +63,7 @@ public class RemoveController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(removeChildren.getClass(), removeChildren.getId());
+        mainRepository.remove(Children.class, removeChildren.getId());
 
         return Response.ok().build();
     }
@@ -75,8 +71,7 @@ public class RemoveController {
     @POST
     @Path("/parent")
     public Response removeParent(Client username) {
-        String chiefUsername = securityContext.getUserPrincipal().getName();
-        if (chiefUsername.equals(username.getUsername())) {
+        if (isChiefWantDeleteSelf(username.getUsername())) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -90,7 +85,7 @@ public class RemoveController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(removeParent.getClass(), removeParent.getId());
+        mainRepository.remove(Parent.class, removeParent.getId());
 
         return Response.ok().build();
     }
@@ -98,8 +93,7 @@ public class RemoveController {
     @POST
     @Path("/employee")
     public Response removeEmployee(Client username) {
-        String chiefUsername = securityContext.getUserPrincipal().getName();
-        if (chiefUsername.equals(username.getUsername())) {
+        if (isChiefWantDeleteSelf(username.getUsername())) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -113,7 +107,7 @@ public class RemoveController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(removeEmployee.getClass(), removeEmployee.getId());
+        mainRepository.remove(Employee.class, removeEmployee.getId());
 
         return Response.ok().build();
     }
@@ -121,26 +115,44 @@ public class RemoveController {
     @POST
     @Path("/place")
     public Response removePlace(Place placeId) {
-        Place place = mainRepository.find(Place.class, placeId.getId());
-        if (place == null) {
+        if (deleteEntityIfNotNull(Place.class, placeId.getId())) {
+            return Response.ok().build();
+        } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-
-        mainRepository.remove(place.getClass(), place.getId());
-
-        return Response.ok().build();
     }
 
     @POST
     @Path("/item")
-    public Response removeItem(Item item) {
-        item = mainRepository.find(Item.class, item.getId());
-        if (item == null) {
+    public Response removeItem(Item itemId) {
+        if (deleteEntityIfNotNull(Item.class, itemId.getId())) {
+            return Response.ok().build();
+        } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+    }
 
-        mainRepository.remove(item.getClass(), item.getId());
+    @POST
+    @Path("/group")
+    public Response removeGroup(Group groupId) {
+        if (deleteEntityIfNotNull(Group.class, groupId.getId())) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
 
-        return Response.ok().build();
+    private <T> boolean deleteEntityIfNotNull(Class<T> entityId, long id) {
+        if (mainRepository.find(entityId, id) == null) {
+            return false;
+        } else {
+            mainRepository.remove(entityId, id);
+            return true;
+        }
+    }
+
+    private boolean isChiefWantDeleteSelf(String entityUsername) {
+        String chiefUsername = securityContext.getUserPrincipal().getName();
+        return chiefUsername.equals(entityUsername);
     }
 }

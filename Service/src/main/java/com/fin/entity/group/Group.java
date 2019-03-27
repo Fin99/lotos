@@ -14,7 +14,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(name = "\"group\"")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -26,6 +26,7 @@ public class Group implements Serializable {
     @Column
     private String name;
     @ManyToOne
+    @JoinColumn(name = "type_group_id")
     private TypeGroup typeGroup;
     @ManyToOne
     private Teacher teacher;

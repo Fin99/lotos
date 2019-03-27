@@ -246,7 +246,6 @@ public class RegistrationRemoveTest {
     }
 
     @Test
-    @Ignore
     public void registrationRemoveGroup() {
         RequestSpecification registrationRequest = RestAssured.given();
         registrationRequest.header("Content-Type", "application/json");
