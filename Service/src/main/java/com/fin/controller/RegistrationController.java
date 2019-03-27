@@ -1,9 +1,9 @@
 package com.fin.controller;
 
 import com.fin.entity.Children;
-import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.*;
+import com.fin.entity.group.Group;
 import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
 import com.fin.repository.ClientRepository;
@@ -56,7 +56,7 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        children.getClient().setRole(Role.PARENT);
+        children.getClient().setRole(Role.CHILDREN);
 
         mainRepository.create(children);
 
@@ -66,29 +66,43 @@ public class RegistrationController {
     @POST
     @Path("/place")
     public Response registrationPlace(Place place) {
-        if (mainRepository.find(Place.class, place.getId()) != null) {
+        if (place.getId() != 0 && mainRepository.find(Place.class, place.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
+        } else {
+            mainRepository.create(place);
+
+            return Response.ok(place.toJson()).build();
         }
+    }
 
-        mainRepository.create(place);
 
-        return Response.ok(place.toJson()).build();
+    @POST
+    @Path("/group")
+    public Response registrationGroup(Group group) {
+        if (group.getId() != 0 && mainRepository.find(Group.class, group.getId()) != null) {
+            return Response.status(Response.Status.CONFLICT).build();
+        } else {
+            mainRepository.create(group);
+
+            return Response.ok(group.toJson()).build();
+        }
     }
 
     @POST
     @Path("/item")
     public Response registrationItem(Item item) {
-        if (mainRepository.find(Item.class, item.getId()) != null) {
+        if (item.getId() != 0 && mainRepository.find(Item.class, item.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
+        } else {
+            if (item.getPlace() != null && item.getPlace().getId() != 0 &&
+                    mainRepository.find(Place.class, item.getPlace().getId()) != null
+            ) {
+                item.setPlace(mainRepository.find(Place.class, item.getPlace().getId()));
+            }
+            mainRepository.create(item);
+
+            return Response.ok(item.toJson()).build();
         }
-
-        if (item.getPlace() != null) {
-            item.setPlace(mainRepository.find(Place.class, item.getPlace().getId()));
-        }
-
-        mainRepository.create(item);
-
-        return Response.ok(item.toJson()).build();
     }
 
     @POST
@@ -136,20 +150,5 @@ public class RegistrationController {
             default:
                 return null;
         }
-    }
-
-    private boolean createClient(Client client, Role role) {
-        if (role == null) {
-            return false;
-        }
-
-        if (clientRepository.findByUsername(client.getUsername()) != null) {
-            return false;
-        }
-
-        client.setRole(role);
-
-        mainRepository.create(client);
-        return true;
     }
 }

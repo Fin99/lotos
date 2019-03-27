@@ -3,6 +3,7 @@ import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.employee.Teacher;
+import com.fin.entity.group.Group;
 import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
 import com.fin.security.Credentials;
@@ -26,6 +27,7 @@ public class RegistrationRemoveTest {
     private Teacher teacher = new Teacher();
     private Place place = new Place();
     private Item item = new Item();
+    private Group group = new Group();
 
     {
         parent.setName("Александр");
@@ -53,11 +55,13 @@ public class RegistrationRemoveTest {
         item.setNote("Red pen");
         item.setPrice(20.3);
         item.setShelfLife(new Date());
+
+        group.setName("RomashkaTest");
     }
 
     @BeforeClass
     public static void init() {
-        RestAssured.baseURI = "http://192.168.0.104";
+        RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8080;
     }
 
@@ -239,6 +243,33 @@ public class RegistrationRemoveTest {
 
         place.setId(0);
         item.setPlace(null);
+    }
+
+    @Test
+    @Ignore
+    public void registrationRemoveGroup() {
+        RequestSpecification registrationRequest = RestAssured.given();
+        registrationRequest.header("Content-Type", "application/json");
+        registrationRequest.header("Authorization", "Bearer " + getToken());
+
+        registrationRequest.body(group.toJson().toString());
+
+        Response response = registrationRequest.post("/registration/group");
+        int registrationStatus = response.getStatusCode();
+        long idGroup = response.getBody().jsonPath().getLong("id");
+
+        assertEquals(registrationStatus, 200);
+
+        RequestSpecification removeRequest = RestAssured.given();
+        removeRequest.header("Content-Type", "application/json");
+        removeRequest.header("Authorization", "Bearer " + getToken());
+
+        removeRequest.body(Json.createObjectBuilder()
+                .add("id", idGroup).build().toString());
+
+        int removeStatus = removeRequest.post("/remove/group").getStatusCode();
+
+        assertEquals(removeStatus, 200);
     }
 
     private String getToken() {
