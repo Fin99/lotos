@@ -35,24 +35,23 @@ public class ParentRepository {
     }
 
     public List<Parent> findParents(Parent parentData) {
-        String query = "SELECT p FROM Parent p WHERE ";
+        String query = "SELECT p FROM Parent p WHERE";
 
         if (parentData.getClient() != null && parentData.getClient().getUsername() != null) {
-            query += "p.client.id LIKE " + parentData.getClient().getUsername() + " ";
+            query += " p.client.username LIKE '%" + parentData.getClient().getUsername() + "%'";
         }
         if (parentData.getName() != null) {
-            query += "p.name LIKE " + parentData.getName() + " ";
+            query += " p.name LIKE '%" + parentData.getName() + "%'";
         }
         if (parentData.getSurname() != null) {
-            query += "p.surname LIKE " + parentData.getSurname() + " ";
+            query += " p.surname LIKE '%" + parentData.getSurname() + "%'";
         }
         if (parentData.getSex() != null) {
-            query += "p.sex LIKE " + parentData.getSex() + " ";
+            query += " p.sex LIKE '%" + parentData.getSex() + "%'";
         }
         if (parentData.getPhoneNumber() != null) {
-            query += "p.phoneNumber LIKE " + parentData.getPhoneNumber();
+            query += " p.phoneNumber LIKE '%" + parentData.getPhoneNumber() + "%'";
         }
-        query += ";";
 
         return em.createQuery(query, Parent.class).getResultList();
     }

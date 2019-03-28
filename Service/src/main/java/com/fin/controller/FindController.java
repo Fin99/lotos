@@ -10,10 +10,7 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -26,8 +23,8 @@ public class FindController {
     @Inject
     ParentRepository parentRepository;
 
-    @GET
-    @Path("/Parent")
+    @POST
+    @Path("/parent")
     public Response findParent(Parent parentData) {
         if (parentData.getClient() != null && parentData.getClient().getUsername() != null ||
                 parentData.getName() != null || parentData.getSurname() != null ||

@@ -47,9 +47,11 @@ public class Parent implements Serializable, Jsonable {
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        builder.add("id", id)
-                .add("sex", sex);
+        builder.add("id", id);
 
+        if(sex != null){
+            builder.add("sex", sex.toString());
+        }
         if (name != null) {
             builder.add("name", name);
         }
