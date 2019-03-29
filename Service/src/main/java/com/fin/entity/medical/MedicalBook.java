@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "medical_book")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -33,17 +33,17 @@ public class MedicalBook implements Serializable {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
     @Column
-    private char sex;
+    private Character sex;
     @Column
     private String policy;
     @ManyToMany
-    @JoinTable(name = "medical_book_allergy")
+    @JoinTable(name = "medical_book_allergy", joinColumns = @JoinColumn(name = "medical_book_id"))
     private Set<Allergy> allergySet;
     @ManyToMany
-    @JoinTable(name = "medical_book_ill")
+    @JoinTable(name = "medical_book_ill", joinColumns = @JoinColumn(name = "medical_book_id"))
     private Set<Ill> illSet;
     @ManyToMany
-    @JoinTable(name = "medical_book_vacination")
+    @JoinTable(name = "medical_book_vaccination", joinColumns = @JoinColumn(name = "medical_book_id"))
     private Set<Vaccination> vaccinationSet;
 
     public JsonObject toJson() {
@@ -51,9 +51,11 @@ public class MedicalBook implements Serializable {
 
         builder.add("id", id)
                 .add("growth", growth)
-                .add("weight", weight)
-                .add("sex", sex);
+                .add("weight", weight);
 
+        if(sex != null){
+            builder.add("sex", sex.toString());
+        }
         if (dateOfBirth != null) {
             builder.add("dateOfBirth", dateOfBirth.toString());
         }

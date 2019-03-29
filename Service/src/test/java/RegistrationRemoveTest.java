@@ -12,7 +12,6 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.json.Json;
@@ -100,16 +99,20 @@ public class RegistrationRemoveTest {
 
         registrationRequest.body(children.toJson().toString());
 
-        int registrationStatus = registrationRequest.post("/registration/children").getStatusCode();
+        Response response = registrationRequest.post("/registration/children");
+        int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
+
+        long childrenId = response.getBody().jsonPath().getLong("id");
+
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken());
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("username", children.getClient().getUsername()).build().toString());
+                .add("id", childrenId).build().toString());
 
         int removeStatus = removeRequest.post("/remove/children").getStatusCode();
 

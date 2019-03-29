@@ -1,5 +1,8 @@
+import com.fin.entity.Children;
 import com.fin.entity.Client;
+import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
+import com.fin.entity.medical.MedicalBook;
 import com.fin.security.Credentials;
 import com.fin.security.Role;
 import io.restassured.RestAssured;
@@ -25,7 +28,7 @@ public class FindTest {
 
     @Test
     public void testParents() {
-        List<Parent> parents = createParents();
+        List<Long> parentsId = createEntity(getListParents(), "/registration/parent");
         Parent parent = new Parent();
         Client client = new Client("Test", "", Role.PARENT);
         parent.setClient(client);
@@ -34,43 +37,66 @@ public class FindTest {
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken());
 
-        System.out.println(parent.toJson());
         removeRequest.body(parent.toJson().toString());
 
         Response response = removeRequest.post("/find/parent");
         List<Object> jsonPath = response.body().jsonPath().getList("");
-        System.out.println(response.body().asString());
         assertEquals(jsonPath.size(), 5);
 
-        removeParents(parents);
+        removeEntity(parentsId, "/remove/parent");
     }
 
-    private void removeParents(List<Parent> parents) {
-        for (Parent parent : parents) {
+    @Test
+    public void testChildren() {
+        List<Long> childrenId = createEntity(getListChildren(), "/registration/children");
+
+        MedicalBook medicalBook = new MedicalBook();
+        medicalBook.setSex('ж');
+        Children child = new Children();
+        child.setMedicalBook(medicalBook);
+
+        RequestSpecification removeRequest = RestAssured.given();
+        removeRequest.header("Content-Type", "application/json");
+        removeRequest.header("Authorization", "Bearer " + getToken());
+
+        removeRequest.body(child.toJson().toString());
+
+        Response response = removeRequest.post("/find/children");
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+        assertEquals(jsonPath.size(), 1);
+
+        removeEntity(childrenId, "/remove/children");
+    }
+
+    private void removeEntity(List<Long> idList, String url) {
+        for (Long id : idList) {
             RequestSpecification removeRequest = RestAssured.given();
             removeRequest.header("Content-Type", "application/json");
             removeRequest.header("Authorization", "Bearer " + getToken());
 
             removeRequest.body(Json.createObjectBuilder()
-                    .add("id", parent.getId()).build().toString());
+                    .add("id", id).build().toString());
 
-            removeRequest.post("/remove/parent");
+            assertEquals(removeRequest.post(url).statusCode(), 200);
         }
     }
 
-    private List<Parent> createParents() {
-        List<Parent> parents = getListParents();
-        for (Parent parent : parents) {
+    private <T extends Jsonable> List<Long> createEntity(List<T> entities, String url) {
+        List<Long> idList = new ArrayList<>();
+        for (Jsonable entity : entities) {
             RequestSpecification registrationRequest = RestAssured.given();
             registrationRequest.header("Content-Type", "application/json");
             registrationRequest.header("Authorization", "Bearer " + getToken());
 
-            registrationRequest.body(parent.toJson().toString());
+            registrationRequest.body(entity.toJson().toString());
 
-            long idParent = registrationRequest.post("/registration/parent").getBody().jsonPath().getLong("id");
-            parent.setId(idParent);
+            Response response = registrationRequest.post(url);
+            assertEquals(response.statusCode(), 200);
+
+            long id = response.getBody().jsonPath().getLong("id");
+            idList.add(id);
         }
-        return parents;
+        return idList;
     }
 
     private List<Parent> getListParents() {
@@ -97,6 +123,47 @@ public class FindTest {
         parents.add(parent5);
 
         return parents;
+    }
+
+    private List<Children> getListChildren() {
+        List<Children> children = new ArrayList<>();
+
+        Client client1 = new Client("childrenTest1", "pass", Role.CHILDREN);
+        MedicalBook medicalBook1 = new MedicalBook();
+        medicalBook1.setSex('м');
+        Children children1 = new Children("Alexandr", "Isaev", medicalBook1,
+                null, null, null, client1);
+        children.add(children1);
+
+        Client client2 = new Client("childrenTest2", "pass", Role.CHILDREN);
+        MedicalBook medicalBook2 = new MedicalBook();
+        medicalBook2.setSex('м');
+        Children children2 = new Children("Alexandr", "Kurkin", medicalBook2,
+                null, null, null, client2);
+        children.add(children2);
+
+        Client client3 = new Client("childrenTest3", "pass", Role.CHILDREN);
+        MedicalBook medicalBook3 = new MedicalBook();
+        medicalBook3.setSex('м');
+        Children children3 = new Children("Aleksey", "Isaev", medicalBook3,
+                null, null, null, client3);
+        children.add(children3);
+
+        Client client4 = new Client("childrenTest4", "pass", Role.CHILDREN);
+        MedicalBook medicalBook4 = new MedicalBook();
+        medicalBook4.setSex('м');
+        Children children4 = new Children("Aleksey", "Kurkin", medicalBook4,
+                null, null, null, client4);
+        children.add(children4);
+
+        Client client5 = new Client("childrenTest5", "pass", Role.CHILDREN);
+        MedicalBook medicalBook5 = new MedicalBook();
+        medicalBook5.setSex('ж');
+        Children children5 = new Children("Pavel", "Isaev", medicalBook5,
+                null, null, null, client5);
+        children.add(children5);
+
+        return children;
     }
 
     private String getToken() {

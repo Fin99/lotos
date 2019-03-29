@@ -52,18 +52,13 @@ public class RemoveController {
 
     @POST
     @Path("/children")
-    public Response removeChildren(Client username) {
-        Client removeClient = clientRepository.findByUsername(username.getUsername());
-        if (removeClient == null) {
+    public Response removeChildren(Children childrenId) {
+        Children children = mainRepository.find(Children.class, childrenId.getId());
+        if (children == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Children removeChildren = childrenRepository.findByClient(removeClient);
-        if (removeChildren == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        mainRepository.remove(Children.class, removeChildren.getId());
+        mainRepository.remove(Children.class, childrenId.getId());
 
         return Response.ok().build();
     }
