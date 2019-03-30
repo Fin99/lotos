@@ -1,8 +1,12 @@
 package com.fin.controller;
 
 
+import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
+import com.fin.entity.group.Group;
+import com.fin.entity.medical.MedicalBook;
+import com.fin.repository.ChildrenRepository;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
@@ -26,8 +30,11 @@ import javax.ws.rs.core.SecurityContext;
 public class EditController {
     @Context
     SecurityContext securityContext;
+
     @Inject
     ParentRepository parentRepository;
+    @Inject
+    ChildrenRepository childrenRepository;
     @Inject
     ClientRepository clientRepository;
     @Inject
@@ -59,5 +66,52 @@ public class EditController {
         mainRepository.update(parent);
 
         return Response.ok(parent.toJson()).build();
+    }
+
+    @POST
+    @Path("/children")
+    @Secured(Role.CHILDREN)
+    public Response editChildren(Children childrenData) {
+        Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
+        Children children = childrenRepository.findByClient(client);
+
+        if (childrenData.getName() != null) {
+            children.setName(childrenData.getName());
+        }
+        if (childrenData.getSurname() != null) {
+            children.setSurname(childrenData.getSurname());
+        }
+        if (childrenData.getParent1() != null && childrenData.getParent1().getId() != 0) {
+            Parent parent = mainRepository.find(Parent.class, children.getParent1().getId());
+            if (parent == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            children.setParent1(parent);
+        }
+        if (childrenData.getParent2() != null && childrenData.getParent2().getId() != 0) {
+            Parent parent = mainRepository.find(Parent.class, children.getParent2().getId());
+            if (parent == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            children.setParent2(parent);
+        }
+        if (childrenData.getGroup() != null && childrenData.getGroup().getId() != 0) {
+            Group group = mainRepository.find(Group.class, children.getGroup().getId());
+            if (group == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            children.setGroup(group);
+        }
+        if (childrenData.getMedicalBook() != null && childrenData.getMedicalBook().getId() != 0) {
+            MedicalBook medicalBook = mainRepository.find(MedicalBook.class, children.getMedicalBook().getId());
+            if (medicalBook == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            children.setMedicalBook(medicalBook);
+        }
+
+        mainRepository.update(children);
+
+        return Response.ok(children.toJson()).build();
     }
 }

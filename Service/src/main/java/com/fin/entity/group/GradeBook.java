@@ -30,6 +30,8 @@ public class GradeBook implements Serializable {
     @Column
     private int eatingScore;
     @Column
+    private int behavior;
+    @Column
     private String note;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")

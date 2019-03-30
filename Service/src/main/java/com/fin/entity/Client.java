@@ -1,5 +1,6 @@
 package com.fin.entity;
 
+import com.fin.security.Credentials;
 import com.fin.security.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,10 @@ public class Client implements Serializable {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public Credentials getCredentials(){
+        return new Credentials(username, password);
     }
 
     public JsonObject toJson() {
