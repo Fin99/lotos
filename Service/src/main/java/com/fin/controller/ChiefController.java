@@ -21,8 +21,8 @@ import javax.ws.rs.core.SecurityContext;
 
 @Path("/chief")
 @Secured(Role.CHIEF)
-@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ChiefController {
     @Context
     SecurityContext securityContext;

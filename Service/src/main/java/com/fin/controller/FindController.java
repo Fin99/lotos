@@ -24,8 +24,8 @@ import java.util.List;
 
 @Path("/find")
 @Secured
-@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class FindController {
     @Inject
     ParentRepository parentRepository;
