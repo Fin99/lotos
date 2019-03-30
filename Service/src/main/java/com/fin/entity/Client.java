@@ -44,6 +44,12 @@ public class Client implements Serializable {
         if (username != null) {
             builder.add("username", username);
         }
+        if (password != null) {
+            builder.add("password", password);
+        }
+        if (token != null) {
+            builder.add("token", token);
+        }
         if (role != null) {
             builder.add("role", role.toString());
         }

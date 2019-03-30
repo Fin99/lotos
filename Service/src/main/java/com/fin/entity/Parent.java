@@ -29,7 +29,7 @@ public class Parent implements Serializable, Jsonable {
     private Character sex;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = CascadeType.ALL)
     private Client client;
     @OneToOne
     private Wallet wallet;
