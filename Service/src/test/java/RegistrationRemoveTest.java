@@ -127,16 +127,19 @@ public class RegistrationRemoveTest {
 
         registrationRequest.body(teacher.toJson().toString());
 
-        int registrationStatus = registrationRequest.post("/registration/employee").getStatusCode();
+        Response response = registrationRequest.post("/registration/employee");
+        int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
+
+        long employeeId = response.getBody().jsonPath().getLong("id");
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken());
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("username", teacher.getClient().getUsername()).build().toString());
+                .add("id", employeeId).build().toString());
 
         int removeStatus = removeRequest.post("/remove/employee").getStatusCode();
 

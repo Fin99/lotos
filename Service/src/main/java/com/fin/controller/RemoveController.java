@@ -83,22 +83,18 @@ public class RemoveController {
 
     @POST
     @Path("/employee")
-    public Response removeEmployee(Client username) {
-        if (isChiefWantDeleteSelf(username.getUsername())) {
+    public Response removeEmployee(Employee employeeId) {
+        Employee employee = mainRepository.find(Employee.class, employeeId.getId());
+        if (employee == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Client removeClient = clientRepository.findByUsername(username.getUsername());
-        if (removeClient == null) {
+        Client client = mainRepository.find(Client.class, employee.getClient().getId());
+        if (isChiefWantDeleteSelf(client.getUsername())) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Employee removeEmployee = employeeRepository.findByClient(removeClient);
-        if (removeEmployee == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        mainRepository.remove(Employee.class, removeEmployee.getId());
+        mainRepository.remove(Employee.class, employee.getId());
 
         return Response.ok().build();
     }

@@ -108,31 +108,35 @@ public class RegistrationController {
     @POST
     @Path("/employee")
     public Response registrationEmployee(Employee employee) {
-        if (clientRepository.findByUsername(employee.getClient().getUsername()) != null) {
+        if (employee.getId() != 0 && mainRepository.find(Employee.class, employee.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
+        } else {
+            employee.getClient().setRole(parseRole(employee.getTypeEmployee()));
+
+            switch (employee.getTypeEmployee()) {
+                case BABYSITTER:
+                    employee = new Babysitter(employee);
+                    break;
+                case CHIEF:
+                    employee = new Chief(employee);
+                    break;
+                case EDUCATOR:
+                    employee = new Educator(employee);
+                    break;
+                case SECURITY:
+                    employee = new Security(employee);
+                    break;
+                case TEACHER:
+                    employee = new Teacher(employee);
+                    break;
+            }
+
+            mainRepository.create(employee);
+
+            return Response.ok(employee.toJson()).build();
         }
 
-        employee.getClient().setRole(parseRole(employee.getTypeEmployee()));
 
-        switch (employee.getTypeEmployee()) {
-            case BABYSITTER:
-                mainRepository.create(new Babysitter(employee));
-                break;
-            case CHIEF:
-                mainRepository.create(new Chief(employee));
-                break;
-            case EDUCATOR:
-                mainRepository.create(new Educator(employee));
-                break;
-            case SECURITY:
-                mainRepository.create(new Security(employee));
-                break;
-            case TEACHER:
-                mainRepository.create(new Teacher(employee));
-                break;
-        }
-
-        return Response.ok().build();
     }
 
     private Role parseRole(Employee.TypeEmployee typeEmployee) {

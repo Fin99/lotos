@@ -2,6 +2,7 @@ import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
+import com.fin.entity.employee.Educator;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.medical.MedicalBook;
 import com.fin.security.Credentials;
@@ -41,6 +42,8 @@ public class FindTest {
         removeRequest.body(parent.toJson().toString());
 
         Response response = removeRequest.post("/find/parent");
+        assertEquals(response.getStatusCode(), 200);
+
         List<Object> jsonPath = response.body().jsonPath().getList("");
         assertEquals(jsonPath.size(), 5);
 
@@ -63,6 +66,8 @@ public class FindTest {
         removeRequest.body(child.toJson().toString());
 
         Response response = removeRequest.post("/find/children");
+        assertEquals(response.getStatusCode(), 200);
+
         List<Object> jsonPath = response.body().jsonPath().getList("");
         assertEquals(jsonPath.size(), 1);
 
@@ -73,9 +78,9 @@ public class FindTest {
     public void testEmployee() {
         List<Long> employeeId = createEntity(getListEmployee(), "/registration/employee");
 
-        Employee employee = new Employee();
+        Employee employee = new Educator();
         employee.setTypeEmployee(Employee.TypeEmployee.EDUCATOR);
-        employee.setPassport("1213");
+        employee.setName("Pavel");
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
@@ -84,6 +89,8 @@ public class FindTest {
         removeRequest.body(employee.toJson().toString());
 
         Response response = removeRequest.post("/find/employee");
+        assertEquals(response.getStatusCode(), 200);
+
         List<Object> jsonPath = response.body().jsonPath().getList("");
         assertEquals(jsonPath.size(), 1);
 
@@ -125,29 +132,28 @@ public class FindTest {
         List<Employee> employee = new ArrayList<>();
 
         Client client1 = new Client("employeeTest1", "pass", Role.EDUCATOR);
-        Employee employee1 = new Employee("Alexandr", "Isaev", "1213453243",
-                "+79502273054", "1234", 123., client1, Employee.TypeEmployee.EDUCATOR);
+        Employee employee1 = new Educator("Alexandr", "Isaev", "+79502273054",
+                "1213453243", "1234", 123., client1, Employee.TypeEmployee.EDUCATOR);
         employee.add(employee1);
-        System.out.println(employee1.toJson());
 
         Client client2 = new Client("employeeTest2", "pass", Role.EDUCATOR);
-        Employee employee2 = new Employee("Alexandr", "Kurkin", "1213453243",
-                "+79502273054", "1234", 123, client2, Employee.TypeEmployee.EDUCATOR);
+        Employee employee2 = new Educator("Alexandr", "Kurkin", "+79502273054",
+                "1213453243", "1234", 123, client2, Employee.TypeEmployee.EDUCATOR);
         employee.add(employee2);
 
         Client client3 = new Client("employeeTest3", "pass", Role.EDUCATOR);
-        Employee employee3 = new Employee("Aleksey", "Isaev", "1213453243",
-                "+79502273054", "1234", 123, client3, Employee.TypeEmployee.EDUCATOR);
+        Employee employee3 = new Educator("Aleksey", "Isaev", "+79502273054",
+                "1213453243", "1234", 123, client3, Employee.TypeEmployee.EDUCATOR);
         employee.add(employee3);
 
         Client client4 = new Client("employeeTest4", "pass", Role.EDUCATOR);
-        Employee employee4 = new Employee("Aleksey", "Kurkin", "1213453243",
-                "+79502273054", "1234", 123, client4, Employee.TypeEmployee.EDUCATOR);
+        Employee employee4 = new Educator("Aleksey", "Kurkin", "+79502273054",
+                "1213453243", "1234", 123, client4, Employee.TypeEmployee.EDUCATOR);
         employee.add(employee4);
 
         Client client5 = new Client("employeeTest5", "pass", Role.EDUCATOR);
-        Employee employee5 = new Employee("Pavel", "Isaev", "1213453243",
-                "+79502273054", "1234", 123, client5, Employee.TypeEmployee.EDUCATOR);
+        Employee employee5 = new Educator("Pavel", "Isaev", "+79502273054",
+                "1213453243", "1234", 123, client5, Employee.TypeEmployee.EDUCATOR);
         employee.add(employee5);
 
         return employee;

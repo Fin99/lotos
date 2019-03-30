@@ -31,7 +31,7 @@ public class EmployeeRepository {
     }
 
     public List<Employee> findEmployee(Employee employeeData) {
-        String query = "SELECT e FROM " + employeeData.getTypeEmployee().name() + " e WHERE";
+        String query = "SELECT * FROM Employee e WHERE";
 
         boolean flagAND = false;
         if (employeeData.getClient() != null && employeeData.getClient().getUsername() != null) {
@@ -83,7 +83,10 @@ public class EmployeeRepository {
             query += " e.phone LIKE '%" + employeeData.getPhone() + "%'";
         }
 
-        return em.createQuery(query, Employee.class).getResultList();
+        query += " AND dtype ILIKE '" + employeeData.getTypeEmployee().name() + "'";
+
+
+        return em.createNativeQuery(query, Employee.class).getResultList();
     }
 
     @PreDestroy

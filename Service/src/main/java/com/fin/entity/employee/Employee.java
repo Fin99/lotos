@@ -75,6 +75,9 @@ public class Employee implements Serializable, Jsonable {
         if (client != null) {
             builder.add("client", client.toJson());
         }
+        if (typeEmployee != null) {
+            builder.add("typeEmployee", typeEmployee.name());
+        }
 
         return builder.build();
     }

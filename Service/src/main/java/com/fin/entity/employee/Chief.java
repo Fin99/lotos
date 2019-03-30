@@ -28,33 +28,5 @@ public class Chief extends Employee implements Serializable {
         this.surname = employee.getSurname();
     }
 
-    @Override
-    public JsonObject toJson() {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        builder.add("id", id)
-                .add("salary", salary)
-                .add("typeEmployee", "CHIEF");
-
-        if (name != null) {
-            builder.add("name", name);
-        }
-        if (surname != null) {
-            builder.add("surname", surname);
-        }
-        if (inn != null) {
-            builder.add("inn", inn);
-        }
-        if (passport != null) {
-            builder.add("passport", passport);
-        }
-        if (phone != null) {
-            builder.add("phone", phone);
-        }
-        if (client != null) {
-            builder.add("client", client.toJson());
-        }
-
-        return builder.build();
-    }
 }
