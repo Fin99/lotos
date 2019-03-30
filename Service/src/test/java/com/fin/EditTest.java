@@ -1,5 +1,6 @@
 package com.fin;
 
+import com.fin.entity.Children;
 import com.fin.entity.Parent;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -42,13 +43,13 @@ public class EditTest {
         assertEquals(editStatus, 200);
 
         // find this parent
-        Parent parent = new Parent();
-        parent.setName("parentTestEdit");
+        Parent findParent = new Parent();
+        findParent.setName("parentTestEdit");
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
-        removeRequest.body(parent.toJson().toString());
+        removeRequest.body(findParent.toJson().toString());
         Response response = removeRequest.post(urlFindParent);
         List<Object> jsonPath = response.body().jsonPath().getList("");
 
@@ -60,7 +61,60 @@ public class EditTest {
 
     @Test
     public void testNothingEditParent() {
+        Long[] idParent = createEntity(urlRegistrationParent, parent);
 
+        RequestSpecification editRequest = RestAssured.given();
+        editRequest.header("Content-Type", "application/json");
+        editRequest.header("Authorization", "Bearer " +
+                getToken(parent.getClient().getCredentials()));
+
+        JsonObject editParent = Json.createObjectBuilder(parent.toJson())
+                .add("id", idParent[0]).build();
+
+        editRequest.body(editParent.toString());
+
+        int editStatus = editRequest.post(urlEditParent).getStatusCode();
+
+        assertEquals(editStatus, 200);
+
+        removeEntity(urlRemoveParent, idParent);
+    }
+
+    @Test
+    public void testChildrenRename() {
+        Long[] idChildren = createEntity(urlRegistrationChildren, children);
+
+        RequestSpecification editRequest = RestAssured.given();
+        editRequest.header("Content-Type", "application/json");
+        editRequest.header("Authorization", "Bearer " +
+                getToken(children.getClient().getCredentials()));
+
+        JsonObject editParent = Json.createObjectBuilder(children.toJson())
+                .remove("name")
+                .add("name", "childrenTestEdit")
+                .add("id", idChildren[0]).build();
+
+        editRequest.body(editParent.toString());
+
+        int editStatus = editRequest.post(urlEditChildren).getStatusCode();
+
+        assertEquals(editStatus, 200);
+
+        // find this children
+        Children findChildren = new Children();
+        findChildren.setName("childrenTestEdit");
+
+        RequestSpecification removeRequest = RestAssured.given();
+        removeRequest.header("Content-Type", "application/json");
+        removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+        removeRequest.body(findChildren.toJson().toString());
+        Response response = removeRequest.post(urlFindChildren);
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+
+        //check change
+        assertEquals(jsonPath.size(), 1);
+
+        removeEntity(urlRemoveChildren, idChildren);
     }
 
 

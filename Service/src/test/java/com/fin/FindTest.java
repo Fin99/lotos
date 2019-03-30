@@ -85,7 +85,7 @@ public class FindTest {
 
         removeRequest.body(employee.toJson().toString());
 
-        Response response = removeRequest.post("/find/employee");
+        Response response = removeRequest.post(urlFindEmployee);
         assertEquals(response.getStatusCode(), 200);
 
         List<Object> jsonPath = response.body().jsonPath().getList("");

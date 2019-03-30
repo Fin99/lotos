@@ -38,6 +38,10 @@ class Data {
     static String urlFindChildren = "/find/children";
     static String urlFindEmployee = "/find/employee";
 
+    static String urlEditParent = "/edit/parent";
+    static String urlEditChildren = "/edit/children";
+    static String urlEditEmployee = "/edit/employee";
+
     static Credentials chiefCredentials = new Credentials("chief1@gmail.com", "chief");
     static Parent parent = new Parent();
     static Children children = new Children();
