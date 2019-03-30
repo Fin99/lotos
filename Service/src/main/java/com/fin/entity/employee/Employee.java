@@ -1,6 +1,7 @@
 package com.fin.entity.employee;
 
 import com.fin.entity.Client;
+import com.fin.entity.Jsonable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Employee implements Serializable {
+public class Employee implements Serializable, Jsonable {
     @Id
     @SequenceGenerator(name = "employee_id", sequenceName = "employee_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id")
@@ -36,9 +37,19 @@ public class Employee implements Serializable {
     protected double salary;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     protected Client client;
-
     @Transient
     protected TypeEmployee typeEmployee;
+
+    public Employee(String name, String surname, String phone, String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
+        this.phone = phone;
+        this.passport = passport;
+        this.inn = inn;
+        this.name = name;
+        this.surname = surname;
+        this.salary = salary;
+        this.client = client;
+        this.typeEmployee = typeEmployee;
+    }
 
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();

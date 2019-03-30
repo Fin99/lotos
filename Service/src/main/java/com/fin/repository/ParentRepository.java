@@ -37,19 +37,46 @@ public class ParentRepository {
     public List<Parent> findParents(Parent parentData) {
         String query = "SELECT p FROM Parent p WHERE";
 
+
+        boolean flagAND = false;
         if (parentData.getClient() != null && parentData.getClient().getUsername() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
             query += " p.client.username LIKE '%" + parentData.getClient().getUsername() + "%'";
         }
         if (parentData.getName() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
             query += " p.name LIKE '%" + parentData.getName() + "%'";
         }
         if (parentData.getSurname() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
             query += " p.surname LIKE '%" + parentData.getSurname() + "%'";
         }
         if (parentData.getSex() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
             query += " p.sex LIKE '%" + parentData.getSex() + "%'";
         }
         if (parentData.getPhoneNumber() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
             query += " p.phoneNumber LIKE '%" + parentData.getPhoneNumber() + "%'";
         }
 

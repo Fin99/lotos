@@ -30,6 +30,62 @@ public class EmployeeRepository {
         return getElementOrNull(em.createQuery(query, Chief.class).getResultList());
     }
 
+    public List<Employee> findEmployee(Employee employeeData) {
+        String query = "SELECT e FROM " + employeeData.getTypeEmployee().name() + " e WHERE";
+
+        boolean flagAND = false;
+        if (employeeData.getClient() != null && employeeData.getClient().getUsername() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
+            query += " e.client.username LIKE '%" + employeeData.getClient().getUsername() + "%'";
+        }
+        if (employeeData.getName() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
+            query += " e.name LIKE '%" + employeeData.getName() + "%'";
+        }
+        if (employeeData.getSurname() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
+            query += " e.surname LIKE '%" + employeeData.getSurname() + "%'";
+        }
+        if (employeeData.getPassport() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
+            query += " e.passport LIKE '%" + employeeData.getPassport() + "%'";
+        }
+        if (employeeData.getInn() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
+            query += " e.passport LIKE '%" + employeeData.getPassport() + "%'";
+        }
+        if (employeeData.getPhone() != null) {
+            if (flagAND) {
+                query += " AND";
+            } else {
+                flagAND = true;
+            }
+            query += " e.phone LIKE '%" + employeeData.getPhone() + "%'";
+        }
+
+        return em.createQuery(query, Employee.class).getResultList();
+    }
+
     @PreDestroy
     public void preDestroy() {
         if (entityManagerFactory.isOpen() && entityManagerFactory != null) {

@@ -2,6 +2,7 @@ import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
+import com.fin.entity.employee.Employee;
 import com.fin.entity.medical.MedicalBook;
 import com.fin.security.Credentials;
 import com.fin.security.Role;
@@ -68,6 +69,27 @@ public class FindTest {
         removeEntity(childrenId, "/remove/children");
     }
 
+    @Test
+    public void testEmployee() {
+        List<Long> employeeId = createEntity(getListEmployee(), "/registration/employee");
+
+        Employee employee = new Employee();
+        employee.setTypeEmployee(Employee.TypeEmployee.EDUCATOR);
+        employee.setPassport("1213");
+
+        RequestSpecification removeRequest = RestAssured.given();
+        removeRequest.header("Content-Type", "application/json");
+        removeRequest.header("Authorization", "Bearer " + getToken());
+
+        removeRequest.body(employee.toJson().toString());
+
+        Response response = removeRequest.post("/find/employee");
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+        assertEquals(jsonPath.size(), 1);
+
+        removeEntity(employeeId, "/remove/employee");
+    }
+
     private void removeEntity(List<Long> idList, String url) {
         for (Long id : idList) {
             RequestSpecification removeRequest = RestAssured.given();
@@ -97,6 +119,38 @@ public class FindTest {
             idList.add(id);
         }
         return idList;
+    }
+
+    private List<Employee> getListEmployee() {
+        List<Employee> employee = new ArrayList<>();
+
+        Client client1 = new Client("employeeTest1", "pass", Role.EDUCATOR);
+        Employee employee1 = new Employee("Alexandr", "Isaev", "1213453243",
+                "+79502273054", "1234", 123., client1, Employee.TypeEmployee.EDUCATOR);
+        employee.add(employee1);
+        System.out.println(employee1.toJson());
+
+        Client client2 = new Client("employeeTest2", "pass", Role.EDUCATOR);
+        Employee employee2 = new Employee("Alexandr", "Kurkin", "1213453243",
+                "+79502273054", "1234", 123, client2, Employee.TypeEmployee.EDUCATOR);
+        employee.add(employee2);
+
+        Client client3 = new Client("employeeTest3", "pass", Role.EDUCATOR);
+        Employee employee3 = new Employee("Aleksey", "Isaev", "1213453243",
+                "+79502273054", "1234", 123, client3, Employee.TypeEmployee.EDUCATOR);
+        employee.add(employee3);
+
+        Client client4 = new Client("employeeTest4", "pass", Role.EDUCATOR);
+        Employee employee4 = new Employee("Aleksey", "Kurkin", "1213453243",
+                "+79502273054", "1234", 123, client4, Employee.TypeEmployee.EDUCATOR);
+        employee.add(employee4);
+
+        Client client5 = new Client("employeeTest5", "pass", Role.EDUCATOR);
+        Employee employee5 = new Employee("Pavel", "Isaev", "1213453243",
+                "+79502273054", "1234", 123, client5, Employee.TypeEmployee.EDUCATOR);
+        employee.add(employee5);
+
+        return employee;
     }
 
     private List<Parent> getListParents() {

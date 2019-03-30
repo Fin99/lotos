@@ -4,8 +4,10 @@ package com.fin.controller;
 import com.fin.entity.Children;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
+import com.fin.entity.employee.Employee;
 import com.fin.repository.ChildrenRepository;
 import com.fin.repository.ParentRepository;
+import com.fin.repository.employee.EmployeeRepository;
 import com.fin.security.Secured;
 
 import javax.inject.Inject;
@@ -29,6 +31,8 @@ public class FindController {
     ParentRepository parentRepository;
     @Inject
     ChildrenRepository childrenRepository;
+    @Inject
+    EmployeeRepository employeeRepository;
 
     @POST
     @Path("/parent")
@@ -53,6 +57,22 @@ public class FindController {
         ) {
             List<Children> children = childrenRepository.findChildren(childrenData);
             return Response.ok(wrapList(children)).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @POST
+    @Path("/employee")
+    public Response findEmployee(Employee employeeData) {
+        if (employeeData.getTypeEmployee() != null &&
+                (employeeData.getClient() != null && employeeData.getClient().getUsername() != null ||
+                        employeeData.getName() != null || employeeData.getSurname() != null ||
+                        employeeData.getPassport() != null || employeeData.getPhone() != null ||
+                        employeeData.getInn() != null)
+        ) {
+            List<Employee> employee = employeeRepository.findEmployee(employeeData);
+            return Response.ok(wrapList(employee)).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
