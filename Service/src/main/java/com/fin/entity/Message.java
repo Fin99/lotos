@@ -10,6 +10,7 @@ import javax.json.JsonObjectBuilder;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Message implements Serializable {
+public class Message implements Serializable, Jsonable {
     @Id
     @SequenceGenerator(name = "message_id", sequenceName = "message_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_id")
@@ -26,7 +27,7 @@ public class Message implements Serializable {
     private Client sender;
     @ManyToOne
     private Client receiver;
-    @Column
+    @Column(name = "text_message")
     private String textMessage;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -55,7 +56,7 @@ public class Message implements Serializable {
             builder.add("textMessage", textMessage);
         }
         if (date != null) {
-            builder.add("date", date.toString());
+            builder.add("date", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(date));
         }
 
         return builder.build();

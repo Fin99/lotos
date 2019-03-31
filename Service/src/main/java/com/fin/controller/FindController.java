@@ -34,6 +34,16 @@ public class FindController {
     @Inject
     EmployeeRepository employeeRepository;
 
+    static <T extends Jsonable> JsonArray wrapList(List<T> entities) {
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+
+        for (T entity : entities) {
+            jsonArrayBuilder.add(entity.toJson());
+        }
+
+        return jsonArrayBuilder.build();
+    }
+
     @POST
     @Path("/parent")
     public Response findParent(Parent parentData) {
@@ -76,15 +86,5 @@ public class FindController {
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-    }
-
-    private <T extends Jsonable> JsonArray wrapList(List<T> entities) {
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-
-        for (T entity : entities) {
-            jsonArrayBuilder.add(entity.toJson());
-        }
-
-        return jsonArrayBuilder.build();
     }
 }

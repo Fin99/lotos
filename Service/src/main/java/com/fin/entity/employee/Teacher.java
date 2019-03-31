@@ -2,12 +2,8 @@ package com.fin.entity.employee;
 
 import com.fin.entity.Client;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -32,7 +28,8 @@ public class Teacher extends Employee implements Serializable {
         this.typeEmployee = TypeEmployee.TEACHER;
     }
 
-    public Teacher(String name, String surname, String phone, String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
+    public Teacher(String name, String surname, String phone,
+                   String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
         super(name, surname, phone, passport, inn, salary, client, TypeEmployee.TEACHER);
     }
 }

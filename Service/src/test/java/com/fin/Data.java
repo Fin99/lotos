@@ -42,6 +42,9 @@ class Data {
     static String urlEditChildren = "/edit/children";
     static String urlEditEmployee = "/edit/employee";
 
+    static String urlMessageSend = "/message/send";
+    static String urlMessageGet = "/message/get";
+
     static Credentials chiefCredentials = new Credentials("chief1@gmail.com", "chief");
     static Parent parent = new Parent();
     static Children children = new Children();
