@@ -4,12 +4,14 @@ package com.fin.controller;
 import com.fin.entity.Children;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
+import com.fin.entity.employee.Employee;
 import com.fin.entity.group.Group;
 import com.fin.entity.medical.MedicalBook;
 import com.fin.repository.ChildrenRepository;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
+import com.fin.repository.employee.EmployeeRepository;
 import com.fin.security.Role;
 import com.fin.security.Secured;
 
@@ -31,6 +33,8 @@ public class EditController {
     @Context
     SecurityContext securityContext;
 
+    @Inject
+    EmployeeRepository employeeRepository;
     @Inject
     ParentRepository parentRepository;
     @Inject
@@ -61,7 +65,7 @@ public class EditController {
         }
         if (parentData.getClient() != null && parentData.getClient().getUsername() != null &&
                 clientRepository.findByUsername(parentData.getClient().getUsername()) == null) {
-            parent.setClient(parentData.getClient());
+            parent.getClient().setUsername(parentData.getClient().getUsername());
         }
         mainRepository.update(parent);
 
@@ -109,9 +113,43 @@ public class EditController {
             }
             children.setMedicalBook(medicalBook);
         }
-
+        if (childrenData.getClient() != null && childrenData.getClient().getUsername() != null &&
+                clientRepository.findByUsername(childrenData.getClient().getUsername()) == null) {
+            children.getClient().setUsername(childrenData.getClient().getUsername());
+        }
         mainRepository.update(children);
 
         return Response.ok(children.toJson()).build();
+    }
+
+    @POST
+    @Path("/employee")
+    @Secured(value = {Role.EDUCATOR, Role.CHIEF, Role.TEACHER, Role.BABYSITTER, Role.SECURITY})
+    public Response editEmployee(Employee employeeData) {
+        Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
+        Employee employee = employeeRepository.findByClient(client);
+
+        if (employeeData.getName() != null) {
+            employee.setName(employeeData.getName());
+        }
+        if (employeeData.getSurname() != null) {
+            employee.setSurname(employeeData.getSurname());
+        }
+        if (employeeData.getInn() != null) {
+            employee.setInn(employeeData.getInn());
+        }
+        if (employeeData.getPassport() != null) {
+            employee.setPassport(employeeData.getPassport());
+        }
+        if (employeeData.getPhone() != null) {
+            employee.setPhone(employeeData.getPhone());
+        }
+        if (employeeData.getClient() != null && employeeData.getClient().getUsername() != null &&
+                clientRepository.findByUsername(employeeData.getClient().getUsername()) == null) {
+            employee.getClient().setUsername(employeeData.getClient().getUsername());
+        }
+        mainRepository.update(employee);
+
+        return Response.ok(employee.toJson()).build();
     }
 }

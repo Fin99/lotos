@@ -1,5 +1,6 @@
 package com.fin.entity.employee;
 
+import com.fin.entity.Client;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,6 @@ import java.io.Serializable;
 @Table
 @Setter
 @Getter
-@NoArgsConstructor
 public class Teacher extends Employee implements Serializable {
     public Teacher(Employee employee) {
         this.name = employee.getName();
@@ -26,5 +26,13 @@ public class Teacher extends Employee implements Serializable {
         this.phone = employee.getPhone();
         this.salary = employee.getSalary();
         this.surname = employee.getSurname();
+    }
+
+    public Teacher() {
+        this.typeEmployee = TypeEmployee.TEACHER;
+    }
+
+    public Teacher(String name, String surname, String phone, String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
+        super(name, surname, phone, passport, inn, salary, client, TypeEmployee.TEACHER);
     }
 }

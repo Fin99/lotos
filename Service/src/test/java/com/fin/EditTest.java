@@ -2,6 +2,8 @@ package com.fin;
 
 import com.fin.entity.Children;
 import com.fin.entity.Parent;
+import com.fin.entity.employee.Employee;
+import com.fin.entity.employee.Teacher;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -117,5 +119,41 @@ public class EditTest {
         removeEntity(urlRemoveChildren, idChildren);
     }
 
+    @Test
+    public void testEmployeeRename() {
+        Long[] idTeacher = createEntity(urlRegistrationEmployee, teacher);
 
+        RequestSpecification editRequest = RestAssured.given();
+        editRequest.header("Content-Type", "application/json");
+        editRequest.header("Authorization", "Bearer " +
+                getToken(teacher.getClient().getCredentials()));
+
+        JsonObject editTeacher = Json.createObjectBuilder(teacher.toJson())
+                .remove("name")
+                .add("name", "teacherTestEdit")
+                .add("id", idTeacher[0]).build();
+
+        editRequest.body(editTeacher.toString());
+
+        int editStatus = editRequest.post(urlEditEmployee).getStatusCode();
+
+        assertEquals(editStatus, 200);
+
+        // find this children
+        Teacher findTeacher = new Teacher();
+        findTeacher.setTypeEmployee(Employee.TypeEmployee.TEACHER);
+        findTeacher.setName("teacherTestEdit");
+
+        RequestSpecification removeRequest = RestAssured.given();
+        removeRequest.header("Content-Type", "application/json");
+        removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+        removeRequest.body(findTeacher.toJson().toString());
+        Response response = removeRequest.post(urlFindEmployee);
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+
+        //check change
+        assertEquals(jsonPath.size(), 1);
+
+        removeEntity(urlRemoveEmployee, idTeacher);
+    }
 }

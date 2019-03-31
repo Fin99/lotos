@@ -35,7 +35,7 @@ public class Employee implements Serializable, Jsonable {
     protected String surname;
     @Column
     protected double salary;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = CascadeType.ALL)
     protected Client client;
     @Transient
     protected TypeEmployee typeEmployee;

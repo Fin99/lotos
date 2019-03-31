@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Table
 @Setter
 @Getter
-@NoArgsConstructor
 public class Educator extends Employee implements Serializable {
     public Educator(Employee employee) {
         this.name = employee.getName();
@@ -29,14 +28,11 @@ public class Educator extends Employee implements Serializable {
         this.surname = employee.getSurname();
     }
 
+    public Educator() {
+        this.typeEmployee = TypeEmployee.EDUCATOR;
+    }
+
     public Educator(String name, String surname, String phone, String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
-        this.phone = phone;
-        this.passport = passport;
-        this.inn = inn;
-        this.name = name;
-        this.surname = surname;
-        this.salary = salary;
-        this.client = client;
-        this.typeEmployee = typeEmployee;
+        super(name, surname, phone, passport, inn, salary, client, TypeEmployee.EDUCATOR);
     }
 }

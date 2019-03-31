@@ -35,7 +35,7 @@ public class Children implements Serializable, Jsonable {
     private Parent parent1;
     @ManyToOne
     private Parent parent2;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = CascadeType.ALL)
     private Client client;
 
     public Children(String name, String surname, MedicalBook medicalBook, Group group, Parent parent1, Parent parent2, Client client) {

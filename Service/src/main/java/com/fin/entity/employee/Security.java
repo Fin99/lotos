@@ -1,5 +1,6 @@
 package com.fin.entity.employee;
 
+import com.fin.entity.Client;
 import com.fin.entity.security.Camera;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,6 @@ import java.util.Set;
 @Table
 @Setter
 @Getter
-@NoArgsConstructor
 public class Security extends Employee implements Serializable {
     @ManyToMany
     @JoinTable(name = "security_camera")
@@ -34,5 +34,13 @@ public class Security extends Employee implements Serializable {
         this.phone = employee.getPhone();
         this.salary = employee.getSalary();
         this.surname = employee.getSurname();
+    }
+
+    public Security() {
+        this.typeEmployee = TypeEmployee.SECURITY;
+    }
+
+    public Security(String name, String surname, String phone, String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
+        super(name, surname, phone, passport, inn, salary, client, TypeEmployee.SECURITY);
     }
 }
