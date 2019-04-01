@@ -26,7 +26,7 @@ public class Children implements Serializable, Jsonable {
     private String name;
     @Column
     private String surname;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medical_book_id")
     private MedicalBook medicalBook;
     @ManyToOne

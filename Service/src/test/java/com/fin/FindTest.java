@@ -25,19 +25,38 @@ public class FindTest {
     }
 
     @Test
+    public void testParentsFindAll() {
+        Long[] parentsId = createEntity(urlRegistrationParent, getListParents());
+
+        RequestSpecification findRequest = RestAssured.given();
+        findRequest.header("Content-Type", "application/json");
+        findRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+
+        findRequest.body(new Parent().toJson().toString());
+
+        Response response = findRequest.post(urlFindParent);
+        assertEquals(response.getStatusCode(), 200);
+
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+        assertEquals(jsonPath.size(), 5);
+
+        removeEntity(urlRemoveParent, parentsId);
+    }
+
+    @Test
     public void testParentsByUsername() {
         Long[] parentsId = createEntity(urlRegistrationParent, getListParents());
         Parent parent = new Parent();
         Client client = new Client("Test", null, Role.PARENT);
         parent.setClient(client);
 
-        RequestSpecification removeRequest = RestAssured.given();
-        removeRequest.header("Content-Type", "application/json");
-        removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+        RequestSpecification findRequest = RestAssured.given();
+        findRequest.header("Content-Type", "application/json");
+        findRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
 
-        removeRequest.body(parent.toJson().toString());
+        findRequest.body(parent.toJson().toString());
 
-        Response response = removeRequest.post(urlFindParent);
+        Response response = findRequest.post(urlFindParent);
         assertEquals(response.getStatusCode(), 200);
 
         List<Object> jsonPath = response.body().jsonPath().getList("");

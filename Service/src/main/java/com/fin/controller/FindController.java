@@ -54,7 +54,7 @@ public class FindController {
             List<Parent> parents = parentRepository.findParents(parentData);
             return Response.ok(wrapList(parents)).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.ok(wrapList(parentRepository.findAllParent())).build();
         }
     }
 
@@ -68,7 +68,7 @@ public class FindController {
             List<Children> children = childRepository.findChildren(childrenData);
             return Response.ok(wrapList(children)).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.ok(wrapList(childRepository.findAllChildren())).build();
         }
     }
 
