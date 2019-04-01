@@ -54,11 +54,11 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
     private List<Role> extractRoles(AnnotatedElement annotatedElement) {
         if (annotatedElement == null) {
-            return new ArrayList<>();
+            return new ArrayList<Role>();
         } else {
             Secured secured = annotatedElement.getAnnotation(Secured.class);
             if (secured == null) {
-                return new ArrayList<>();
+                return new ArrayList<Role>();
             } else {
                 Role[] allowedRoles = secured.value();
                 return Arrays.asList(allowedRoles);

@@ -4,6 +4,7 @@ import com.fin.entity.Children;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.*;
 import com.fin.entity.group.Group;
+import com.fin.entity.medical.MedicalBook;
 import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
 import com.fin.repository.ClientRepository;
@@ -54,6 +55,18 @@ public class RegistrationController {
     public Response registrationChildren(Children children) {
         if (clientRepository.findByUsername(children.getClient().getUsername()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
+        }
+
+        if (children.getParent1() != null && children.getParent1().getId() != 0) {
+            children.setParent1(mainRepository.find(Parent.class, children.getParent1().getId()));
+        }
+        if (children.getParent2() != null && children.getParent2().getId() != 0) {
+            children.setParent2(mainRepository.find(Parent.class, children.getParent2().getId()));
+        }
+        if (children.getMedicalBook() == null) {
+            MedicalBook medicalBook = new MedicalBook();
+            mainRepository.create(medicalBook);
+            children.setMedicalBook(medicalBook);
         }
 
         children.getClient().setRole(Role.CHILDREN);

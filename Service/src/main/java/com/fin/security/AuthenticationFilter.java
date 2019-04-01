@@ -35,7 +35,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             return;
         }
 
-        String token = authorizationHeader
+        final String token = authorizationHeader
                             .substring(AUTHENTICATION_SCHEME.length()).trim();
 
         try {

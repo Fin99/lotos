@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import javax.json.Json;
 
-import static com.fin.Data.getToken;
+import static com.fin.Data.*;
 import static org.junit.Assert.assertEquals;
 
 public class RegistrationRemoveTest {
@@ -28,7 +28,7 @@ public class RegistrationRemoveTest {
 
         registrationRequest.body(Data.parent.toJson().toString());
 
-        Response response = registrationRequest.post("/registration/parent");
+        Response response = registrationRequest.post(urlRegistrationParent);
         int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
@@ -42,7 +42,7 @@ public class RegistrationRemoveTest {
         removeRequest.body(Json.createObjectBuilder()
                 .add("id", idParent).build().toString());
 
-        int removeStatus = removeRequest.post("/remove/parent").getStatusCode();
+        int removeStatus = removeRequest.post(urlRemoveParent).getStatusCode();
 
         assertEquals(removeStatus, 200);
     }

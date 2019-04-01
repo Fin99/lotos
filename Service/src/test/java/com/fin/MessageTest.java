@@ -53,6 +53,5 @@ public class MessageTest {
 
         List<Object> jsonPath = receiveResponse.body().jsonPath().getList("");
         assertTrue(jsonPath.size() > 1);
-        System.out.println(receiveResponse.body().asString());
     }
 }
