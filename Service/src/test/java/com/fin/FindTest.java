@@ -5,6 +5,7 @@ import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Educator;
 import com.fin.entity.employee.Employee;
+import com.fin.entity.group.Group;
 import com.fin.security.Role;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -41,6 +42,21 @@ public class FindTest {
         assertEquals(jsonPath.size(), 5);
 
         removeEntity(urlRemoveParent, parentsId);
+    }
+
+    @Test
+    public void testGroupFindAll() {
+        RequestSpecification findRequest = RestAssured.given();
+        findRequest.header("Content-Type", "application/json");
+        findRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+
+        findRequest.body(new Group().toJson().toString());
+
+        Response response = findRequest.post(urlFindGroup);
+        assertEquals(response.getStatusCode(), 200);
+
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+        assertEquals(jsonPath.size(), 5);
     }
 
     @Test

@@ -6,8 +6,10 @@ import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
 import com.fin.repository.ChildRepository;
+import com.fin.entity.group.Group;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.employee.EmployeeRepository;
+import com.fin.repository.group.GroupRepository;
 import com.fin.security.Secured;
 
 import javax.inject.Inject;
@@ -33,6 +35,8 @@ public class FindController {
     ChildRepository childRepository;
     @Inject
     EmployeeRepository employeeRepository;
+    @Inject
+    GroupRepository groupRepository;
 
     static <T extends Jsonable> JsonArray wrapList(List<T> entities) {
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
@@ -57,6 +61,18 @@ public class FindController {
             return Response.ok(wrapList(parentRepository.findAllParent())).build();
         }
     }
+
+    @POST
+    @Path("/group")
+    public Response findGroup(Group groupData) {
+        if (groupData.getName() != null) {
+            List<Group> groups = groupRepository.findGroup(groupData);
+            return Response.ok(wrapList(groups)).build();
+        } else {
+            return Response.ok(wrapList(groupRepository.findAllGroup())).build();
+        }
+    }
+
 
     @POST
     @Path("/children")

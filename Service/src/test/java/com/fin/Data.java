@@ -30,6 +30,7 @@ class Data {
     static String urlRegistrationParent = "/registration/parent";
     static String urlRegistrationChildren = "/registration/children";
     static String urlRegistrationEmployee = "/registration/employee";
+    static String urlRegistrationGroup = "/registration/group";
 
     static String urlRemoveParent = "/remove/parent";
     static String urlRemoveChildren = "/remove/children";
@@ -38,6 +39,7 @@ class Data {
     static String urlFindParent = "/find/parent";
     static String urlFindChildren = "/find/children";
     static String urlFindEmployee = "/find/employee";
+    static String urlFindGroup = "/find/group";
 
     static String urlEditParent = "/edit/parent";
     static String urlEditChildren = "/edit/children";
@@ -53,6 +55,7 @@ class Data {
     static Place place = new Place();
     static Item item = new Item();
     static Group group = new Group();
+    static TypeGroup typeGroup = new TypeGroup();
 
     static {
         parent.setName("Александр");
@@ -81,7 +84,6 @@ class Data {
         item.setPrice(20.3);
         item.setShelfLife(new Date());
 
-        TypeGroup typeGroup = new TypeGroup();
         typeGroup.setId(1);
 
         group.setName("RomashkaTest");
@@ -217,6 +219,38 @@ class Data {
         children[4] = children5;
 
         return children;
+    }
+
+
+    static Group[] getListGroup() {
+        Group[] groups = new Group[5];
+
+        Group group1 = new Group();
+        group1.setName("group1");
+        group1.setTypeGroup(typeGroup);
+        groups[0] = group1;
+
+        Group group2 = new Group();
+        group2.setName("group2");
+        group2.setTypeGroup(typeGroup);
+        groups[1] = group2;
+
+        Group group3 = new Group();
+        group3.setName("group3");
+        group3.setTypeGroup(typeGroup);
+        groups[2] = group3;
+
+        Group group4 = new Group();
+        group4.setName("group4");
+        group4.setTypeGroup(typeGroup);
+        groups[3] = group4;
+
+        Group group5 = new Group();
+        group5.setName("group5");
+        group5.setTypeGroup(typeGroup);
+        groups[4] = group5;
+
+        return groups;
     }
 
     static String getToken(Credentials credentials) {

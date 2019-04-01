@@ -59,18 +59,19 @@ public class RegistrationController {
     @POST
     @Path("/children")
     public Response registrationChildren(Children children) {
+        System.out.println(children.toJson().toString());
         if (clientRepository.findByUsername(children.getClient().getUsername()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        if (children.getParent1() != null) {
+        if (children.getParent1() != null && children.getParent2().getId() != 0) {
             Parent parent = mainRepository.find(Parent.class, children.getParent1().getId());
             if (parent == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
             children.setParent1(parent);
         }
-        if (children.getParent2() != null) {
+        if (children.getParent2() != null && children.getParent2().getId() != 0) {
             Parent parent = mainRepository.find(Parent.class, children.getParent2().getId());
             if (parent == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
@@ -105,7 +106,8 @@ public class RegistrationController {
     @POST
     @Path("/group")
     public Response registrationGroup(Group group) {
-        if (group.getId() != 0 && mainRepository.find(Group.class, group.getId()) != null) {
+        System.out.println(group.toJson());
+        if (mainRepository.find(Group.class, group.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 

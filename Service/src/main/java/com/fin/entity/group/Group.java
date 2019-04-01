@@ -1,5 +1,6 @@
 package com.fin.entity.group;
 
+import com.fin.entity.Jsonable;
 import com.fin.entity.employee.Babysitter;
 import com.fin.entity.employee.Educator;
 import com.fin.entity.employee.Teacher;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Group implements Serializable {
+public class Group implements Serializable, Jsonable {
     @Id
     @SequenceGenerator(name = "group_id", sequenceName = "group_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_id")
