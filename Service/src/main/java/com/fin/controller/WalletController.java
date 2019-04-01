@@ -58,7 +58,7 @@ public class WalletController {
     public Response create() {
         Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
         Parent parent = parentRepository.findByClient(client);
-        if(parent.getWallet() == null) {
+        if (parent.getWallet() == null) {
             Wallet wallet = new Wallet(0);
             walletRepository.create(wallet);
 

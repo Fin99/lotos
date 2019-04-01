@@ -48,13 +48,11 @@ public class FindTest {
     }
 
     @Test
-    public void testChildrenBySex() {
+    public void testChildrenBySurname() {
         Long[] childrenId = createEntity(urlRegistrationChildren, getListChildren());
 
-        MedicalBook medicalBook = new MedicalBook();
-        medicalBook.setSex('ж');
         Children child = new Children();
-        child.setMedicalBook(medicalBook);
+        child.setSurname("Isa");
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
@@ -66,7 +64,7 @@ public class FindTest {
         assertEquals(response.getStatusCode(), 200);
 
         List<Object> jsonPath = response.body().jsonPath().getList("");
-        assertEquals(jsonPath.size(), 1);
+        assertEquals(jsonPath.size(), 3);
 
         removeEntity(urlRemoveChildren, childrenId);
     }

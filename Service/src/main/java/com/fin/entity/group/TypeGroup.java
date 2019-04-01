@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(name = "type_group")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -22,11 +22,11 @@ public class TypeGroup implements Serializable {
     private long id;
     @Column
     private String name;
-    @Column
+    @Column(name = "number_group")
     private int numberGroup;
-    @Column
+    @Column(name = "max_number_group")
     private int maxNumberGroup;
-    @Column
+    @Column(name = "max_number_children")
     private int maxNumberChildren;
     @Column
     private boolean speech;

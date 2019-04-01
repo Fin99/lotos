@@ -19,11 +19,10 @@ import java.security.Principal;
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
 
-    @Inject
-    private ClientRepository clientRepository;
-
     private static final String REALM = "example";
     private static final String AUTHENTICATION_SCHEME = "Bearer";
+    @Inject
+    private ClientRepository clientRepository;
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -36,7 +35,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         }
 
         final String token = authorizationHeader
-                            .substring(AUTHENTICATION_SCHEME.length()).trim();
+                .substring(AUTHENTICATION_SCHEME.length()).trim();
 
         try {
             validateToken(token);
@@ -70,19 +69,19 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
     private boolean isTokenBasedAuthentication(String authorizationHeader) {
         return authorizationHeader != null && authorizationHeader.toLowerCase()
-                    .startsWith(AUTHENTICATION_SCHEME.toLowerCase() + " ");
+                .startsWith(AUTHENTICATION_SCHEME.toLowerCase() + " ");
     }
 
     private void abortWithUnauthorized(ContainerRequestContext requestContext) {
         requestContext.abortWith(
                 Response.status(Response.Status.UNAUTHORIZED)
-                        .header(HttpHeaders.WWW_AUTHENTICATE, 
+                        .header(HttpHeaders.WWW_AUTHENTICATE,
                                 AUTHENTICATION_SCHEME + " realm=\"" + REALM + "\"")
                         .build());
     }
 
     private void validateToken(String token) throws Exception {
-        if(!clientRepository.checkToken(token)){
+        if (!clientRepository.checkToken(token)) {
             throw new Exception();
         }
     }

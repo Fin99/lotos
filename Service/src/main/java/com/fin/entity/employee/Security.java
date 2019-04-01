@@ -3,12 +3,8 @@ package com.fin.entity.employee;
 import com.fin.entity.Client;
 import com.fin.entity.security.Camera;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;

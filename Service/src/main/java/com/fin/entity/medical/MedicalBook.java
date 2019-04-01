@@ -53,7 +53,7 @@ public class MedicalBook implements Serializable {
                 .add("growth", growth)
                 .add("weight", weight);
 
-        if(sex != null){
+        if (sex != null) {
             builder.add("sex", sex.toString());
         }
         if (dateOfBirth != null) {

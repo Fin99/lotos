@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Ill  implements Serializable {
+public class Ill implements Serializable {
     @Id
     @SequenceGenerator(name = "ill_id", sequenceName = "ill_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ill_id")

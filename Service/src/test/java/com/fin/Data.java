@@ -8,6 +8,7 @@ import com.fin.entity.employee.Educator;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.employee.Teacher;
 import com.fin.entity.group.Group;
+import com.fin.entity.group.TypeGroup;
 import com.fin.entity.medical.MedicalBook;
 import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
@@ -80,7 +81,11 @@ class Data {
         item.setPrice(20.3);
         item.setShelfLife(new Date());
 
+        TypeGroup typeGroup = new TypeGroup();
+        typeGroup.setId(1);
+
         group.setName("RomashkaTest");
+        group.setTypeGroup(typeGroup);
     }
 
     static void removeEntity(String url, Long... idList) {

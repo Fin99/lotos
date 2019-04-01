@@ -15,11 +15,10 @@ import javax.persistence.Persistence;
 @Singleton
 @Named("refillRepository")
 public class RefillRepository {
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager em;
-
     @Inject
     WalletRepository walletRepository;
+    private EntityManagerFactory entityManagerFactory;
+    private EntityManager em;
 
     @PostConstruct
     public void init() {
@@ -31,7 +30,7 @@ public class RefillRepository {
         Wallet wallet = walletRepository.find(refill.getWallet().getId());
 
         em.getTransaction().begin();
-        if(refill.getStatus().equals(Refill.Status.SATISFIED)){
+        if (refill.getStatus().equals(Refill.Status.SATISFIED)) {
             wallet.setAccount(wallet.getAccount() + refill.getAmount());
             em.merge(wallet);
         }

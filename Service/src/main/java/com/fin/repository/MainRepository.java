@@ -20,7 +20,7 @@ public class MainRepository {
     }
 
     public <T> void create(T entity) {
-        if(!em.getTransaction().isActive()){
+        if (!em.getTransaction().isActive()) {
             em.getTransaction().begin();
         }
         em.persist(entity);
@@ -28,7 +28,7 @@ public class MainRepository {
     }
 
     public <T> void update(T entity) {
-        if(!em.getTransaction().isActive()){
+        if (!em.getTransaction().isActive()) {
             em.getTransaction().begin();
         }
         em.merge(entity);
@@ -36,7 +36,7 @@ public class MainRepository {
     }
 
     public <T> T find(Class<T> classEntity, long id) {
-        if(!em.getTransaction().isActive()){
+        if (!em.getTransaction().isActive()) {
             em.getTransaction().begin();
         }
         T entity = em.find(classEntity, id);
@@ -45,7 +45,7 @@ public class MainRepository {
     }
 
     public <T> void remove(Class<T> classEntity, long id) {
-        if(!em.getTransaction().isActive()){
+        if (!em.getTransaction().isActive()) {
             em.getTransaction().begin();
         }
         T entityRef = em.find(classEntity, id);

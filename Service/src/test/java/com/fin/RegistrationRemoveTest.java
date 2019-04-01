@@ -130,32 +130,6 @@ public class RegistrationRemoveTest {
     }
 
     @Test
-    public void registrationRemoveItem() {
-        RequestSpecification registrationRequest = RestAssured.given();
-        registrationRequest.header("Content-Type", "application/json");
-        registrationRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
-
-        registrationRequest.body(Data.item.toJson().toString());
-
-        Response response = registrationRequest.post("/registration/item");
-        int registrationStatus = response.getStatusCode();
-        long idItem = response.getBody().jsonPath().getLong("id");
-
-        assertEquals(registrationStatus, 200);
-
-        RequestSpecification removeRequest = RestAssured.given();
-        removeRequest.header("Content-Type", "application/json");
-        removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
-
-        removeRequest.body(Json.createObjectBuilder()
-                .add("id", idItem).build().toString());
-
-        int removeStatus = removeRequest.post("/remove/item").getStatusCode();
-
-        assertEquals(removeStatus, 200);
-    }
-
-    @Test
     public void registrationRemovePlaceAndItem() {
         RequestSpecification registrationPlaceRequest = RestAssured.given();
         registrationPlaceRequest.header("Content-Type", "application/json");
@@ -182,7 +156,6 @@ public class RegistrationRemoveTest {
         assertEquals(registrationItemStatus, 200);
 
         long idItem = responseItem.getBody().jsonPath().getLong("id");
-
 
         RequestSpecification removeItemRequest = RestAssured.given();
         removeItemRequest.header("Content-Type", "application/json");
@@ -220,9 +193,10 @@ public class RegistrationRemoveTest {
 
         Response response = registrationRequest.post("/registration/group");
         int registrationStatus = response.getStatusCode();
-        long idGroup = response.getBody().jsonPath().getLong("id");
 
         assertEquals(registrationStatus, 200);
+
+        long idGroup = response.getBody().jsonPath().getLong("id");
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");

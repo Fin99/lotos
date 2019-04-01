@@ -49,7 +49,7 @@ public class Parent implements Serializable, Jsonable {
 
         builder.add("id", id);
 
-        if(sex != null){
+        if (sex != null) {
             builder.add("sex", sex.toString());
         }
         if (name != null) {

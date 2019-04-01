@@ -4,7 +4,9 @@ import com.fin.entity.Children;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.*;
 import com.fin.entity.group.Group;
+import com.fin.entity.group.TypeGroup;
 import com.fin.entity.medical.MedicalBook;
+import com.fin.entity.money.Wallet;
 import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
 import com.fin.repository.ClientRepository;
@@ -43,6 +45,10 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
+        Wallet wallet = new Wallet();
+        mainRepository.create(wallet);
+        parent.setWallet(wallet);
+
         parent.getClient().setRole(Role.PARENT);
 
         mainRepository.create(parent);
@@ -57,17 +63,24 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        if (children.getParent1() != null && children.getParent1().getId() != 0) {
-            children.setParent1(mainRepository.find(Parent.class, children.getParent1().getId()));
+        if (children.getParent1() != null) {
+            Parent parent = mainRepository.find(Parent.class, children.getParent1().getId());
+            if (parent == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            children.setParent1(parent);
         }
-        if (children.getParent2() != null && children.getParent2().getId() != 0) {
-            children.setParent2(mainRepository.find(Parent.class, children.getParent2().getId()));
+        if (children.getParent2() != null) {
+            Parent parent = mainRepository.find(Parent.class, children.getParent2().getId());
+            if (parent == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            children.setParent2(parent);
         }
-        if (children.getMedicalBook() == null) {
-            MedicalBook medicalBook = new MedicalBook();
-            mainRepository.create(medicalBook);
-            children.setMedicalBook(medicalBook);
-        }
+
+        MedicalBook medicalBook = new MedicalBook();
+        mainRepository.create(medicalBook);
+        children.setMedicalBook(medicalBook);
 
         children.getClient().setRole(Role.CHILDREN);
 
@@ -94,28 +107,70 @@ public class RegistrationController {
     public Response registrationGroup(Group group) {
         if (group.getId() != 0 && mainRepository.find(Group.class, group.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
-        } else {
-            mainRepository.create(group);
-
-            return Response.ok(group.toJson()).build();
         }
+
+        if (group.getTypeGroup() != null) {
+            TypeGroup typeGroup = mainRepository.find(TypeGroup.class, group.getTypeGroup().getId());
+            if (typeGroup != null) {
+                group.setTypeGroup(typeGroup);
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        if (group.getTeacher() != null) {
+            Teacher teacher = mainRepository.find(Teacher.class, group.getTeacher().getId());
+            if (teacher != null) {
+                group.setTeacher(teacher);
+            }
+        }
+        if (group.getBabysitter() != null) {
+            Babysitter babysitter = mainRepository.find(Babysitter.class, group.getBabysitter().getId());
+            if (babysitter != null) {
+                group.setBabysitter(babysitter);
+            }
+        }
+        if (group.getEducator1() != null) {
+            Educator educator = mainRepository.find(Educator.class, group.getEducator1().getId());
+            if (educator != null) {
+                group.setEducator1(educator);
+            }
+        }
+        if (group.getEducator2() != null) {
+            Educator educator = mainRepository.find(Educator.class, group.getEducator2().getId());
+            if (educator != null) {
+                group.setEducator2(educator);
+            }
+        }
+
+        mainRepository.create(group);
+
+        return Response.ok(group.toJson()).build();
     }
 
     @POST
     @Path("/item")
     public Response registrationItem(Item item) {
-        if (item.getId() != 0 && mainRepository.find(Item.class, item.getId()) != null) {
+        if (mainRepository.find(Item.class, item.getId()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
-        } else {
-            if (item.getPlace() != null && item.getPlace().getId() != 0 &&
-                    mainRepository.find(Place.class, item.getPlace().getId()) != null
-            ) {
-                item.setPlace(mainRepository.find(Place.class, item.getPlace().getId()));
-            }
-            mainRepository.create(item);
-
-            return Response.ok(item.toJson()).build();
         }
+        if (item.getPlace() != null) {
+            Place place = mainRepository.find(Place.class, item.getPlace().getId());
+            if (place != null) {
+                item.setPlace(place);
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        mainRepository.create(item);
+
+        return Response.ok(item.toJson()).build();
+
     }
 
     @POST

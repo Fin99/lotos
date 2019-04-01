@@ -37,7 +37,7 @@ public class Client implements Serializable {
         this.role = role;
     }
 
-    public Credentials getCredentials(){
+    public Credentials getCredentials() {
         return new Credentials(username, password);
     }
 

@@ -2,7 +2,6 @@ package com.fin.repository.money;
 
 import com.fin.entity.money.Wallet;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.inject.Singleton;

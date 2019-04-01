@@ -47,7 +47,6 @@ public class ClientRepository {
     }
 
 
-
     @PreDestroy
     public void preDestroy() {
         if (entityManagerFactory.isOpen() && entityManagerFactory != null) {

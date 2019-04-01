@@ -1,6 +1,5 @@
 package com.fin.repository.security;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.inject.Singleton;

@@ -2,12 +2,8 @@ package com.fin.entity.employee;
 
 import com.fin.entity.Client;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;

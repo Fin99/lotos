@@ -1,6 +1,5 @@
 package com.fin.repository.group;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.inject.Singleton;

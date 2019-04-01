@@ -53,7 +53,7 @@ public class ChildrenRepository {
             }
             query += " c.surname LIKE '%" + childrenData.getSurname() + "%'";
         }
-        if (childrenData.getMedicalBook()!= null && childrenData.getMedicalBook().getSex() != null) {
+        if (childrenData.getMedicalBook() != null && childrenData.getMedicalBook().getSex() != null) {
             if (flagAND) {
                 query += " AND";
             } else {
