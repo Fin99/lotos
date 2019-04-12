@@ -3,31 +3,26 @@ package com.fin.repository.employee;
 import com.fin.entity.Client;
 import com.fin.entity.employee.Chief;
 import com.fin.entity.employee.Employee;
+import com.fin.repository.Repository;
 
-import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 import static com.fin.repository.MainRepository.getElementOrNull;
 
 @Singleton
 @Named("employeeRepository")
-public class EmployeeRepository {
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
-    private EntityManager em = entityManagerFactory.createEntityManager();
+public class EmployeeRepository extends Repository {
 
     public Employee findByClient(Client client) {
         String query = "SELECT e FROM Employee e WHERE e.client.id='" + client.getId() + "'";
-        return getElementOrNull(em.createQuery(query, Employee.class).getResultList());
+        return getElementOrNull(getEntityManager().createQuery(query, Employee.class).getResultList());
     }
 
     public Chief findChief(Employee employee) {
         String query = "SELECT c FROM Chief c WHERE c.id='" + employee.getId() + "'";
-        return getElementOrNull(em.createQuery(query, Chief.class).getResultList());
+        return getElementOrNull(getEntityManager().createQuery(query, Chief.class).getResultList());
     }
 
     public List<Employee> findEmployee(Employee employeeData) {
@@ -86,16 +81,7 @@ public class EmployeeRepository {
         query += " AND dtype ILIKE '" + employeeData.getTypeEmployee().name() + "'";
 
 
-        return em.createNativeQuery(query, Employee.class).getResultList();
+        return getEntityManager().createNativeQuery(query, Employee.class).getResultList();
     }
 
-    @PreDestroy
-    public void preDestroy() {
-        if (entityManagerFactory.isOpen() && entityManagerFactory != null) {
-            entityManagerFactory.close();
-        }
-        if (em.isOpen() && em != null) {
-            em.close();
-        }
-    }
 }

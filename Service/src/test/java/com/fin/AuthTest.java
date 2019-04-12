@@ -34,6 +34,6 @@ public class AuthTest {
         request.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         request.get("/auth/authorization").then()
-                .body("role", equalTo("CHIEF"));
+            .body("role", equalTo("CHIEF"));
     }
 }

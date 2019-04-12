@@ -5,7 +5,7 @@ import com.fin.entity.Children;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
-import com.fin.repository.ChildrenRepository;
+import com.fin.repository.ChildRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.employee.EmployeeRepository;
 import com.fin.security.Secured;
@@ -30,7 +30,7 @@ public class FindController {
     @Inject
     ParentRepository parentRepository;
     @Inject
-    ChildrenRepository childrenRepository;
+    ChildRepository childRepository;
     @Inject
     EmployeeRepository employeeRepository;
 
@@ -65,7 +65,7 @@ public class FindController {
                 childrenData.getName() != null || childrenData.getSurname() != null ||
                 childrenData.getMedicalBook() != null && childrenData.getMedicalBook().getSex() != null
         ) {
-            List<Children> children = childrenRepository.findChildren(childrenData);
+            List<Children> children = childRepository.findChildren(childrenData);
             return Response.ok(wrapList(children)).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();

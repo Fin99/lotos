@@ -40,7 +40,7 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("id", idParent).build().toString());
+            .add("id", idParent).build().toString());
 
         int removeStatus = removeRequest.post(urlRemoveParent).getStatusCode();
 
@@ -68,7 +68,7 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("id", childrenId).build().toString());
+            .add("id", childrenId).build().toString());
 
         int removeStatus = removeRequest.post("/remove/children").getStatusCode();
 
@@ -95,7 +95,7 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("id", employeeId).build().toString());
+            .add("id", employeeId).build().toString());
 
         int removeStatus = removeRequest.post("/remove/employee").getStatusCode();
 
@@ -122,7 +122,7 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("id", idPlace).build().toString());
+            .add("id", idPlace).build().toString());
 
         int removeStatus = removeRequest.post("/remove/place").getStatusCode();
 
@@ -162,7 +162,7 @@ public class RegistrationRemoveTest {
         removeItemRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeItemRequest.body(Json.createObjectBuilder()
-                .add("id", idItem).build().toString());
+            .add("id", idItem).build().toString());
 
         int removeItemStatus = removeItemRequest.post("/remove/item").getStatusCode();
 
@@ -173,7 +173,7 @@ public class RegistrationRemoveTest {
         removePlaceRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removePlaceRequest.body(Json.createObjectBuilder()
-                .add("id", idPlace).build().toString());
+            .add("id", idPlace).build().toString());
 
         int removePlaceStatus = removePlaceRequest.post("/remove/place").getStatusCode();
 
@@ -203,7 +203,7 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-                .add("id", idGroup).build().toString());
+            .add("id", idGroup).build().toString());
 
         int removeStatus = removeRequest.post("/remove/group").getStatusCode();
 

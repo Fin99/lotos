@@ -24,8 +24,8 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 
 class Data {
-    static String url = "http://localhost";
-    static int port = 8080;
+    static String url = "http://ivankayukoff.ru";
+    static int port = 8180;
 
     static String urlRegistrationParent = "/registration/parent";
     static String urlRegistrationChildren = "/registration/children";
@@ -46,7 +46,7 @@ class Data {
     static String urlMessageSend = "/message/send";
     static String urlMessageGet = "/message/get";
 
-    static Credentials chiefCredentials = new Credentials("chief1@gmail.com", "chief");
+    static Credentials chiefCredentials = new Credentials("chief@gmail.com", "chief");
     static Parent parent = new Parent();
     static Children children = new Children();
     static Teacher teacher = new Teacher();
@@ -95,7 +95,7 @@ class Data {
             removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
 
             removeRequest.body(Json.createObjectBuilder()
-                    .add("id", id).build().toString());
+                .add("id", id).build().toString());
 
             assertEquals(removeRequest.post(url).statusCode(), 200);
         }
@@ -126,27 +126,27 @@ class Data {
 
         Client client1 = new Client("employeeTest1", "pass", Role.EDUCATOR);
         Employee employee1 = new Educator("Alexandr", "Isaev", "+79502273054",
-                "1213453243", "1234", 123., client1, Employee.TypeEmployee.EDUCATOR);
+            "1213453243", "1234", 123., client1, Employee.TypeEmployee.EDUCATOR);
         employee[0] = employee1;
 
         Client client2 = new Client("employeeTest2", "pass", Role.EDUCATOR);
         Employee employee2 = new Educator("Alexandr", "Kurkin", "+79502273054",
-                "1213453243", "1234", 123, client2, Employee.TypeEmployee.EDUCATOR);
+            "1213453243", "1234", 123, client2, Employee.TypeEmployee.EDUCATOR);
         employee[1] = employee2;
 
         Client client3 = new Client("employeeTest3", "pass", Role.EDUCATOR);
         Employee employee3 = new Educator("Aleksey", "Isaev", "+79502273054",
-                "1213453243", "1234", 123, client3, Employee.TypeEmployee.EDUCATOR);
+            "1213453243", "1234", 123, client3, Employee.TypeEmployee.EDUCATOR);
         employee[2] = employee3;
 
         Client client4 = new Client("employeeTest4", "pass", Role.EDUCATOR);
         Employee employee4 = new Educator("Aleksey", "Kurkin", "+79502273054",
-                "1213453243", "1234", 123, client4, Employee.TypeEmployee.EDUCATOR);
+            "1213453243", "1234", 123, client4, Employee.TypeEmployee.EDUCATOR);
         employee[3] = employee4;
 
         Client client5 = new Client("employeeTest5", "pass", Role.EDUCATOR);
         Employee employee5 = new Educator("Pavel", "Isaev", "+79502273054",
-                "1213453243", "1234", 123, client5, Employee.TypeEmployee.EDUCATOR);
+            "1213453243", "1234", 123, client5, Employee.TypeEmployee.EDUCATOR);
         employee[4] = employee5;
 
         return employee;
@@ -185,35 +185,35 @@ class Data {
         MedicalBook medicalBook1 = new MedicalBook();
         medicalBook1.setSex('м');
         Children children1 = new Children("Alexandr", "Isaev", medicalBook1,
-                null, null, null, client1);
+            null, null, null, client1);
         children[0] = children1;
 
         Client client2 = new Client("childrenTest2", "pass", Role.CHILDREN);
         MedicalBook medicalBook2 = new MedicalBook();
         medicalBook2.setSex('м');
         Children children2 = new Children("Alexandr", "Kurkin", medicalBook2,
-                null, null, null, client2);
+            null, null, null, client2);
         children[1] = children2;
 
         Client client3 = new Client("childrenTest3", "pass", Role.CHILDREN);
         MedicalBook medicalBook3 = new MedicalBook();
         medicalBook3.setSex('м');
         Children children3 = new Children("Aleksey", "Isaev", medicalBook3,
-                null, null, null, client3);
+            null, null, null, client3);
         children[2] = children3;
 
         Client client4 = new Client("childrenTest4", "pass", Role.CHILDREN);
         MedicalBook medicalBook4 = new MedicalBook();
         medicalBook4.setSex('м');
         Children children4 = new Children("Aleksey", "Kurkin", medicalBook4,
-                null, null, null, client4);
+            null, null, null, client4);
         children[3] = children4;
 
         Client client5 = new Client("childrenTest5", "pass", Role.CHILDREN);
         MedicalBook medicalBook5 = new MedicalBook();
         medicalBook5.setSex('ж');
         Children children5 = new Children("Pavel", "Isaev", medicalBook5,
-                null, null, null, client5);
+            null, null, null, client5);
         children[4] = children5;
 
         return children;

@@ -31,12 +31,12 @@ public class EditTest {
         RequestSpecification editRequest = RestAssured.given();
         editRequest.header("Content-Type", "application/json");
         editRequest.header("Authorization", "Bearer " +
-                getToken(parent.getClient().getCredentials()));
+            getToken(parent.getClient().getCredentials()));
 
         JsonObject editParent = Json.createObjectBuilder(parent.toJson())
-                .remove("name")
-                .add("name", "parentTestEdit")
-                .add("id", idParent[0]).build();
+            .remove("name")
+            .add("name", "parentTestEdit")
+            .add("id", idParent[0]).build();
 
         editRequest.body(editParent.toString());
 
@@ -68,10 +68,10 @@ public class EditTest {
         RequestSpecification editRequest = RestAssured.given();
         editRequest.header("Content-Type", "application/json");
         editRequest.header("Authorization", "Bearer " +
-                getToken(parent.getClient().getCredentials()));
+            getToken(parent.getClient().getCredentials()));
 
         JsonObject editParent = Json.createObjectBuilder(parent.toJson())
-                .add("id", idParent[0]).build();
+            .add("id", idParent[0]).build();
 
         editRequest.body(editParent.toString());
 
@@ -89,12 +89,12 @@ public class EditTest {
         RequestSpecification editRequest = RestAssured.given();
         editRequest.header("Content-Type", "application/json");
         editRequest.header("Authorization", "Bearer " +
-                getToken(children.getClient().getCredentials()));
+            getToken(children.getClient().getCredentials()));
 
         JsonObject editParent = Json.createObjectBuilder(children.toJson())
-                .remove("name")
-                .add("name", "childrenTestEdit")
-                .add("id", idChildren[0]).build();
+            .remove("name")
+            .add("name", "childrenTestEdit")
+            .add("id", idChildren[0]).build();
 
         editRequest.body(editParent.toString());
 
@@ -126,12 +126,12 @@ public class EditTest {
         RequestSpecification editRequest = RestAssured.given();
         editRequest.header("Content-Type", "application/json");
         editRequest.header("Authorization", "Bearer " +
-                getToken(teacher.getClient().getCredentials()));
+            getToken(teacher.getClient().getCredentials()));
 
         JsonObject editTeacher = Json.createObjectBuilder(teacher.toJson())
-                .remove("name")
-                .add("name", "teacherTestEdit")
-                .add("id", idTeacher[0]).build();
+            .remove("name")
+            .add("name", "teacherTestEdit")
+            .add("id", idTeacher[0]).build();
 
         editRequest.body(editTeacher.toString());
 

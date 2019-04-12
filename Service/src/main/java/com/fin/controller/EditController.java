@@ -7,7 +7,7 @@ import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.group.Group;
 import com.fin.entity.medical.MedicalBook;
-import com.fin.repository.ChildrenRepository;
+import com.fin.repository.ChildRepository;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
@@ -38,7 +38,7 @@ public class EditController {
     @Inject
     ParentRepository parentRepository;
     @Inject
-    ChildrenRepository childrenRepository;
+    ChildRepository childRepository;
     @Inject
     ClientRepository clientRepository;
     @Inject
@@ -77,7 +77,7 @@ public class EditController {
     @Secured(Role.CHILDREN)
     public Response editChildren(Children childrenData) {
         Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
-        Children children = childrenRepository.findByClient(client);
+        Children children = childRepository.findByClient(client);
 
         if (childrenData.getName() != null) {
             children.setName(childrenData.getName());

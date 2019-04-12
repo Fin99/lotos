@@ -7,7 +7,7 @@ import com.fin.entity.employee.Employee;
 import com.fin.entity.group.Group;
 import com.fin.entity.place.Item;
 import com.fin.entity.place.Place;
-import com.fin.repository.ChildrenRepository;
+import com.fin.repository.ChildRepository;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
@@ -40,7 +40,7 @@ public class RemoveController {
     @Inject
     ClientRepository clientRepository;
     @Inject
-    ChildrenRepository childrenRepository;
+    ChildRepository childRepository;
     @Inject
     EmployeeRepository employeeRepository;
     @Inject

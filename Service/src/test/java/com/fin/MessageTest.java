@@ -43,7 +43,7 @@ public class MessageTest {
 
         RequestSpecification receiveMessage = RestAssured.given();
         receiveMessage.header("Content-Type", "application/json");
-        receiveMessage.header("Authorization", "Bearer " + getToken(new Credentials("chief1@gmail.com", "chief")));
+        receiveMessage.header("Authorization", "Bearer " + getToken(chiefCredentials));
 
         receiveMessage.body(receiver.toJson().toString());
 

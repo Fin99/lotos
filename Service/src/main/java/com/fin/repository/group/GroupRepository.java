@@ -1,25 +1,12 @@
 package com.fin.repository.group;
 
-import javax.annotation.PreDestroy;
+import com.fin.repository.Repository;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 @Singleton
 @Named("groupRepository")
-public class GroupRepository {
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lotos");
-    private EntityManager em = entityManagerFactory.createEntityManager();
+public class GroupRepository extends Repository {
 
-    @PreDestroy
-    public void preDestroy() {
-        if (entityManagerFactory.isOpen() && entityManagerFactory != null) {
-            entityManagerFactory.close();
-        }
-        if (em.isOpen() && em != null) {
-            em.close();
-        }
-    }
 }

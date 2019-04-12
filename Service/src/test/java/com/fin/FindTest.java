@@ -5,7 +5,6 @@ import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Educator;
 import com.fin.entity.employee.Employee;
-import com.fin.entity.medical.MedicalBook;
 import com.fin.security.Role;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
