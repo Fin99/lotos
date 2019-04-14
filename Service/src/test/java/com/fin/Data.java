@@ -24,8 +24,8 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 
 class Data {
-    static String url = "http://ivankayukoff.ru";
-    static int port = 8180;
+    static String url = "http://localhost";
+    static int port = 8080;
 
     static String urlRegistrationParent = "/registration/parent";
     static String urlRegistrationChildren = "/registration/children";

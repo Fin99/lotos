@@ -56,7 +56,7 @@ public class RegistrationRemoveTest {
         System.out.println(children.toJson().toString());
         registrationRequest.body(Data.children.toJson().toString());
 
-        Response response = registrationRequest.post("/registration/children");
+        Response response = registrationRequest.post(urlRegistrationChildren);
         int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
@@ -71,7 +71,7 @@ public class RegistrationRemoveTest {
         removeRequest.body(Json.createObjectBuilder()
             .add("id", childrenId).build().toString());
 
-        int removeStatus = removeRequest.post("/remove/children").getStatusCode();
+        int removeStatus = removeRequest.post(urlRemoveChildren).getStatusCode();
 
         assertEquals(removeStatus, 200);
     }
