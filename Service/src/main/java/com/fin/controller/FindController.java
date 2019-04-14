@@ -1,7 +1,7 @@
 package com.fin.controller;
 
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
@@ -75,13 +75,13 @@ public class FindController {
 
 
     @POST
-    @Path("/children")
-    public Response findChildren(Children childrenData) {
-        if (childrenData.getClient() != null && childrenData.getClient().getUsername() != null ||
-                childrenData.getName() != null || childrenData.getSurname() != null ||
-                childrenData.getMedicalBook() != null && childrenData.getMedicalBook().getSex() != null
+    @Path("/child")
+    public Response findChildren(Child childData) {
+        if (childData.getClient() != null && childData.getClient().getUsername() != null ||
+                childData.getName() != null || childData.getSurname() != null ||
+                childData.getMedicalBook() != null && childData.getMedicalBook().getSex() != null
         ) {
-            List<Children> children = childRepository.findChildren(childrenData);
+            List<Child> children = childRepository.findChildren(childData);
             return Response.ok(wrapList(children)).build();
         } else {
             return Response.ok(wrapList(childRepository.findAllChildren())).build();

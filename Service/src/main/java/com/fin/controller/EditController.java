@@ -1,7 +1,7 @@
 package com.fin.controller;
 
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
@@ -73,53 +73,53 @@ public class EditController {
     }
 
     @POST
-    @Path("/children")
-    @Secured(Role.CHILDREN)
-    public Response editChildren(Children childrenData) {
+    @Path("/child")
+    @Secured(Role.CHILD)
+    public Response editChildren(Child childData) {
         Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
-        Children children = childRepository.findByClient(client);
+        Child child = childRepository.findByClient(client);
 
-        if (childrenData.getName() != null) {
-            children.setName(childrenData.getName());
+        if (childData.getName() != null) {
+            child.setName(childData.getName());
         }
-        if (childrenData.getSurname() != null) {
-            children.setSurname(childrenData.getSurname());
+        if (childData.getSurname() != null) {
+            child.setSurname(childData.getSurname());
         }
-        if (childrenData.getParent1() != null && childrenData.getParent1().getId() != 0) {
-            Parent parent = mainRepository.find(Parent.class, children.getParent1().getId());
+        if (childData.getParent1() != null && childData.getParent1().getId() != 0) {
+            Parent parent = mainRepository.find(Parent.class, child.getParent1().getId());
             if (parent == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
-            children.setParent1(parent);
+            child.setParent1(parent);
         }
-        if (childrenData.getParent2() != null && childrenData.getParent2().getId() != 0) {
-            Parent parent = mainRepository.find(Parent.class, children.getParent2().getId());
+        if (childData.getParent2() != null && childData.getParent2().getId() != 0) {
+            Parent parent = mainRepository.find(Parent.class, child.getParent2().getId());
             if (parent == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
-            children.setParent2(parent);
+            child.setParent2(parent);
         }
-        if (childrenData.getGroup() != null && childrenData.getGroup().getId() != 0) {
-            Group group = mainRepository.find(Group.class, children.getGroup().getId());
+        if (childData.getGroup() != null && childData.getGroup().getId() != 0) {
+            Group group = mainRepository.find(Group.class, child.getGroup().getId());
             if (group == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
-            children.setGroup(group);
+            child.setGroup(group);
         }
-        if (childrenData.getMedicalBook() != null && childrenData.getMedicalBook().getId() != 0) {
-            MedicalBook medicalBook = mainRepository.find(MedicalBook.class, children.getMedicalBook().getId());
+        if (childData.getMedicalBook() != null && childData.getMedicalBook().getId() != 0) {
+            MedicalBook medicalBook = mainRepository.find(MedicalBook.class, child.getMedicalBook().getId());
             if (medicalBook == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
-            children.setMedicalBook(medicalBook);
+            child.setMedicalBook(medicalBook);
         }
-        if (childrenData.getClient() != null && childrenData.getClient().getUsername() != null &&
-                clientRepository.findByUsername(childrenData.getClient().getUsername()) == null) {
-            children.getClient().setUsername(childrenData.getClient().getUsername());
+        if (childData.getClient() != null && childData.getClient().getUsername() != null &&
+                clientRepository.findByUsername(childData.getClient().getUsername()) == null) {
+            child.getClient().setUsername(childData.getClient().getUsername());
         }
-        mainRepository.update(children);
+        mainRepository.update(child);
 
-        return Response.ok(children.toJson()).build();
+        return Response.ok(child.toJson()).build();
     }
 
     @POST

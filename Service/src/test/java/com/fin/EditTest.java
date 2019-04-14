@@ -1,6 +1,6 @@
 package com.fin;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.employee.Teacher;
@@ -84,14 +84,14 @@ public class EditTest {
 
     @Test
     public void testChildrenRename() {
-        Long[] idChildren = createEntity(urlRegistrationChildren, children);
+        Long[] idChildren = createEntity(urlRegistrationChildren, child);
 
         RequestSpecification editRequest = RestAssured.given();
         editRequest.header("Content-Type", "application/json");
         editRequest.header("Authorization", "Bearer " +
-            getToken(children.getClient().getCredentials()));
+            getToken(child.getClient().getCredentials()));
 
-        JsonObject editParent = Json.createObjectBuilder(children.toJson())
+        JsonObject editParent = Json.createObjectBuilder(child.toJson())
             .remove("name")
             .add("name", "childrenTestEdit")
             .add("id", idChildren[0]).build();
@@ -102,14 +102,14 @@ public class EditTest {
 
         assertEquals(editStatus, 200);
 
-        // find this children
-        Children findChildren = new Children();
-        findChildren.setName("childrenTestEdit");
+        // find this child
+        Child findChild = new Child();
+        findChild.setName("childrenTestEdit");
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
-        removeRequest.body(findChildren.toJson().toString());
+        removeRequest.body(findChild.toJson().toString());
         Response response = removeRequest.post(urlFindChildren);
         List<Object> jsonPath = response.body().jsonPath().getList("");
 
@@ -139,7 +139,7 @@ public class EditTest {
 
         assertEquals(editStatus, 200);
 
-        // find this children
+        // find this child
         Teacher findTeacher = new Teacher();
         findTeacher.setTypeEmployee(Employee.TypeEmployee.TEACHER);
         findTeacher.setName("teacherTestEdit");

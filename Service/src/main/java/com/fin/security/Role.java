@@ -9,7 +9,7 @@ public enum Role {
     TEACHER,
 
     PARENT,
-    CHILDREN,
+    CHILD,
 
     ADMIN
 }

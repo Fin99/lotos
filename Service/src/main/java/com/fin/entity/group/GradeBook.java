@@ -1,6 +1,6 @@
 package com.fin.entity.group;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.employee.Educator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class GradeBook implements Serializable {
     @ManyToOne
     private Educator educator;
     @ManyToOne
-    private Children children;
+    private Child child;
     @Column
     private boolean attend;
     @Column

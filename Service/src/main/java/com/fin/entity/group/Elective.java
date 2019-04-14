@@ -1,6 +1,6 @@
 package com.fin.entity.group;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.employee.Teacher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +26,5 @@ public class Elective implements Serializable {
     private Teacher teacher;
     @ManyToMany
     @JoinTable(name = "chidlren_elective")
-    private Set<Children> childrenSet;
+    private Set<Child> childSet;
 }

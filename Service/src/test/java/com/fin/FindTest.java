@@ -1,6 +1,6 @@
 package com.fin;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Educator;
@@ -85,7 +85,7 @@ public class FindTest {
     public void testChildrenBySurname() {
         Long[] childrenId = createEntity(urlRegistrationChildren, getListChildren());
 
-        Children child = new Children();
+        Child child = new Child();
         child.setSurname("Isa");
 
         RequestSpecification removeRequest = RestAssured.given();

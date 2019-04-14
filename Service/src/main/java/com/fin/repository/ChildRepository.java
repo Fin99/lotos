@@ -1,6 +1,6 @@
 package com.fin.repository;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Client;
 
 import javax.inject.Named;
@@ -13,54 +13,54 @@ import static com.fin.repository.MainRepository.getElementOrNull;
 @Named("childRepository")
 public class ChildRepository extends Repository {
 
-    public Children findByClient(Client client) {
-        String query = "SELECT c FROM Children c WHERE c.client.id='" + client.getId() + "'";
-        return getElementOrNull(getEntityManager().createQuery(query, Children.class).getResultList());
+    public Child findByClient(Client client) {
+        String query = "SELECT c FROM Child c WHERE c.client.id='" + client.getId() + "'";
+        return getElementOrNull(getEntityManager().createQuery(query, Child.class).getResultList());
     }
 
-    public List<Children> findChildren(Children childrenData) {
-        String query = "SELECT c FROM Children c WHERE";
+    public List<Child> findChildren(Child childData) {
+        String query = "SELECT c FROM Child c WHERE";
 
 
         boolean flagAND = false;
-        if (childrenData.getClient() != null && childrenData.getClient().getUsername() != null) {
+        if (childData.getClient() != null && childData.getClient().getUsername() != null) {
             if (flagAND) {
                 query += " AND";
             } else {
                 flagAND = true;
             }
-            query += " c.client.username LIKE '%" + childrenData.getClient().getUsername() + "%'";
+            query += " c.client.username LIKE '%" + childData.getClient().getUsername() + "%'";
         }
-        if (childrenData.getName() != null) {
+        if (childData.getName() != null) {
             if (flagAND) {
                 query += " AND";
             } else {
                 flagAND = true;
             }
-            query += " c.name LIKE '%" + childrenData.getName() + "%'";
+            query += " c.name LIKE '%" + childData.getName() + "%'";
         }
-        if (childrenData.getSurname() != null) {
+        if (childData.getSurname() != null) {
             if (flagAND) {
                 query += " AND";
             } else {
                 flagAND = true;
             }
-            query += " c.surname LIKE '%" + childrenData.getSurname() + "%'";
+            query += " c.surname LIKE '%" + childData.getSurname() + "%'";
         }
-        if (childrenData.getMedicalBook() != null && childrenData.getMedicalBook().getSex() != null) {
+        if (childData.getMedicalBook() != null && childData.getMedicalBook().getSex() != null) {
             if (flagAND) {
                 query += " AND";
             } else {
                 flagAND = true;
             }
-            query += " c.medicalBook.sex LIKE '%" + childrenData.getMedicalBook().getSex() + "%'";
+            query += " c.medicalBook.sex LIKE '%" + childData.getMedicalBook().getSex() + "%'";
         }
 
-        return getEntityManager().createQuery(query, Children.class).getResultList();
+        return getEntityManager().createQuery(query, Child.class).getResultList();
     }
 
-    public List<Children> findAllChildren() {
-        String query = "SELECT c FROM Children c";
-        return getEntityManager().createQuery(query, Children.class).getResultList();
+    public List<Child> findAllChildren() {
+        String query = "SELECT c FROM Child c";
+        return getEntityManager().createQuery(query, Child.class).getResultList();
     }
 }

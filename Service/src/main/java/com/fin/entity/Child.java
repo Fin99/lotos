@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Children implements Serializable, Jsonable {
+public class Child implements Serializable, Jsonable {
     @Id
     @SequenceGenerator(name = "children_id", sequenceName = "children_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "children_id")
@@ -41,12 +41,12 @@ public class Children implements Serializable, Jsonable {
     private Parent parent2;
     @OneToOne(cascade = CascadeType.ALL)
     private Client client;
-    @OneToMany(mappedBy = "children", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
     private List<GradeBook> gradeBookList;
-    @OneToMany(mappedBy = "children", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
     private List<Diary> diaryList;
 
-    public Children(String name, String surname, MedicalBook medicalBook, Group group, Parent parent1, Parent parent2, Client client) {
+    public Child(String name, String surname, MedicalBook medicalBook, Group group, Parent parent1, Parent parent2, Client client) {
         this.name = name;
         this.surname = surname;
         this.medicalBook = medicalBook;

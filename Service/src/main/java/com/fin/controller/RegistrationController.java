@@ -1,6 +1,6 @@
 package com.fin.controller;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.*;
 import com.fin.entity.group.Group;
@@ -57,37 +57,37 @@ public class RegistrationController {
     }
 
     @POST
-    @Path("/children")
-    public Response registrationChildren(Children children) {
-        System.out.println(children.toJson().toString());
-        if (clientRepository.findByUsername(children.getClient().getUsername()) != null) {
+    @Path("/child")
+    public Response registrationChildren(Child child) {
+        System.out.println(child.toJson().toString());
+        if (clientRepository.findByUsername(child.getClient().getUsername()) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        if (children.getParent1() != null && children.getParent2().getId() != 0) {
-            Parent parent = mainRepository.find(Parent.class, children.getParent1().getId());
+        if (child.getParent1() != null && child.getParent2().getId() != 0) {
+            Parent parent = mainRepository.find(Parent.class, child.getParent1().getId());
             if (parent == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
-            children.setParent1(parent);
+            child.setParent1(parent);
         }
-        if (children.getParent2() != null && children.getParent2().getId() != 0) {
-            Parent parent = mainRepository.find(Parent.class, children.getParent2().getId());
+        if (child.getParent2() != null && child.getParent2().getId() != 0) {
+            Parent parent = mainRepository.find(Parent.class, child.getParent2().getId());
             if (parent == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
-            children.setParent2(parent);
+            child.setParent2(parent);
         }
 
         MedicalBook medicalBook = new MedicalBook();
         mainRepository.create(medicalBook);
-        children.setMedicalBook(medicalBook);
+        child.setMedicalBook(medicalBook);
 
-        children.getClient().setRole(Role.CHILDREN);
+        child.getClient().setRole(Role.CHILD);
 
-        mainRepository.create(children);
+        mainRepository.create(child);
 
-        return Response.ok(children.toJson()).build();
+        return Response.ok(child.toJson()).build();
     }
 
     @POST

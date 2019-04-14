@@ -1,6 +1,6 @@
 package com.fin.entity.group;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ public class Diary implements Serializable {
     @ManyToOne
     private Elective elective;
     @ManyToOne
-    private Children children;
+    private Child child;
     @Column
     private int assessment;
     @Temporal(TemporalType.TIMESTAMP)

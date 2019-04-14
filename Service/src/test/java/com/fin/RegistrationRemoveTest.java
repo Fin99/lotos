@@ -53,8 +53,8 @@ public class RegistrationRemoveTest {
         registrationRequest.header("Content-Type", "application/json");
         registrationRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
-        System.out.println(children.toJson().toString());
-        registrationRequest.body(Data.children.toJson().toString());
+        System.out.println(child.toJson().toString());
+        registrationRequest.body(Data.child.toJson().toString());
 
         Response response = registrationRequest.post(urlRegistrationChildren);
         int registrationStatus = response.getStatusCode();

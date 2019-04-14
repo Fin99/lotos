@@ -1,6 +1,6 @@
 package com.fin.entity.game;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.group.Diary;
 import com.fin.entity.group.GradeBook;
 import lombok.Getter;
@@ -21,9 +21,9 @@ public class Fighter {
     private double blockChance;
     private double criticalChance;
 
-    private Children child;
+    private Child child;
 
-    public Fighter(Children child) {
+    public Fighter(Child child) {
         this.child = child;
 
         this.strength = calculateStrength();

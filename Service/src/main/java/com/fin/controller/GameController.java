@@ -1,8 +1,7 @@
 package com.fin.controller;
 
 import com.fin.ejb.GameEJB;
-import com.fin.entity.Children;
-import com.fin.entity.medical.DiseaseStrength;
+import com.fin.entity.Child;
 import com.fin.security.Role;
 import com.fin.security.Secured;
 
@@ -15,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import java.util.List;
 
 @Path("/game")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,13 +31,15 @@ public class GameController {
     @POST
     @Secured(Role.TEACHER)
     @Path("/start")
-    public Response startFight(Children radiant, Children dire) {
+    public Response startFight(List<Child> children) {
+        Child radiant = children.get(0);
+        Child dire = children.get(1);
+
         if (gameEJB.isFightPossible(radiant, dire)) {
             gameEJB.startFight(radiant, dire);
             return Response.ok().build(); // FIXME Send success.
         } else {
             return Response.ok().build(); // FIXME Send to recipient the reason.
         }
-
     }
 }

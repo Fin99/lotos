@@ -1,6 +1,6 @@
 package com.fin;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Client;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
@@ -28,21 +28,21 @@ class Data {
     static int port = 8080;
 
     static String urlRegistrationParent = "/registration/parent";
-    static String urlRegistrationChildren = "/registration/children";
+    static String urlRegistrationChildren = "/registration/child";
     static String urlRegistrationEmployee = "/registration/employee";
     static String urlRegistrationGroup = "/registration/group";
 
     static String urlRemoveParent = "/remove/parent";
-    static String urlRemoveChildren = "/remove/children";
+    static String urlRemoveChildren = "/remove/child";
     static String urlRemoveEmployee = "/remove/employee";
 
     static String urlFindParent = "/find/parent";
-    static String urlFindChildren = "/find/children";
+    static String urlFindChildren = "/find/child";
     static String urlFindEmployee = "/find/employee";
     static String urlFindGroup = "/find/group";
 
     static String urlEditParent = "/edit/parent";
-    static String urlEditChildren = "/edit/children";
+    static String urlEditChildren = "/edit/child";
     static String urlEditEmployee = "/edit/employee";
 
     static String urlMessageSend = "/message/send";
@@ -50,7 +50,7 @@ class Data {
 
     static Credentials chiefCredentials = new Credentials("chief@gmail.com", "chief");
     static Parent parent = new Parent();
-    static Children children = new Children();
+    static Child child = new Child();
     static Teacher teacher = new Teacher();
     static Place place = new Place();
     static Item item = new Item();
@@ -64,9 +64,9 @@ class Data {
         parent.setSex('м');
         parent.setClient(new Client("parentTest", "parentTest", Role.PARENT));
 
-        children.setName("Александр");
-        children.setSurname("Исаев");
-        children.setClient(new Client("childrenTest", "childrenTest", Role.CHILDREN));
+        child.setName("Александр");
+        child.setSurname("Исаев");
+        child.setClient(new Client("childrenTest", "childrenTest", Role.CHILD));
 
         teacher.setPhone("88005553535");
         teacher.setPassport("1212453244");
@@ -180,43 +180,43 @@ class Data {
         return parents;
     }
 
-    static Children[] getListChildren() {
-        Children[] children = new Children[5];
+    static Child[] getListChildren() {
+        Child[] children = new Child[5];
 
-        Client client1 = new Client("childrenTest1", "pass", Role.CHILDREN);
+        Client client1 = new Client("childrenTest1", "pass", Role.CHILD);
         MedicalBook medicalBook1 = new MedicalBook();
         medicalBook1.setSex('м');
-        Children children1 = new Children("Alexandr", "Isaev", medicalBook1,
+        Child child1 = new Child("Alexandr", "Isaev", medicalBook1,
             null, null, null, client1);
-        children[0] = children1;
+        children[0] = child1;
 
-        Client client2 = new Client("childrenTest2", "pass", Role.CHILDREN);
+        Client client2 = new Client("childrenTest2", "pass", Role.CHILD);
         MedicalBook medicalBook2 = new MedicalBook();
         medicalBook2.setSex('м');
-        Children children2 = new Children("Alexandr", "Kurkin", medicalBook2,
+        Child child2 = new Child("Alexandr", "Kurkin", medicalBook2,
             null, null, null, client2);
-        children[1] = children2;
+        children[1] = child2;
 
-        Client client3 = new Client("childrenTest3", "pass", Role.CHILDREN);
+        Client client3 = new Client("childrenTest3", "pass", Role.CHILD);
         MedicalBook medicalBook3 = new MedicalBook();
         medicalBook3.setSex('м');
-        Children children3 = new Children("Aleksey", "Isaev", medicalBook3,
+        Child child3 = new Child("Aleksey", "Isaev", medicalBook3,
             null, null, null, client3);
-        children[2] = children3;
+        children[2] = child3;
 
-        Client client4 = new Client("childrenTest4", "pass", Role.CHILDREN);
+        Client client4 = new Client("childrenTest4", "pass", Role.CHILD);
         MedicalBook medicalBook4 = new MedicalBook();
         medicalBook4.setSex('м');
-        Children children4 = new Children("Aleksey", "Kurkin", medicalBook4,
+        Child child4 = new Child("Aleksey", "Kurkin", medicalBook4,
             null, null, null, client4);
-        children[3] = children4;
+        children[3] = child4;
 
-        Client client5 = new Client("childrenTest5", "pass", Role.CHILDREN);
+        Client client5 = new Client("childrenTest5", "pass", Role.CHILD);
         MedicalBook medicalBook5 = new MedicalBook();
         medicalBook5.setSex('ж');
-        Children children5 = new Children("Pavel", "Isaev", medicalBook5,
+        Child child5 = new Child("Pavel", "Isaev", medicalBook5,
             null, null, null, client5);
-        children[4] = children5;
+        children[4] = child5;
 
         return children;
     }

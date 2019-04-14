@@ -1,6 +1,6 @@
 package com.fin.controller;
 
-import com.fin.entity.Children;
+import com.fin.entity.Child;
 import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
@@ -51,14 +51,14 @@ public class RemoveController {
     ItemRepository itemRepository;
 
     @POST
-    @Path("/children")
-    public Response removeChildren(Children childrenId) {
-        Children children = mainRepository.find(Children.class, childrenId.getId());
-        if (children == null) {
+    @Path("/child")
+    public Response removeChildren(Child childId) {
+        Child child = mainRepository.find(Child.class, childId.getId());
+        if (child == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        mainRepository.remove(Children.class, childrenId.getId());
+        mainRepository.remove(Child.class, childId.getId());
 
         return Response.ok().build();
     }
