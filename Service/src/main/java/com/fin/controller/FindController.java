@@ -6,11 +6,13 @@ import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.group.Group;
+import com.fin.entity.place.Place;
 import com.fin.repository.ChildRepository;
 import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.employee.EmployeeRepository;
 import com.fin.repository.group.GroupRepository;
+import com.fin.repository.place.PlaceRepository;
 import com.fin.security.Secured;
 
 import javax.inject.Inject;
@@ -29,6 +31,8 @@ import java.util.List;
 public class FindController {
     @Inject
     MainRepository mainRepository;
+    @Inject
+    PlaceRepository placeRepository;
     @Inject
     ParentRepository parentRepository;
     @Inject
@@ -63,6 +67,16 @@ public class FindController {
         }
     }
 
+    @POST
+    @Path("/place")
+    public Response findPlace(Place placeData) {
+        if (placeData.getName() != null) {
+            List<Place> groups = placeRepository.findPlace(placeData);
+            return Response.ok(Jsonable.wrapList(groups)).build();
+        } else {
+            return Response.ok(Jsonable.wrapList(mainRepository.findAll(Place.class))).build();
+        }
+    }
 
     @POST
     @Path("/child")

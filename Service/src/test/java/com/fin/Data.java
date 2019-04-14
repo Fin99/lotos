@@ -45,6 +45,7 @@ class Data {
     static String urlFindChildren = "/find/child";
     static String urlFindEmployee = "/find/employee";
     static String urlFindGroup = "/find/group";
+    static String urlFindPlace = "/find/place";
 
     static String urlEditParent = "/edit/parent";
     static String urlEditChildren = "/edit/child";
@@ -183,6 +184,28 @@ class Data {
         parents[4] = parent5;
 
         return parents;
+    }
+
+
+    static Place[] getListPlace() {
+        Place[] places = new Place[5];
+
+        Place place1 = new Place("placeTest1");
+        places[0] = place1;
+
+        Place place2 = new Place("placeTest2");
+        places[1] = place2;
+
+        Place place3 = new Place("placeTest3");
+        places[2] = place3;
+
+        Place place4 = new Place("placeTest4");
+        places[3] = place4;
+
+        Place place5 = new Place("placeTest5");
+        places[4] = place5;
+
+        return places;
     }
 
     static Child[] getListChildren() {

@@ -6,6 +6,7 @@ import com.fin.entity.Parent;
 import com.fin.entity.employee.Educator;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.group.Group;
+import com.fin.entity.place.Place;
 import com.fin.security.Role;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -61,6 +62,25 @@ public class FindTest {
     }
 
     @Test
+    public void testPlaceFindAll() {
+        Long[] placesId = createEntity(urlRegistrationPlace, getListPlace());
+
+        RequestSpecification findRequest = RestAssured.given();
+        findRequest.header("Content-Type", "application/json");
+        findRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+
+        findRequest.body(new Place().toJson().toString());
+
+        Response response = findRequest.post(urlFindPlace);
+        assertEquals(response.getStatusCode(), 200);
+
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+        assertTrue(jsonPath.size() >= 5);
+
+        removeEntity(urlRemovePlace, placesId);
+    }
+
+    @Test
     public void testParentsByUsername() {
         Long[] parentsId = createEntity(urlRegistrationParent, getListParents());
         Parent parent = new Parent();
@@ -102,6 +122,25 @@ public class FindTest {
         assertEquals(jsonPath.size(), 3);
 
         removeEntity(urlRemoveChildren, childrenId);
+    }
+
+    @Test
+    public void testPlaceByName() {
+        Long[] placesId = createEntity(urlRegistrationPlace, getListPlace());
+
+        RequestSpecification findRequest = RestAssured.given();
+        findRequest.header("Content-Type", "application/json");
+        findRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+
+        findRequest.body(new Place("placeTest1").toJson().toString());
+
+        Response response = findRequest.post(urlFindPlace);
+        assertEquals(response.getStatusCode(), 200);
+
+        List<Object> jsonPath = response.body().jsonPath().getList("");
+        assertEquals(1, jsonPath.size());
+
+        removeEntity(urlRemovePlace, placesId);
     }
 
     @Test
