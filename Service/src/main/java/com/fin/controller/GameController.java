@@ -6,6 +6,7 @@ import com.fin.security.Role;
 import com.fin.security.Secured;
 
 import javax.ejb.EJB;
+import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -35,10 +36,9 @@ public class GameController {
         Child radiant = children.get(0);
         Child dire = children.get(1);
         if (fightEJB.isFightPossible(radiant, dire)) {
-            fightEJB.generateReport(radiant, dire);
-            return Response.ok().build(); // FIXME Send success.
+            return Response.ok(fightEJB.generateReport(radiant, dire)).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).build(); // FIXME Send to recipient the reason.
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
 }

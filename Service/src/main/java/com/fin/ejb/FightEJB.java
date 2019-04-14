@@ -13,7 +13,6 @@ import lombok.Setter;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.json.JsonObject;
-import java.util.List;
 import java.util.Random;
 
 @Getter
