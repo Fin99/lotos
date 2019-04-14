@@ -21,7 +21,7 @@ public class Fighter implements Jsonable {
 
     private double hp;
     private double damage;
-    private double attackSpeed;
+    private double cooldown;
     private double blockChance;
     private double criticalChance;
 
@@ -36,7 +36,7 @@ public class Fighter implements Jsonable {
 
         this.hp = calculateHp();
         this.damage = calculateDamage();
-        this.attackSpeed = calculateAttackSpeed();
+        this.cooldown = calculateCooldown();
         this.blockChance = calculateBlockChance();
         this.criticalChance = calculateCriticalChance();
     }
@@ -64,10 +64,11 @@ public class Fighter implements Jsonable {
     }
 
     private double calculateDamage() {
+        // TODO add damage decreasing when the child ills
         return 50 + this.strength * 15;
     }
 
-    private double calculateAttackSpeed() {
+    private double calculateCooldown() {
         return 1 - this.agility * 0.1;
     }
 
@@ -93,7 +94,7 @@ public class Fighter implements Jsonable {
 
         builder.add("hp", hp);
         builder.add("damage", damage);
-        builder.add("attackSpeed", attackSpeed);
+        builder.add("cooldown", cooldown);
         builder.add("blockChance", blockChance);
         builder.add("criticalChance", criticalChance);
 

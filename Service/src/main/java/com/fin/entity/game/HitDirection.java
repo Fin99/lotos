@@ -1,6 +1,6 @@
 package com.fin.entity.game;
 
 public enum HitDirection {
-    TO_REDIANT,
+    TO_RADIANT,
     TO_DIRE
 }
