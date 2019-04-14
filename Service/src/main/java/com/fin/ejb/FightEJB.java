@@ -1,9 +1,12 @@
 package com.fin.ejb;
 
 import com.fin.entity.Child;
+import com.fin.entity.game.Fight;
+import com.fin.entity.game.Fighter;
 import com.fin.entity.medical.DiseaseStrength;
 
 import javax.ejb.Singleton;
+import javax.json.JsonObject;
 
 @Singleton
 public class FightEJB {
@@ -17,8 +20,12 @@ public class FightEJB {
         return radiantAbility && direAbility;
     }
 
-    public void startFight(Child radiant, Child dire) {
-        // TODO
+    public JsonObject generateReport(Child radiant, Child dire) {
+        Fighter radiantFighter = new Fighter(radiant);
+        Fighter direFighter = new Fighter(dire);
+        Fight fight = new Fight(radiantFighter, direFighter);
 
+        // TODO
+        return null;
     }
 }

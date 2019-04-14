@@ -1,16 +1,20 @@
 package com.fin.entity.game;
 
 import com.fin.entity.Child;
+import com.fin.entity.Jsonable;
 import com.fin.entity.group.Diary;
 import com.fin.entity.group.GradeBook;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import java.util.List;
 
 @Getter
 @Setter
-public class Fighter {
+public class Fighter implements Jsonable {
     private double strength;
     private double agility;
     private double intellect;
@@ -73,5 +77,25 @@ public class Fighter {
 
     private double calculateCriticalChance() {
         return this.intellect * 0.1;
+    }
+
+    @Override
+    public JsonObject toJson() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        if (child != null) {
+            builder.add("child", child.toJson());
+        }
+
+        builder.add("strength", strength);
+        builder.add("agility", agility);
+        builder.add("intellect", intellect);
+
+        builder.add("hp", hp);
+        builder.add("damage", damage);
+        builder.add("attackSpeed", attackSpeed);
+        builder.add("blockChance", blockChance);
+        builder.add("criticalChance", criticalChance);
+
+        return builder.build();
     }
 }

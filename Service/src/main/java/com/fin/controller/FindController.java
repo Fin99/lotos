@@ -38,16 +38,6 @@ public class FindController {
     @Inject
     GroupRepository groupRepository;
 
-    static <T extends Jsonable> JsonArray wrapList(List<T> entities) {
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-
-        for (T entity : entities) {
-            jsonArrayBuilder.add(entity.toJson());
-        }
-
-        return jsonArrayBuilder.build();
-    }
-
     @POST
     @Path("/parent")
     public Response findParent(Parent parentData) {
@@ -56,9 +46,9 @@ public class FindController {
                 parentData.getSex() != null || parentData.getPhoneNumber() != null
         ) {
             List<Parent> parents = parentRepository.findParents(parentData);
-            return Response.ok(wrapList(parents)).build();
+            return Response.ok(Jsonable.wrapList(parents)).build();
         } else {
-            return Response.ok(wrapList(parentRepository.findAllParent())).build();
+            return Response.ok(Jsonable.wrapList(parentRepository.findAllParent())).build();
         }
     }
 
@@ -67,9 +57,9 @@ public class FindController {
     public Response findGroup(Group groupData) {
         if (groupData.getName() != null) {
             List<Group> groups = groupRepository.findGroup(groupData);
-            return Response.ok(wrapList(groups)).build();
+            return Response.ok(Jsonable.wrapList(groups)).build();
         } else {
-            return Response.ok(wrapList(groupRepository.findAllGroup())).build();
+            return Response.ok(Jsonable.wrapList(groupRepository.findAllGroup())).build();
         }
     }
 
@@ -82,9 +72,9 @@ public class FindController {
                 childData.getMedicalBook() != null && childData.getMedicalBook().getSex() != null
         ) {
             List<Child> children = childRepository.findChildren(childData);
-            return Response.ok(wrapList(children)).build();
+            return Response.ok(Jsonable.wrapList(children)).build();
         } else {
-            return Response.ok(wrapList(childRepository.findAllChildren())).build();
+            return Response.ok(Jsonable.wrapList(childRepository.findAllChildren())).build();
         }
     }
 
@@ -98,7 +88,7 @@ public class FindController {
                         employeeData.getInn() != null)
         ) {
             List<Employee> employee = employeeRepository.findEmployee(employeeData);
-            return Response.ok(wrapList(employee)).build();
+            return Response.ok(Jsonable.wrapList(employee)).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }

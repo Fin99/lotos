@@ -2,6 +2,7 @@ package com.fin.controller;
 
 
 import com.fin.entity.Client;
+import com.fin.entity.Jsonable;
 import com.fin.entity.Message;
 import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
@@ -45,7 +46,7 @@ public class MessageController {
 
         List<Message> messages = messageRepository.findAllMessage(client1, client2);
 
-        return Response.ok(FindController.wrapList(messages)).build();
+        return Response.ok(Jsonable.wrapList(messages)).build();
     }
 
     @POST

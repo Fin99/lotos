@@ -35,7 +35,7 @@ public class GameController {
         Child radiant = children.get(0);
         Child dire = children.get(1);
         if (fightEJB.isFightPossible(radiant, dire)) {
-            fightEJB.startFight(radiant, dire);
+            fightEJB.generateReport(radiant, dire);
             return Response.ok().build(); // FIXME Send success.
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build(); // FIXME Send to recipient the reason.
