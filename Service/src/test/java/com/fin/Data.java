@@ -4,9 +4,7 @@ import com.fin.entity.Child;
 import com.fin.entity.Client;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
-import com.fin.entity.employee.Educator;
-import com.fin.entity.employee.Employee;
-import com.fin.entity.employee.Teacher;
+import com.fin.entity.employee.*;
 import com.fin.entity.group.Group;
 import com.fin.entity.group.TypeGroup;
 import com.fin.entity.medical.MedicalBook;
@@ -58,6 +56,8 @@ class Data {
     static Parent parent = new Parent();
     static Child child = new Child();
     static Teacher teacher = new Teacher();
+    static Doctor doctor = new Doctor();
+    static Cooker cooker = new Cooker();
     static Place place = new Place();
     static Item item = new Item();
     static Group group = new Group();
@@ -82,6 +82,19 @@ class Data {
         teacher.setSalary(15000);
         teacher.setTypeEmployee(Employee.TypeEmployee.TEACHER);
         teacher.setClient(new Client("teacherTest", "teacherTest", Role.TEACHER));
+
+        doctor.setInn("88005553535");
+        doctor.setName("Александр");
+        doctor.setSurname("Исаев");
+        doctor.setSalary(15000);
+        doctor.setTypeEmployee(Employee.TypeEmployee.DOCTOR);
+        doctor.setClient(new Client("teacherTest", "teacherTest", Role.DOCTOR));
+
+        cooker.setPhone("88005553535");
+        cooker.setName("Александр");
+        cooker.setSalary(15000);
+        cooker.setTypeEmployee(Employee.TypeEmployee.COOKER);
+        cooker.setClient(new Client("teacherTest", "teacherTest", Role.COOKER));
 
         place.setName("374TEST");
 

@@ -199,6 +199,12 @@ public class RegistrationController {
                 case TEACHER:
                     employee = new Teacher(employee);
                     break;
+                case COOKER:
+                    employee = new Cooker(employee);
+                    break;
+                case DOCTOR:
+                    employee = new Doctor(employee);
+                    break;
             }
 
             mainRepository.create(employee);
@@ -221,6 +227,10 @@ public class RegistrationController {
                 return Role.SECURITY;
             case TEACHER:
                 return Role.TEACHER;
+            case COOKER:
+                return Role.COOKER;
+            case DOCTOR:
+                return Role.DOCTOR;
             default:
                 return null;
         }

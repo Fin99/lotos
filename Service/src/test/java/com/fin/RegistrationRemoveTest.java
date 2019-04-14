@@ -82,7 +82,7 @@ public class RegistrationRemoveTest {
         registrationRequest.header("Content-Type", "application/json");
         registrationRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
-        registrationRequest.body(Data.teacher.toJson().toString());
+        registrationRequest.body(cooker.toJson().toString());
 
         Response response = registrationRequest.post(urlRegistrationEmployee);
         int registrationStatus = response.getStatusCode();

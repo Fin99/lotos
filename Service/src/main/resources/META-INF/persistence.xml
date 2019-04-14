@@ -1,0 +1,59 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="lotos">
+        <!-- jar-file TODO -->
+        <!-- mapping-file -->
+        <!-- eat -->
+        <class>com.fin.entity.eat.GroupMenu</class>
+        <class>com.fin.entity.eat.Meal</class>
+        <class>com.fin.entity.eat.Menu</class>
+        <class>com.fin.entity.eat.Product</class>
+        <class>com.fin.entity.eat.Supplier</class>
+        <!-- employee -->
+        <class>com.fin.entity.employee.Babysitter</class>
+        <class>com.fin.entity.employee.Chief</class>
+        <class>com.fin.entity.employee.Educator</class>
+        <class>com.fin.entity.employee.Employee</class>
+        <class>com.fin.entity.employee.Security</class>
+        <class>com.fin.entity.employee.Teacher</class>
+        <class>com.fin.entity.employee.Doctor</class>
+        <class>com.fin.entity.employee.Cooker</class>
+        <!-- group -->
+        <class>com.fin.entity.group.Diary</class>
+        <class>com.fin.entity.group.Elective</class>
+        <class>com.fin.entity.group.Group</class>
+        <class>com.fin.entity.group.GradeBook</class>
+        <class>com.fin.entity.group.TypeGroup</class>
+        <!-- medical -->
+        <class>com.fin.entity.medical.Allergy</class>
+        <class>com.fin.entity.medical.Ill</class>
+        <class>com.fin.entity.medical.MedicalBook</class>
+        <class>com.fin.entity.medical.Vaccination</class>
+        <!-- money -->
+        <class>com.fin.entity.money.Refill</class>
+        <class>com.fin.entity.money.Wallet</class>
+        <!-- place -->
+        <class>com.fin.entity.place.Item</class>
+        <class>com.fin.entity.place.Place</class>
+        <!-- security -->
+        <class>com.fin.entity.security.Camera</class>
+        <class>com.fin.entity.security.Video</class>
+        <!-- other -->
+        <class>com.fin.entity.Message</class>
+        <class>com.fin.entity.Child</class>
+        <class>com.fin.entity.Client</class>
+        <class>com.fin.entity.Parent</class>
+
+        <properties>
+            <!-- database connection -->
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/lotos"/>
+            <property name="javax.persistence.jdbc.user" value="username"/>
+            <property name="javax.persistence.jdbc.password" value="password"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+            <!--<property name="javax.persistence.schema-generation.database.action" value="create" />-->
+        </properties>
+    </persistence-unit>
+</persistence>

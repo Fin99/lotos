@@ -87,7 +87,9 @@ public class Employee implements Serializable, Jsonable {
         CHIEF,
         EDUCATOR,
         SECURITY,
-        TEACHER
+        TEACHER,
+        COOKER,
+        DOCTOR
     }
 
 }

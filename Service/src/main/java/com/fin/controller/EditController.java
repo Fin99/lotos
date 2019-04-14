@@ -124,7 +124,8 @@ public class EditController {
 
     @POST
     @Path("/employee")
-    @Secured(value = {Role.EDUCATOR, Role.CHIEF, Role.TEACHER, Role.BABYSITTER, Role.SECURITY})
+    @Secured(value = {Role.EDUCATOR, Role.CHIEF, Role.TEACHER, Role.BABYSITTER,
+            Role.SECURITY, Role.COOKER, Role.DOCTOR})
     public Response editEmployee(Employee employeeData) {
         Client client = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
         Employee employee = employeeRepository.findByClient(client);

@@ -1,8 +1,9 @@
 .idea/
 *.iml
-**/persistence.xml
 *.class
 *.jar
 **/target/
 **/out/
 *.MF
+Service/web/WEB-INF/classes/
+Service/web/WEB-INF/lib/
