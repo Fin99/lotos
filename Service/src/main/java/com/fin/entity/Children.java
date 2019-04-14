@@ -1,5 +1,7 @@
 package com.fin.entity;
 
+import com.fin.entity.group.Diary;
+import com.fin.entity.group.GradeBook;
 import com.fin.entity.group.Group;
 import com.fin.entity.medical.MedicalBook;
 import lombok.Getter;
@@ -11,6 +13,8 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -37,6 +41,10 @@ public class Children implements Serializable, Jsonable {
     private Parent parent2;
     @OneToOne(cascade = CascadeType.ALL)
     private Client client;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<GradeBook> gradeBookList;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Diary> diaryList;
 
     public Children(String name, String surname, MedicalBook medicalBook, Group group, Parent parent1, Parent parent2, Client client) {
         this.name = name;
@@ -46,6 +54,7 @@ public class Children implements Serializable, Jsonable {
         this.parent1 = parent1;
         this.parent2 = parent2;
         this.client = client;
+        this.gradeBookList = new ArrayList<>();
     }
 
     public JsonObject toJson() {

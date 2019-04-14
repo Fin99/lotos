@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(name = "group_menu")
 @Setter
 @Getter
 @NoArgsConstructor
