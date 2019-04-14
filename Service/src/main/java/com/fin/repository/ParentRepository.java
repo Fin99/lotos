@@ -19,11 +19,6 @@ public class ParentRepository extends Repository {
 
     }
 
-    public List<Parent> findAllParent() {
-        String query = "SELECT p FROM Parent p";
-        return getEntityManager().createQuery(query, Parent.class).getResultList();
-    }
-
     public List<Parent> findParents(Parent parentData) {
         String query = "SELECT p FROM Parent p WHERE";
 

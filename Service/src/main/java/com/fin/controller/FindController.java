@@ -5,17 +5,15 @@ import com.fin.entity.Child;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
-import com.fin.repository.ChildRepository;
 import com.fin.entity.group.Group;
+import com.fin.repository.ChildRepository;
+import com.fin.repository.MainRepository;
 import com.fin.repository.ParentRepository;
 import com.fin.repository.employee.EmployeeRepository;
 import com.fin.repository.group.GroupRepository;
 import com.fin.security.Secured;
 
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,6 +27,8 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class FindController {
+    @Inject
+    MainRepository mainRepository;
     @Inject
     ParentRepository parentRepository;
     @Inject
@@ -48,7 +48,7 @@ public class FindController {
             List<Parent> parents = parentRepository.findParents(parentData);
             return Response.ok(Jsonable.wrapList(parents)).build();
         } else {
-            return Response.ok(Jsonable.wrapList(parentRepository.findAllParent())).build();
+            return Response.ok(Jsonable.wrapList(mainRepository.findAll(Parent.class))).build();
         }
     }
 
@@ -59,7 +59,7 @@ public class FindController {
             List<Group> groups = groupRepository.findGroup(groupData);
             return Response.ok(Jsonable.wrapList(groups)).build();
         } else {
-            return Response.ok(Jsonable.wrapList(groupRepository.findAllGroup())).build();
+            return Response.ok(Jsonable.wrapList(mainRepository.findAll(Group.class))).build();
         }
     }
 
@@ -74,7 +74,7 @@ public class FindController {
             List<Child> children = childRepository.findChildren(childData);
             return Response.ok(Jsonable.wrapList(children)).build();
         } else {
-            return Response.ok(Jsonable.wrapList(childRepository.findAllChildren())).build();
+            return Response.ok(Jsonable.wrapList(mainRepository.findAll(Child.class))).build();
         }
     }
 

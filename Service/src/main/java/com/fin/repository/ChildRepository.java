@@ -58,9 +58,4 @@ public class ChildRepository extends Repository {
 
         return getEntityManager().createQuery(query, Child.class).getResultList();
     }
-
-    public List<Child> findAllChildren() {
-        String query = "SELECT c FROM Child c";
-        return getEntityManager().createQuery(query, Child.class).getResultList();
-    }
 }

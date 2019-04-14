@@ -47,4 +47,9 @@ public class MainRepository extends Repository {
         getEntityManager().getTransaction().commit();
     }
 
+    public <T> List<T> findAll(Class<T> classEmpty) {
+        String query = "SELECT p FROM " + classEmpty.getSimpleName() + " p";
+        return getEntityManager().createQuery(query, classEmpty).getResultList();
+    }
+
 }

@@ -11,11 +11,6 @@ import java.util.List;
 @Named("groupRepository")
 public class GroupRepository extends Repository {
 
-    public List<Group> findAllGroup() {
-        String query = "SELECT g FROM Group g";
-        return getEntityManager().createQuery(query, Group.class).getResultList();
-    }
-
     public List<Group> findGroup(Group groupData) {
         String query = "SELECT g FROM Group g WHERE g.name LIKE '%" + groupData.getName() + "%'";
         return getEntityManager().createQuery(query, Group.class).getResultList();
