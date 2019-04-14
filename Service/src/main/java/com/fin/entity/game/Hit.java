@@ -11,12 +11,12 @@ import javax.json.JsonObjectBuilder;
 @Getter
 @Setter
 public class Hit implements Jsonable {
-    private Fight fight = null;
-    private HitDirection hitDirection = HitDirection.TO_DIRE;
-    private boolean isCritical = false;
-    private boolean isBlocked = false;
-    private double damage = 0.0;
-    private double time = 0.0;
+    private Fight fight;
+    private HitDirection hitDirection;
+    private boolean isCritical;
+    private boolean isBlocked;
+    private double damage;
+    private double time;
 
     @Override
     public JsonObject toJson() {
