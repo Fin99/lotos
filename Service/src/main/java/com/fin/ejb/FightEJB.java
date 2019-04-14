@@ -6,12 +6,23 @@ import com.fin.entity.game.Fighter;
 import com.fin.entity.game.Hit;
 import com.fin.entity.game.HitDirection;
 import com.fin.entity.medical.DiseaseStrength;
+import com.fin.entity.medical.Ill;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.json.JsonObject;
+import java.util.List;
+import java.util.Random;
 
+@Getter
+@Setter
 @Singleton
 public class FightEJB {
+
+    @EJB
+    private IllEJB illEJB;
 
     public boolean isFightPossible(Child radiant, Child dire) {
         boolean radiantAbility = radiant.getMedicalBook().getIllSet().stream()
@@ -48,8 +59,12 @@ public class FightEJB {
                 }
             }
         }
-        // TODO define new hurts when the fight ends
-        // create list of ills and take them randomly
+
+        Fighter loser = radiant.getHp() > 0 ? dire : radiant;
+        Random rand = new Random();
+        Ill ill = illEJB.getDefinedIlls().get(rand.nextInt(illEJB.getDefinedIlls().size()));
+        loser.getChild().getMedicalBook().getIllSet().add(ill);
+
         return fight.toJson();
     }
 

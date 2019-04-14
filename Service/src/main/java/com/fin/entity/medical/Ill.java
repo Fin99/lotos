@@ -22,6 +22,12 @@ public class Ill implements Serializable {
     private long id;
     @Column
     private String name;
+
+    public Ill(String name, DiseaseStrength diseaseStrength) {
+        this.name = name;
+        this.diseaseStrength = diseaseStrength;
+    }
+
     @Enumerated(EnumType.STRING)
     private DiseaseStrength diseaseStrength;
 
