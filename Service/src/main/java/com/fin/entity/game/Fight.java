@@ -34,6 +34,7 @@ public class Fight implements Jsonable {
             builder.add("dire", dire.toJson());
         }
         builder.add("hitList", Jsonable.wrapList(hitList));
+
         return builder.build();
     }
 }

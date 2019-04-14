@@ -25,7 +25,7 @@ public class FightEJB {
         Fighter direFighter = new Fighter(dire);
         Fight fight = new Fight(radiantFighter, direFighter);
 
-        // TODO
+        
         return null;
     }
 }

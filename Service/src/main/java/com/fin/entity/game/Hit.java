@@ -4,7 +4,9 @@ import com.fin.entity.Jsonable;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 @Getter
 @Setter
@@ -17,6 +19,13 @@ public class Hit implements Jsonable {
 
     @Override
     public JsonObject toJson() {
-        return null;
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        if (hitDirection != null) {
+            builder.add("hitDirection", hitDirection.toString());
+        }
+        builder.add("isCritical", isCritical);
+        builder.add("isBlocked", isBlocked);
+        builder.add("damage", damage);
+        return builder.build();
     }
 }
