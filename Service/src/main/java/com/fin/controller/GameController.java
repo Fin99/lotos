@@ -1,7 +1,7 @@
 package com.fin.controller;
 
-import com.fin.ejb.GameEJB;
 import com.fin.entity.Child;
+import com.fin.ejb.FightEJB;
 import com.fin.security.Role;
 import com.fin.security.Secured;
 
@@ -26,7 +26,7 @@ public class GameController {
     // TODO add getAllFights()
 
     @EJB
-    private GameEJB gameEJB;
+    private FightEJB fightEJB;
 
     @POST
     @Secured(Role.TEACHER)
@@ -34,12 +34,11 @@ public class GameController {
     public Response startFight(List<Child> children) {
         Child radiant = children.get(0);
         Child dire = children.get(1);
-
-        if (gameEJB.isFightPossible(radiant, dire)) {
-            gameEJB.startFight(radiant, dire);
+        if (fightEJB.isFightPossible(radiant, dire)) {
+            fightEJB.startFight(radiant, dire);
             return Response.ok().build(); // FIXME Send success.
         } else {
-            return Response.ok().build(); // FIXME Send to recipient the reason.
+            return Response.status(Response.Status.BAD_REQUEST).build(); // FIXME Send to recipient the reason.
         }
     }
 }
