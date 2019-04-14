@@ -6,6 +6,7 @@ import com.fin.entity.group.Diary;
 import com.fin.entity.group.GradeBook;
 import com.fin.entity.medical.DiseaseStrength;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.json.Json;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Fighter implements Jsonable {
     private double strength;
     private double agility;
@@ -45,18 +47,27 @@ public class Fighter implements Jsonable {
     private double calculateStrength() {
         List<GradeBook> gradeBookList = child.getGradeBookList();
         int sumOfScores = gradeBookList.stream().map(GradeBook::getEatingScore).reduce(0, Integer::sum);
+        if (gradeBookList.size() == 0) {
+            return 0;
+        }
         return (double) sumOfScores / gradeBookList.size();
     }
 
     private double calculateAgility() {
         List<GradeBook> gradeBookList = child.getGradeBookList();
         int sumOfScores = gradeBookList.stream().map(GradeBook::getBehavior).reduce(0, Integer::sum);
+        if (gradeBookList.size() == 0) {
+            return 0;
+        }
         return (double) sumOfScores / gradeBookList.size();
     }
 
     private double calculateIntellect() {
         List<Diary> diaryList = child.getDiaryList();
         int sumOfScores = child.getDiaryList().stream().map(Diary::getAssessment).reduce(0, Integer::sum);
+        if (diaryList.size() == 0) {
+            return 0;
+        }
         return (double) sumOfScores / diaryList.size() - 2;
     }
 

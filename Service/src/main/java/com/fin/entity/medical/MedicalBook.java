@@ -12,6 +12,7 @@ import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -38,13 +39,13 @@ public class MedicalBook implements Serializable {
     private String policy;
     @ManyToMany
     @JoinTable(name = "medical_book_allergy", joinColumns = @JoinColumn(name = "medical_book_id"))
-    private Set<Allergy> allergySet;
+    private Set<Allergy> allergySet = new HashSet<>();
     @ManyToMany
     @JoinTable(name = "medical_book_ill", joinColumns = @JoinColumn(name = "medical_book_id"))
-    private Set<Ill> illSet;
+    private Set<Ill> illSet = new HashSet<>();
     @ManyToMany
     @JoinTable(name = "medical_book_vaccination", joinColumns = @JoinColumn(name = "medical_book_id"))
-    private Set<Vaccination> vaccinationSet;
+    private Set<Vaccination> vaccinationSet = new HashSet<>();
 
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
@@ -67,21 +68,21 @@ public class MedicalBook implements Serializable {
             for (Allergy allergy : allergySet) {
                 allergyBuilder.add(allergy.toJson());
             }
-            builder.add("allergy", allergyBuilder.build());
+            builder.add("allergySet", allergyBuilder.build());
         }
         if (illSet != null) {
             JsonArrayBuilder illBuilder = Json.createArrayBuilder();
             for (Ill ill : illSet) {
                 illBuilder.add(ill.toJson());
             }
-            builder.add("ill", illBuilder.build());
+            builder.add("illSet", illBuilder.build());
         }
         if (vaccinationSet != null) {
             JsonArrayBuilder vaccinationBuilder = Json.createArrayBuilder();
             for (Vaccination vaccination : vaccinationSet) {
                 vaccinationBuilder.add(vaccination.toJson());
             }
-            builder.add("vaccination", vaccinationBuilder.build());
+            builder.add("vaccinationSet", vaccinationBuilder.build());
         }
 
         return builder.build();

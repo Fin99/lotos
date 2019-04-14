@@ -2,6 +2,7 @@ package com.fin.entity.game;
 
 import com.fin.entity.Jsonable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.json.Json;
@@ -10,6 +11,7 @@ import javax.json.JsonObjectBuilder;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Hit implements Jsonable {
     private Fight fight;
     private HitDirection hitDirection;
@@ -24,8 +26,8 @@ public class Hit implements Jsonable {
         if (hitDirection != null) {
             builder.add("hitDirection", hitDirection.toString());
         }
-        builder.add("isCritical", isCritical);
-        builder.add("isBlocked", isBlocked);
+        builder.add("critical", isCritical);
+        builder.add("blocked", isBlocked);
         builder.add("damage", damage);
         builder.add("time", time);
         return builder.build();

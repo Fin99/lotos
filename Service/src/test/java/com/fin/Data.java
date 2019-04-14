@@ -52,6 +52,8 @@ class Data {
     static String urlMessageSend = "/message/send";
     static String urlMessageGet = "/message/get";
 
+    static String urlGameStart = "/game/start";
+
     static Credentials chiefCredentials = new Credentials("chief@gmail.com", "chief");
     static Parent parent = new Parent();
     static Child child = new Child();

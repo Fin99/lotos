@@ -42,9 +42,9 @@ public class Child implements Serializable, Jsonable {
     @OneToOne(cascade = CascadeType.ALL)
     private Client client;
     @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
-    private List<GradeBook> gradeBookList;
+    private List<GradeBook> gradeBookList = new ArrayList<>();
     @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
-    private List<Diary> diaryList;
+    private List<Diary> diaryList = new ArrayList<>();
 
     public Child(String name, String surname, MedicalBook medicalBook, Group group, Parent parent1, Parent parent2, Client client) {
         this.name = name;

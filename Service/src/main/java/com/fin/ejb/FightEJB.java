@@ -90,6 +90,7 @@ public class FightEJB {
             damage *= 0.8;
             hit.setBlocked(true);
         }
+        hit.setDamage(damage);
         defender.setHp(defender.getHp() - damage > 0 ? defender.getHp() - damage : 0);
     }
 }

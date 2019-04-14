@@ -2,6 +2,7 @@ package com.fin.entity.game;
 
 import com.fin.entity.Jsonable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.json.Json;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Fight implements Jsonable {
     private Fighter radiant;
     private Fighter dire;
