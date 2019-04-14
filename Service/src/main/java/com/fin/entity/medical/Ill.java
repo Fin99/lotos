@@ -22,6 +22,8 @@ public class Ill implements Serializable {
     private long id;
     @Column
     private String name;
+    @Enumerated(EnumType.STRING)
+    private DiseaseStrength diseaseStrength;
 
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
