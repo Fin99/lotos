@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Getter
 public class Educator extends Employee implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "educator", cascade = CascadeType.ALL)
     private List<GradeBook> gradeBookList;
 
     public Educator(Employee employee) {

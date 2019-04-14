@@ -24,7 +24,7 @@ public class MessageTest {
     }
 
     @Test
-    public void testMessage() {
+    public void testMessage() {//TODO add delete message
         Client sender = new Client();
         sender.setId(1);
         Client receiver = new Client();
@@ -51,6 +51,6 @@ public class MessageTest {
         assertEquals(receiveResponse.getStatusCode(), 200);
 
         List<Object> jsonPath = receiveResponse.body().jsonPath().getList("");
-        assertTrue(jsonPath.size() > 1);
+        assertTrue(jsonPath.size() > 0);
     }
 }
