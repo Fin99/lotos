@@ -17,7 +17,7 @@ public class Fighter {
 
     private double hp;
     private double damage;
-    private double fireSpeed;
+    private double attackSpeed;
     private double blockChance;
     private double criticalChance;
 
@@ -30,7 +30,11 @@ public class Fighter {
         this.agility = calculateAgility();
         this.intellect = calculateIntellect();
 
-        // TODO fill other characteristics
+        this.hp = calculateHp();
+        this.damage = calculateDamage();
+        this.attackSpeed = calculateAttackSpeed();
+        this.blockChance = calculateBlockChance();
+        this.criticalChance = calculateCriticalChance();
     }
 
     private double calculateStrength() {
@@ -49,5 +53,25 @@ public class Fighter {
         List<Diary> diaryList = child.getDiaryList();
         int sumOfScores = child.getDiaryList().stream().map(Diary::getAssessment).reduce(0, Integer::sum);
         return (double) sumOfScores / diaryList.size() - 2;
+    }
+
+    private double calculateHp() {
+        return 1000 + this.strength * 1000;
+    }
+
+    private double calculateDamage() {
+        return 50 + this.strength * 15;
+    }
+
+    private double calculateAttackSpeed() {
+        return 1 - this.agility * 0.1;
+    }
+
+    private double calculateBlockChance() {
+        return 0.1 + this.agility * 0.15;
+    }
+
+    private double calculateCriticalChance() {
+        return this.intellect * 0.1;
     }
 }
