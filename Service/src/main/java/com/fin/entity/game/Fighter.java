@@ -82,6 +82,7 @@ public class Fighter implements Jsonable {
     @Override
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
+
         if (child != null) {
             builder.add("child", child.toJson());
         }
