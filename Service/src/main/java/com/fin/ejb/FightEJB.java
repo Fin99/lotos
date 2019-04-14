@@ -48,6 +48,8 @@ public class FightEJB {
                 }
             }
         }
+        // TODO define new hurts when the fight ends
+        // create list of ills and take them randomly
         return fight.toJson();
     }
 

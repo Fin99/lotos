@@ -4,6 +4,7 @@ import com.fin.entity.Child;
 import com.fin.entity.Jsonable;
 import com.fin.entity.group.Diary;
 import com.fin.entity.group.GradeBook;
+import com.fin.entity.medical.DiseaseStrength;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -64,8 +65,35 @@ public class Fighter implements Jsonable {
     }
 
     private double calculateDamage() {
-        // TODO add damage decreasing when the child ills
-        return 50 + this.strength * 15;
+        double baseDamage = 50 + this.strength * 15;
+
+        long hardIllsAmount = child.getMedicalBook().getIllSet().stream()
+                .filter(ill -> ill.getDiseaseStrength() == DiseaseStrength.HARD).count();
+        if (hardIllsAmount > 0) {
+            return baseDamage * (1 - calculateDecreasingFactor(0.2, hardIllsAmount));
+        }
+
+        long mediumIllsAmount = child.getMedicalBook().getIllSet().stream()
+                .filter(ill -> ill.getDiseaseStrength() == DiseaseStrength.MEDIUM).count();
+        if (mediumIllsAmount > 0) {
+            return baseDamage * (1 - calculateDecreasingFactor(0.1, hardIllsAmount));
+        }
+
+        long minimumIllsAmount = child.getMedicalBook().getIllSet().stream()
+                .filter(ill -> ill.getDiseaseStrength() == DiseaseStrength.MINIMUM).count();
+        if (minimumIllsAmount > 0) {
+            return baseDamage * (1 - calculateDecreasingFactor(0.05, hardIllsAmount));
+        }
+
+        return baseDamage;
+    }
+
+    private double calculateDecreasingFactor(double baseFactor, long amount) {
+        double resultFactor = 0;
+        for (int i = 0; i < amount; i++) {
+            resultFactor += baseFactor / Math.pow(2, i);
+        }
+        return resultFactor;
     }
 
     private double calculateCooldown() {
