@@ -40,7 +40,7 @@ public class EditTest {
 
         editRequest.body(editParent.toString());
 
-        int editStatus = editRequest.post("/edit/parent").getStatusCode();
+        int editStatus = editRequest.post(urlEditParent).getStatusCode();
 
         assertEquals(editStatus, 200);
 

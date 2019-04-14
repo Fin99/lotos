@@ -17,6 +17,7 @@ import java.util.List;
 
 import static com.fin.Data.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FindTest {
     @BeforeClass
@@ -39,7 +40,7 @@ public class FindTest {
         assertEquals(response.getStatusCode(), 200);
 
         List<Object> jsonPath = response.body().jsonPath().getList("");
-        assertEquals(jsonPath.size(), 5);
+        assertTrue(jsonPath.size() >= 5);
 
         removeEntity(urlRemoveParent, parentsId);
     }

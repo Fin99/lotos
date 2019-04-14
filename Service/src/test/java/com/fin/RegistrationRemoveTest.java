@@ -40,7 +40,7 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-            .add("id", idParent).build().toString());
+                .add("id", idParent).build().toString());
 
         int removeStatus = removeRequest.post(urlRemoveParent).getStatusCode();
 
@@ -69,7 +69,7 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-            .add("id", childrenId).build().toString());
+                .add("id", childrenId).build().toString());
 
         int removeStatus = removeRequest.post(urlRemoveChildren).getStatusCode();
 
@@ -84,7 +84,7 @@ public class RegistrationRemoveTest {
 
         registrationRequest.body(Data.teacher.toJson().toString());
 
-        Response response = registrationRequest.post("/registration/employee");
+        Response response = registrationRequest.post(urlRegistrationEmployee);
         int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
@@ -96,9 +96,9 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-            .add("id", employeeId).build().toString());
+                .add("id", employeeId).build().toString());
 
-        int removeStatus = removeRequest.post("/remove/employee").getStatusCode();
+        int removeStatus = removeRequest.post(urlRemoveEmployee).getStatusCode();
 
         assertEquals(removeStatus, 200);
     }
@@ -111,7 +111,7 @@ public class RegistrationRemoveTest {
 
         registrationRequest.body(Data.place.toJson().toString());
 
-        Response response = registrationRequest.post("/registration/place");
+        Response response = registrationRequest.post(urlRegistrationPlace);
         int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
@@ -123,9 +123,9 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-            .add("id", idPlace).build().toString());
+                .add("id", idPlace).build().toString());
 
-        int removeStatus = removeRequest.post("/remove/place").getStatusCode();
+        int removeStatus = removeRequest.post(urlRemovePlace).getStatusCode();
 
         assertEquals(removeStatus, 200);
     }
@@ -138,7 +138,7 @@ public class RegistrationRemoveTest {
 
         registrationPlaceRequest.body(Data.place.toJson().toString());
 
-        Response responsePlace = registrationPlaceRequest.post("/registration/place");
+        Response responsePlace = registrationPlaceRequest.post(urlRegistrationPlace);
         int registrationPlaceStatus = responsePlace.getStatusCode();
         assertEquals(registrationPlaceStatus, 200);
 
@@ -152,7 +152,7 @@ public class RegistrationRemoveTest {
         Data.item.setPlace(Data.place);
         registrationItemRequest.body(Data.item.toJson().toString());
 
-        Response responseItem = registrationItemRequest.post("/registration/item");
+        Response responseItem = registrationItemRequest.post(urlRegistrationItem);
         int registrationItemStatus = responseItem.getStatusCode();
         assertEquals(registrationItemStatus, 200);
 
@@ -163,9 +163,9 @@ public class RegistrationRemoveTest {
         removeItemRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeItemRequest.body(Json.createObjectBuilder()
-            .add("id", idItem).build().toString());
+                .add("id", idItem).build().toString());
 
-        int removeItemStatus = removeItemRequest.post("/remove/item").getStatusCode();
+        int removeItemStatus = removeItemRequest.post(urlRemoveItem).getStatusCode();
 
         assertEquals(removeItemStatus, 200);
 
@@ -174,9 +174,9 @@ public class RegistrationRemoveTest {
         removePlaceRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removePlaceRequest.body(Json.createObjectBuilder()
-            .add("id", idPlace).build().toString());
+                .add("id", idPlace).build().toString());
 
-        int removePlaceStatus = removePlaceRequest.post("/remove/place").getStatusCode();
+        int removePlaceStatus = removePlaceRequest.post(urlRemovePlace).getStatusCode();
 
         assertEquals(removePlaceStatus, 200);
 
@@ -192,7 +192,7 @@ public class RegistrationRemoveTest {
 
         registrationRequest.body(Data.group.toJson().toString());
 
-        Response response = registrationRequest.post("/registration/group");
+        Response response = registrationRequest.post(urlRegistrationGroup);
         int registrationStatus = response.getStatusCode();
 
         assertEquals(registrationStatus, 200);
@@ -204,9 +204,9 @@ public class RegistrationRemoveTest {
         removeRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
 
         removeRequest.body(Json.createObjectBuilder()
-            .add("id", idGroup).build().toString());
+                .add("id", idGroup).build().toString());
 
-        int removeStatus = removeRequest.post("/remove/group").getStatusCode();
+        int removeStatus = removeRequest.post(urlRemoveGroup).getStatusCode();
 
         assertEquals(removeStatus, 200);
     }
