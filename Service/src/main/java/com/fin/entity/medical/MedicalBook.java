@@ -38,13 +38,16 @@ public class MedicalBook implements Serializable {
     @Column
     private String policy;
     @ManyToMany
-    @JoinTable(name = "medical_book_allergy", joinColumns = @JoinColumn(name = "medical_book_id"))
+    @JoinTable(name = "medical_book_allergy", joinColumns = @JoinColumn(name = "medical_book_id"),
+            inverseJoinColumns = @JoinColumn(name = "allergy_id"))
     private Set<Allergy> allergySet = new HashSet<>();
     @ManyToMany
-    @JoinTable(name = "medical_book_ill", joinColumns = @JoinColumn(name = "medical_book_id"))
+    @JoinTable(name = "medical_book_ill", joinColumns = @JoinColumn(name = "medical_book_id"),
+            inverseJoinColumns = @JoinColumn(name = "ill_id"))
     private Set<Ill> illSet = new HashSet<>();
     @ManyToMany
-    @JoinTable(name = "medical_book_vaccination", joinColumns = @JoinColumn(name = "medical_book_id"))
+    @JoinTable(name = "medical_book_vaccination", joinColumns = @JoinColumn(name = "medical_book_id"),
+            inverseJoinColumns = @JoinColumn(name = "vaccination_id"))
     private Set<Vaccination> vaccinationSet = new HashSet<>();
 
     public JsonObject toJson() {

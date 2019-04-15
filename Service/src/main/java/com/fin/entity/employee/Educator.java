@@ -27,7 +27,7 @@ public class Educator extends Employee implements Serializable {
         this.id = employee.getId();
         this.inn = employee.getInn();
         this.passport = employee.getPassport();
-        this.phone = employee.getPhone();
+        this.phoneNumber = employee.getPhoneNumber();
         this.salary = employee.getSalary();
         this.surname = employee.getSurname();
         this.gradeBookList = new ArrayList<>();

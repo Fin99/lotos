@@ -1,5 +1,10 @@
 package com.fin.entity.place;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +14,11 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
+import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 @Entity
@@ -45,7 +54,8 @@ public class Item implements Serializable {
             builder.add("name", name);
         }
         if (shelfLife != null) {
-            builder.add("shelfLife", shelfLife.toString());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            builder.add("shelfLife", dateFormat.format(shelfLife));
         }
         if (note != null) {
             builder.add("note", note);

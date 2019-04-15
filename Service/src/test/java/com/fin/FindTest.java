@@ -155,6 +155,7 @@ public class FindTest {
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
 
+        System.out.println(employee.toJson());
         removeRequest.body(employee.toJson().toString());
 
         Response response = removeRequest.post(urlFindEmployee);

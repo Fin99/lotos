@@ -142,8 +142,8 @@ public class EditController {
         if (employeeData.getPassport() != null) {
             employee.setPassport(employeeData.getPassport());
         }
-        if (employeeData.getPhone() != null) {
-            employee.setPhone(employeeData.getPhone());
+        if (employeeData.getPhoneNumber() != null) {
+            employee.setPhoneNumber(employeeData.getPhoneNumber());
         }
         if (employeeData.getClient() != null && employeeData.getClient().getUsername() != null &&
                 clientRepository.findByUsername(employeeData.getClient().getUsername()) == null) {

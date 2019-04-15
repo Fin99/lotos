@@ -76,7 +76,7 @@ class Data {
         child.setSurname("Исаев");
         child.setClient(new Client("childrenTest", "childrenTest", Role.CHILD));
 
-        teacher.setPhone("88005553535");
+        teacher.setPhoneNumber("88005553535");
         teacher.setPassport("1212453244");
         teacher.setInn("88005553535");
         teacher.setName("Александр");
@@ -92,7 +92,7 @@ class Data {
         doctor.setTypeEmployee(Employee.TypeEmployee.DOCTOR);
         doctor.setClient(new Client("teacherTest", "teacherTest", Role.DOCTOR));
 
-        cooker.setPhone("88005553535");
+        cooker.setPhoneNumber("88005553535");
         cooker.setName("Александр");
         cooker.setSalary(15000);
         cooker.setTypeEmployee(Employee.TypeEmployee.COOKER);

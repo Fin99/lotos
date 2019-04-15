@@ -26,7 +26,7 @@ public class EmployeeRepository extends Repository {
     }
 
     public List<Employee> findEmployee(Employee employeeData) {
-        String query = "SELECT * FROM Employee e WHERE";
+        String query = "SELECT * FROM Employee e JOIN Client c ON e.client_id=c.id WHERE";
 
         boolean flagAND = false;
         if (employeeData.getClient() != null && employeeData.getClient().getUsername() != null) {
@@ -35,7 +35,7 @@ public class EmployeeRepository extends Repository {
             } else {
                 flagAND = true;
             }
-            query += " e.client.username LIKE '%" + employeeData.getClient().getUsername() + "%'";
+            query += " c.username LIKE '%" + employeeData.getClient().getUsername() + "%'";
         }
         if (employeeData.getName() != null) {
             if (flagAND) {
@@ -69,17 +69,16 @@ public class EmployeeRepository extends Repository {
             }
             query += " e.passport LIKE '%" + employeeData.getPassport() + "%'";
         }
-        if (employeeData.getPhone() != null) {
+        if (employeeData.getPhoneNumber() != null) {
             if (flagAND) {
                 query += " AND";
             } else {
                 flagAND = true;
             }
-            query += " e.phone LIKE '%" + employeeData.getPhone() + "%'";
+            query += " e.phoneNumber LIKE '%" + employeeData.getPhoneNumber() + "%'";
         }
 
-        query += " AND dtype ILIKE '" + employeeData.getTypeEmployee().name() + "'";
-
+        query += " AND e.dtype ILIKE '" + employeeData.getClient().getRole() + "'";
 
         return getEntityManager().createNativeQuery(query, Employee.class).getResultList();
     }

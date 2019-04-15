@@ -23,8 +23,8 @@ public class Employee implements Serializable, Jsonable {
     @SequenceGenerator(name = "employee_id", sequenceName = "employee_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id")
     protected long id;
-    @Column
-    protected String phone;
+    @Column(name = "phone_number")
+    protected String phoneNumber;
     @Column
     protected String passport;
     @Column
@@ -40,8 +40,8 @@ public class Employee implements Serializable, Jsonable {
     @Transient
     protected TypeEmployee typeEmployee;
 
-    public Employee(String name, String surname, String phone, String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
-        this.phone = phone;
+    public Employee(String name, String surname, String phoneNumber, String passport, String inn, double salary, Client client, TypeEmployee typeEmployee) {
+        this.phoneNumber = phoneNumber;
         this.passport = passport;
         this.inn = inn;
         this.name = name;
@@ -69,8 +69,8 @@ public class Employee implements Serializable, Jsonable {
         if (passport != null) {
             builder.add("passport", passport);
         }
-        if (phone != null) {
-            builder.add("phone", phone);
+        if (phoneNumber != null) {
+            builder.add("phoneNumber", phoneNumber);
         }
         if (client != null) {
             builder.add("client", client.toJson());

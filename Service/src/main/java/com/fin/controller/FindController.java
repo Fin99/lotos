@@ -4,7 +4,7 @@ package com.fin.controller;
 import com.fin.entity.Child;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Parent;
-import com.fin.entity.employee.Employee;
+import com.fin.entity.employee.*;
 import com.fin.entity.group.Group;
 import com.fin.entity.place.Place;
 import com.fin.repository.ChildRepository;
@@ -95,15 +95,33 @@ public class FindController {
     @POST
     @Path("/employee")
     public Response findEmployee(Employee employeeData) {
-        if (employeeData.getTypeEmployee() != null &&
-                (employeeData.getClient() != null && employeeData.getClient().getUsername() != null ||
+        if (employeeData.getClient() != null && employeeData.getClient().getRole() != null &&
+                (employeeData.getClient().getUsername() != null ||
                         employeeData.getName() != null || employeeData.getSurname() != null ||
-                        employeeData.getPassport() != null || employeeData.getPhone() != null ||
+                        employeeData.getPassport() != null || employeeData.getPhoneNumber() != null ||
                         employeeData.getInn() != null)
         ) {
             List<Employee> employee = employeeRepository.findEmployee(employeeData);
             return Response.ok(Jsonable.wrapList(employee)).build();
         } else {
+            if (employeeData.getClient() != null && employeeData.getClient().getRole() != null) {
+                switch (employeeData.getClient().getRole()) {
+                    case BABYSITTER:
+                        return Response.ok(Jsonable.wrapList(mainRepository.findAll(Babysitter.class))).build();
+                    case CHIEF:
+                        return Response.ok(Jsonable.wrapList(mainRepository.findAll(Chief.class))).build();
+                    case EDUCATOR:
+                        return Response.ok(Jsonable.wrapList(mainRepository.findAll(Educator.class))).build();
+                    case SECURITY:
+                        return Response.ok(Jsonable.wrapList(mainRepository.findAll(Security.class))).build();
+                    case TEACHER:
+                        return Response.ok(Jsonable.wrapList(mainRepository.findAll(Teacher.class))).build();
+                    case COOKER:
+                        return Response.ok(Jsonable.wrapList(mainRepository.findAll(Cooker.class))).build();
+                    case DOCTOR:
+                        return Response.ok(Jsonable.wrapList(mainRepository.findAll(Doctor.class))).build();
+                }
+            }
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }

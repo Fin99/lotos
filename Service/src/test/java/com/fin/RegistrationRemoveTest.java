@@ -132,6 +132,7 @@ public class RegistrationRemoveTest {
 
     @Test
     public void registrationRemovePlaceAndItem() {
+        System.out.println(item.toJson());
         RequestSpecification registrationPlaceRequest = RestAssured.given();
         registrationPlaceRequest.header("Content-Type", "application/json");
         registrationPlaceRequest.header("Authorization", "Bearer " + getToken(Data.chiefCredentials));
