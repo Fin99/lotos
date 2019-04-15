@@ -35,7 +35,6 @@ public class IllEJB {
         definedIlls.add(new Ill("Остеохондроз", DiseaseStrength.HARD));
         definedIlls.add(new Ill("Вывих челюсти", DiseaseStrength.HARD));
         definedIlls.add(new Ill("Перелом пальца", DiseaseStrength.HARD));
-        definedIlls.add(new Ill("Перелом пальца", DiseaseStrength.HARD));
         definedIlls.add(new Ill("Рассечение брови", DiseaseStrength.HARD));
 
         definedIlls.add(new Ill("Вывих плеча", DiseaseStrength.CRITICAL));

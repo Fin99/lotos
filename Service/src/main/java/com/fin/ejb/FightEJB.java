@@ -23,6 +23,8 @@ public class FightEJB {
     @EJB
     private IllEJB illEJB;
 
+    private Fight lastFight;
+
     public boolean isFightPossible(Child radiant, Child dire) {
         boolean radiantAbility = radiant.getMedicalBook().getIllSet().stream()
                 .noneMatch(ill -> ill.getDiseaseStrength() == DiseaseStrength.CRITICAL);
@@ -64,6 +66,7 @@ public class FightEJB {
         Ill ill = illEJB.getDefinedIlls().get(rand.nextInt(illEJB.getDefinedIlls().size()));
         loser.getChild().getMedicalBook().getIllSet().add(ill);
 
+        lastFight = fight;
         return fight.toJson();
     }
 
