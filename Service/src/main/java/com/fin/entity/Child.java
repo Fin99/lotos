@@ -32,7 +32,7 @@ public class Child implements Serializable, Jsonable {
     private String surname;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medical_book_id")
-    private MedicalBook medicalBook;
+    private MedicalBook medicalBook = new MedicalBook();
     @ManyToOne
     private Group group;
     @ManyToOne

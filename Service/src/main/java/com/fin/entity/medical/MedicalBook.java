@@ -37,15 +37,15 @@ public class MedicalBook implements Serializable {
     private Character sex;
     @Column
     private String policy;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medical_book_allergy", joinColumns = @JoinColumn(name = "medical_book_id"),
             inverseJoinColumns = @JoinColumn(name = "allergy_id"))
     private Set<Allergy> allergySet = new HashSet<>();
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medical_book_ill", joinColumns = @JoinColumn(name = "medical_book_id"),
             inverseJoinColumns = @JoinColumn(name = "ill_id"))
     private Set<Ill> illSet = new HashSet<>();
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medical_book_vaccination", joinColumns = @JoinColumn(name = "medical_book_id"),
             inverseJoinColumns = @JoinColumn(name = "vaccination_id"))
     private Set<Vaccination> vaccinationSet = new HashSet<>();

@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(name = "grade_book")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class GradeBook implements Serializable {
     private Child child;
     @Column
     private boolean attend;
-    @Column
+    @Column(name = "eating_score")
     private int eatingScore;
     @Column
     private int behavior;

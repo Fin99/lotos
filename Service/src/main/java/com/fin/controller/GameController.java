@@ -2,8 +2,8 @@ package com.fin.controller;
 
 import com.fin.ejb.FightEJB;
 import com.fin.entity.Child;
-import com.fin.entity.Client;
 import com.fin.repository.ChildRepository;
+import com.fin.repository.MainRepository;
 import com.fin.security.Role;
 import com.fin.security.Secured;
 
@@ -25,6 +25,8 @@ public class GameController {
 
     @Inject
     private ChildRepository childRepository;
+    @Inject
+    private MainRepository mainRepository;
 
     // TODO add getAllFights()
 
@@ -38,15 +40,10 @@ public class GameController {
         Child child1WithId = children.get(0);
         Child child2WithId = children.get(1);
 
-        Client client1WithId = new Client();
-        client1WithId.setId(child1WithId.getId());
-        Client client2WithId = new Client();
-        client2WithId.setId(child2WithId.getId());
+        Child radiant = mainRepository.find(Child.class, child1WithId.getId());
+        Child dire = mainRepository.find(Child.class, child2WithId.getId());
 
-        Child radiant = childRepository.findByClient(client1WithId);
-        Child dire = childRepository.findByClient(client2WithId);
-
-        if (fightEJB.isFightPossible(radiant, dire) && radiant != null && dire != null) {
+        if (radiant != null && dire != null && fightEJB.isFightPossible(radiant, dire)) {
             return Response.ok(fightEJB.generateReport(radiant, dire)).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
