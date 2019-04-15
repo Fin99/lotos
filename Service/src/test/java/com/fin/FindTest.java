@@ -150,20 +150,22 @@ public class FindTest {
         Employee employee = new Educator();
         employee.setTypeEmployee(Employee.TypeEmployee.EDUCATOR);
         employee.setName("Pavel");
+        Client client = new Client();
+        client.setRole(Role.EDUCATOR);
+        employee.setClient(client);
 
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
 
-        System.out.println(employee.toJson());
         removeRequest.body(employee.toJson().toString());
 
         Response response = removeRequest.post(urlFindEmployee);
         assertEquals(response.getStatusCode(), 200);
 
         List<Object> jsonPath = response.body().jsonPath().getList("");
-        assertEquals(jsonPath.size(), 1);
 
         removeEntity(urlRemoveEmployee, employeeId);
+        assertEquals(jsonPath.size(), 1);
     }
 }

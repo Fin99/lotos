@@ -1,9 +1,11 @@
 package com.fin;
 
 import com.fin.entity.Child;
+import com.fin.entity.Client;
 import com.fin.entity.Parent;
 import com.fin.entity.employee.Employee;
 import com.fin.entity.employee.Teacher;
+import com.fin.security.Role;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -144,16 +146,22 @@ public class EditTest {
         findTeacher.setTypeEmployee(Employee.TypeEmployee.TEACHER);
         findTeacher.setName("teacherTestEdit");
 
+        Client teacherClient = new Client();
+        teacherClient.setRole(Role.TEACHER);
+        findTeacher.setClient(teacherClient);
+
         RequestSpecification removeRequest = RestAssured.given();
         removeRequest.header("Content-Type", "application/json");
         removeRequest.header("Authorization", "Bearer " + getToken(chiefCredentials));
+        System.out.println(findTeacher.toJson().toString());
         removeRequest.body(findTeacher.toJson().toString());
         Response response = removeRequest.post(urlFindEmployee);
+        System.out.println(response.body().prettyPrint());
         List<Object> jsonPath = response.body().jsonPath().getList("");
 
+        removeEntity(urlRemoveEmployee, idTeacher);
         //check change
         assertEquals(jsonPath.size(), 1);
 
-        removeEntity(urlRemoveEmployee, idTeacher);
     }
 }
