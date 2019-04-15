@@ -24,7 +24,8 @@ public class ParentRepository extends Repository {
 
 
         boolean flagAND = false;
-        if (parentData.getClient() != null && parentData.getClient().getUsername() != null) {
+        if (parentData.getClient() != null && parentData.getClient().getUsername() != null
+                && !parentData.getClient().getUsername().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -32,7 +33,7 @@ public class ParentRepository extends Repository {
             }
             query += " p.client.username LIKE '%" + parentData.getClient().getUsername() + "%'";
         }
-        if (parentData.getName() != null) {
+        if (parentData.getName() != null && !parentData.getName().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -40,7 +41,7 @@ public class ParentRepository extends Repository {
             }
             query += " p.name LIKE '%" + parentData.getName() + "%'";
         }
-        if (parentData.getSurname() != null) {
+        if (parentData.getSurname() != null && !parentData.getSurname().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -56,7 +57,7 @@ public class ParentRepository extends Repository {
             }
             query += " p.sex LIKE '%" + parentData.getSex() + "%'";
         }
-        if (parentData.getPhoneNumber() != null) {
+        if (parentData.getPhoneNumber() != null && !parentData.getPhoneNumber().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {

@@ -23,7 +23,8 @@ public class ChildRepository extends Repository {
 
 
         boolean flagAND = false;
-        if (childData.getClient() != null && childData.getClient().getUsername() != null) {
+        if (childData.getClient() != null && childData.getClient().getUsername() != null
+                && !childData.getClient().getUsername().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -31,7 +32,7 @@ public class ChildRepository extends Repository {
             }
             query += " c.client.username LIKE '%" + childData.getClient().getUsername() + "%'";
         }
-        if (childData.getName() != null) {
+        if (childData.getName() != null && !childData.getName().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -39,7 +40,7 @@ public class ChildRepository extends Repository {
             }
             query += " c.name LIKE '%" + childData.getName() + "%'";
         }
-        if (childData.getSurname() != null) {
+        if (childData.getSurname() != null && !childData.getSurname().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {

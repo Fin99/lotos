@@ -29,7 +29,8 @@ public class EmployeeRepository extends Repository {
         String query = "SELECT * FROM Employee e JOIN Client c ON e.client_id=c.id WHERE";
 
         boolean flagAND = false;
-        if (employeeData.getClient() != null && employeeData.getClient().getUsername() != null) {
+        if (employeeData.getClient() != null && employeeData.getClient().getUsername() != null
+                && !employeeData.getClient().getUsername().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -37,7 +38,7 @@ public class EmployeeRepository extends Repository {
             }
             query += " c.username LIKE '%" + employeeData.getClient().getUsername() + "%'";
         }
-        if (employeeData.getName() != null) {
+        if (employeeData.getName() != null && !employeeData.getName().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -45,7 +46,7 @@ public class EmployeeRepository extends Repository {
             }
             query += " e.name LIKE '%" + employeeData.getName() + "%'";
         }
-        if (employeeData.getSurname() != null) {
+        if (employeeData.getSurname() != null && !employeeData.getSurname().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -53,7 +54,7 @@ public class EmployeeRepository extends Repository {
             }
             query += " e.surname LIKE '%" + employeeData.getSurname() + "%'";
         }
-        if (employeeData.getPassport() != null) {
+        if (employeeData.getPassport() != null && !employeeData.getPassport().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -61,7 +62,7 @@ public class EmployeeRepository extends Repository {
             }
             query += " e.passport LIKE '%" + employeeData.getPassport() + "%'";
         }
-        if (employeeData.getInn() != null) {
+        if (employeeData.getInn() != null && !employeeData.getInn().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
@@ -69,7 +70,7 @@ public class EmployeeRepository extends Repository {
             }
             query += " e.passport LIKE '%" + employeeData.getPassport() + "%'";
         }
-        if (employeeData.getPhoneNumber() != null) {
+        if (employeeData.getPhoneNumber() != null && !employeeData.getPhoneNumber().isEmpty()) {
             if (flagAND) {
                 query += " AND";
             } else {
