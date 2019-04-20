@@ -53,7 +53,7 @@
             <property name="javax.persistence.jdbc.password" value="password"/>
             <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.logging.parameters" value="true"/>
-            <!--<property name="javax.persistence.schema-generation.database.action" value="create" />-->
+            <property name="javax.persistence.schema-generation.database.action" value="validate" />
         </properties>
     </persistence-unit>
 </persistence>

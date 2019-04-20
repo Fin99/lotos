@@ -36,12 +36,12 @@ public class IllEJB {
         definedIlls.add(new Ill("Вывих челюсти", DiseaseStrength.HARD));
         definedIlls.add(new Ill("Перелом пальца", DiseaseStrength.HARD));
         definedIlls.add(new Ill("Рассечение брови", DiseaseStrength.HARD));
-        // FIXME
-//        definedIlls.add(new Ill("Вывих плеча", DiseaseStrength.CRITICAL));
-//        definedIlls.add(new Ill("Перелом бедра", DiseaseStrength.CRITICAL));
-//        definedIlls.add(new Ill("Лучевая болезнь", DiseaseStrength.CRITICAL));
-//        definedIlls.add(new Ill("Перелом переносицы", DiseaseStrength.CRITICAL));
-//        definedIlls.add(new Ill("Пробитие барабанной перепонки", DiseaseStrength.CRITICAL));
-//        definedIlls.add(new Ill("Злокачественное новообразование", DiseaseStrength.CRITICAL));
+
+        definedIlls.add(new Ill("Вывих плеча", DiseaseStrength.CRITICAL));
+        definedIlls.add(new Ill("Перелом бедра", DiseaseStrength.CRITICAL));
+        definedIlls.add(new Ill("Лучевая болезнь", DiseaseStrength.CRITICAL));
+        definedIlls.add(new Ill("Перелом переносицы", DiseaseStrength.CRITICAL));
+        definedIlls.add(new Ill("Пробитие барабанной перепонки", DiseaseStrength.CRITICAL));
+        definedIlls.add(new Ill("Злокачественное новообразование", DiseaseStrength.CRITICAL));
     }
 }

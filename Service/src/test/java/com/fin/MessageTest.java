@@ -30,7 +30,7 @@ public class MessageTest {
         Client receiver = new Client();
         receiver.setId(3);
 
-        Message message = new Message(sender, receiver, "HelloWorld", new Date());
+        Message message = new Message(sender, receiver, "HelloWorld", new Date(), false);
 
         RequestSpecification sendMessage = RestAssured.given();
         sendMessage.header("Content-Type", "application/json");

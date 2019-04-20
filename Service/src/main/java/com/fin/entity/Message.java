@@ -33,12 +33,15 @@ public class Message implements Serializable, Jsonable {
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     @Column
     private Date date;
+    @Column
+    private boolean read;
 
-    public Message(Client sender, Client receiver, String textMessage, Date date) {
+    public Message(Client sender, Client receiver, String textMessage, Date date, boolean read) {
         this.sender = sender;
         this.receiver = receiver;
         this.textMessage = textMessage;
         this.date = date;
+        this.read = read;
     }
 
     public JsonObject toJson() {
@@ -58,6 +61,8 @@ public class Message implements Serializable, Jsonable {
         if (date != null) {
             builder.add("date", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(date));
         }
+
+        builder.add("read", read);
 
         return builder.build();
     }

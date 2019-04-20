@@ -1,6 +1,7 @@
 package com.fin.controller;
 
 
+import com.fin.ejb.MessageEJB;
 import com.fin.entity.Client;
 import com.fin.entity.Jsonable;
 import com.fin.entity.Message;
@@ -9,11 +10,9 @@ import com.fin.repository.MainRepository;
 import com.fin.repository.MessageRepository;
 import com.fin.security.Secured;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -35,6 +34,9 @@ public class MessageController {
     @Inject
     MainRepository mainRepository;
 
+    @EJB
+    private MessageEJB messageEJB;
+
     @POST
     @Path("/get")
     public Response getMessageWithClient(Client clientId) {
@@ -47,6 +49,19 @@ public class MessageController {
         List<Message> messages = messageRepository.findAllMessage(client1, client2);
 
         return Response.ok(Jsonable.wrapList(messages)).build();
+    }
+
+    @GET
+    @Path("/is-unread-exist")
+    public Response isUnreadMessagesExist(Client senderWithId) {
+        Client receiver = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
+        Client sender = mainRepository.find(Client.class, senderWithId.getId());
+
+        if (receiver == null || sender == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        return Response.ok(messageEJB.isUnreadMessagesExist(receiver, sender)).build();
     }
 
     @POST

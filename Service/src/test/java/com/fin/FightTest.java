@@ -34,6 +34,7 @@ public class FightTest {
         fightRequest.header("Authorization", "Bearer " +
                 getToken(teacher.getClient().getCredentials()));
 
+        // FIXME children don't exist in db
         List<Child> children = new ArrayList<>();
         Child[] childArray = getListChildren();
         children.add(childArray[0]);
