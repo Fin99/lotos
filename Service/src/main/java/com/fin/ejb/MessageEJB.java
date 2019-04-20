@@ -16,6 +16,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -41,6 +43,15 @@ public class MessageEJB {
     public JsonArray getUnreadMessages(Client receiver, Client sender) {
         List<Message> unreadMessages = messageRepository.findAllUnreadMessages(receiver, sender);
         return Jsonable.wrapList(unreadMessages);
+    }
+
+    public void readMessages(Client receiver, List<Message> messagesWithId) {
+        List<Message> unreadMessages = messageRepository.findAllUnreadMessages(receiver);
+        Set<Long> messagesId = messagesWithId.stream().map(Message::getId).collect(Collectors.toSet());
+        List<Message> readMessages = unreadMessages.stream().filter(message -> messagesId.contains(message.getId()))
+                .peek(message -> message.setRead(true)).collect(Collectors.toList());
+
+        readMessages.forEach(message -> mainRepository.update(message));
     }
 
 }

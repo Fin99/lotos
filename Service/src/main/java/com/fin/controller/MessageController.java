@@ -64,6 +64,18 @@ public class MessageController {
         return Response.ok(messageEJB.isUnreadMessagesExist(receiver, sender)).build();
     }
 
+    @POST
+    @Path("/mark-read")
+    public Response markRead(List<Message> messagesWithId) {
+        Client receiver = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
+        if (receiver == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        messageEJB.readMessages(receiver, messagesWithId);
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/get-unread")
     public Response getUnreadMessages(Client senderWithId) {

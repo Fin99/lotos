@@ -24,4 +24,12 @@ public class MessageRepository extends Repository {
                 "m.read=false";
         return getEntityManager().createQuery(query, Message.class).getResultList();
     }
+
+    public List<Message> findAllUnreadMessages(Client receiver) {
+        String query = "SELECT m FROM Message m WHERE " +
+                "m.receiver.id='" + receiver.getId() + "' AND " +
+                "m.read=false";
+        return getEntityManager().createQuery(query, Message.class).getResultList();
+    }
+
 }
