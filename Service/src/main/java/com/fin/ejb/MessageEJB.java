@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.util.List;
@@ -35,6 +36,11 @@ public class MessageEJB {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("unreadExist", unreadMessages.size() > 0);
         return builder.build();
+    }
+
+    public JsonArray getUnreadMessages(Client receiver, Client sender) {
+        List<Message> unreadMessages = messageRepository.findAllUnreadMessages(receiver, sender);
+        return Jsonable.wrapList(unreadMessages);
     }
 
 }
