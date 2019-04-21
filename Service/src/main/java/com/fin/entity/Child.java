@@ -57,6 +57,7 @@ public class Child implements Serializable, Jsonable {
         this.gradeBookList = new ArrayList<>();
     }
 
+    @Override
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
@@ -86,4 +87,17 @@ public class Child implements Serializable, Jsonable {
 
         return builder.build();
     }
+
+    public JsonObject getEssentialsAsJson() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("id", id);
+        if (name != null) {
+            builder.add("name", name);
+        }
+        if (surname != null) {
+            builder.add("surname", surname);
+        }
+        return builder.build();
+    }
+
 }
