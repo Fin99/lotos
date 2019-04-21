@@ -10,6 +10,7 @@ import com.fin.entity.game.Hit;
 import com.fin.entity.game.HitDirection;
 import com.fin.entity.medical.DiseaseStrength;
 import com.fin.entity.medical.Ill;
+import com.fin.entity.money.Wallet;
 import com.fin.repository.MainRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -133,6 +134,18 @@ public class FightEJB {
         Random rand = new Random();
         Ill ill = illEJB.getDefinedIlls().get(rand.nextInt(illEJB.getDefinedIlls().size()));
         loser.getChild().getMedicalBook().getIllSet().add(ill);
+
+        giveWinnersMoney(loser);
+    }
+
+    private void giveWinnersMoney(Fighter loser) {
+        bets.forEach(bet -> {
+            if (bet.getFighter().getChild().getId() != loser.getChild().getId()) {
+                Wallet wallet = bet.getParent().getWallet();
+                wallet.setAccount(wallet.getAccount() + bet.getRateAmount() * bet.getCoefficient());
+                mainRepository.update(wallet);
+            }
+        });
     }
 
     private Hit initializeHit(Fighter radiant, Fighter dire, HitDirection hitDirection, Fight fight, double time) {
