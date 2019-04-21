@@ -128,6 +128,12 @@ public class Fighter implements Jsonable {
             if (child.getName() != null) {
                 builder.add("name", child.getName());
             }
+            if (child.getSurname() != null) {
+                builder.add("surname", child.getSurname());
+            }
+            builder.add("strength", strength);
+            builder.add("agility", agility);
+            builder.add("intellect", intellect);
         }
 
         return builder.build();

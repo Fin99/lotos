@@ -18,6 +18,10 @@ import lombok.Setter;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -92,9 +96,26 @@ public class FightEJB {
         }
     }
 
+    public JsonObject getFightersToPlaceBet() {
+        if (lastFight == null) {
+            // returns null if fight is not started yet
+            return null;
+        }
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("isBetTaken", isBetTaken);
+        if (!isBetTaken) {
+            builder.add("fight", lastFight.toJson());
+        }
+        return builder.build();
+    }
+
     public void startPreparation(Child firstChild, Child secondChild) {
         isBetTaken = false;
-        bets.clear();
+        if (bets == null) {
+            bets = new ArrayList<>();
+        } else {
+            bets.clear();
+        }
 
         Fighter radiant;
         Fighter dire;

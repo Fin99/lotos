@@ -10,6 +10,7 @@ import com.fin.security.Secured;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -47,6 +48,18 @@ public class GameController {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @GET
+    @Secured(Role.PARENT)
+    @Path("/is-bet-possible")
+    public Response isBetPossible() {
+        JsonObject jsonResponse = fightEJB.getFightersToPlaceBet();
+        if (jsonResponse == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } else {
+            return Response.ok(jsonResponse).build();
         }
     }
 
