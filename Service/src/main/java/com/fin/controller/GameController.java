@@ -44,7 +44,8 @@ public class GameController {
         Child dire = mainRepository.find(Child.class, child2WithId.getId());
 
         if (radiant != null && dire != null && fightEJB.isFightPossible(radiant, dire)) {
-            return Response.ok(fightEJB.generateReport(radiant, dire)).build();
+            fightEJB.startPreparation(radiant, dire);
+            return Response.ok().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
