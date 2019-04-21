@@ -1,5 +1,6 @@
 package com.fin.controller;
 
+import com.fin.dto.BetDto;
 import com.fin.ejb.FightEJB;
 import com.fin.entity.Child;
 import com.fin.repository.ChildRepository;
@@ -28,8 +29,6 @@ public class GameController {
     @Inject
     private MainRepository mainRepository;
 
-    // TODO add getAllFights()
-
     @EJB
     private FightEJB fightEJB;
 
@@ -45,6 +44,17 @@ public class GameController {
 
         if (radiant != null && dire != null && fightEJB.isFightPossible(radiant, dire)) {
             fightEJB.startPreparation(radiant, dire);
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @POST
+    @Secured(Role.PARENT)
+    @Path("/place-bet")
+    public Response placeBet(BetDto betDto) {
+        if (fightEJB.placeBet(betDto)) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();

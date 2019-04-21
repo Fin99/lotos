@@ -46,7 +46,7 @@ public class FightEJB {
         }
 
         Date now = new Date();
-        if (now.getTime() - lastFight.getStartDate().getTime() < 5 * 60 * 1000) {
+        if (now.getTime() - lastFight.getStartDate().getTime() > 5 * 60 * 1000) {
             isBetTaken = true;
             generateReport(lastFight);
             return lastFight;
@@ -105,6 +105,7 @@ public class FightEJB {
             dire = new Fighter(firstChild);
         }
 
+        calculateCoefficients(radiant, dire);
         lastFight = new Fight(radiant, dire);
     }
 
