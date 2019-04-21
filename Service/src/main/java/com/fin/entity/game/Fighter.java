@@ -124,18 +124,11 @@ public class Fighter implements Jsonable {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
         if (child != null) {
-            builder.add("child", child.toJson());
+            builder.add("id", child.getId());
+            if (child.getName() != null) {
+                builder.add("name", child.getName());
+            }
         }
-
-        builder.add("strength", strength);
-        builder.add("agility", agility);
-        builder.add("intellect", intellect);
-
-        builder.add("hp", hp);
-        builder.add("damage", damage);
-        builder.add("cooldown", cooldown);
-        builder.add("blockChance", blockChance);
-        builder.add("criticalChance", criticalChance);
 
         return builder.build();
     }
