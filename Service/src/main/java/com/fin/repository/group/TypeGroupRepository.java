@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 @Named("typeGroupRepository")
 public class TypeGroupRepository extends Repository {
 
-    public TypeGroup findGroupTypeByName(String name) {
+    public TypeGroup findByName(String name) {
         String query = "SELECT t FROM TypeGroup t WHERE t.name='" + name + "'";
         return MainRepository.getElementOrNull(getEntityManager().createQuery(query, TypeGroup.class).getResultList());
     }

@@ -29,11 +29,28 @@ public class TypeGroupEJB {
     }
 
     public boolean addGroupType(TypeGroup typeGroup) {
-        TypeGroup received = typeGroupRepository.findGroupTypeByName(typeGroup.getName());
+        TypeGroup received = typeGroupRepository.findByName(typeGroup.getName());
         if (received != null) {
             return false;
         }
         mainRepository.create(typeGroup);
         return true;
     }
+
+    public boolean removeGroupType(long id) {
+        if (mainRepository.find(TypeGroup.class, id) == null) {
+            return false;
+        }
+        mainRepository.remove(TypeGroup.class, id);
+        return true;
+    }
+
+    public boolean updateGroupType(TypeGroup typeGroup) {
+        if (mainRepository.find(TypeGroup.class, typeGroup.getId()) == null) {
+            return false;
+        }
+        mainRepository.update(typeGroup);
+        return true;
+    }
+
 }

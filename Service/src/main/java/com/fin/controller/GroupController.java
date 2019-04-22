@@ -1,6 +1,7 @@
 package com.fin.controller;
 
-import com.fin.ejb.TypeGroupEJB;
+import com.fin.ejb.GroupEJB;
+import com.fin.entity.group.Group;
 import com.fin.entity.group.TypeGroup;
 import com.fin.security.Role;
 import com.fin.security.Secured;
@@ -18,25 +19,25 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@Path("/type-group")
+@Path("/group")
 @Secured
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Getter
 @Setter
-public class TypeGroupController {
+public class GroupController {
 
     @Context
     private SecurityContext securityContext;
 
     @EJB
-    private TypeGroupEJB typeGroupEJB;
+    private GroupEJB groupEJB;
 
     @POST
     @Path("/get-all")
     @Secured(Role.CHIEF)
-    public Response getGroupTypes() {
-        JsonObject responseJson = typeGroupEJB.getGroupTypes();
+    public Response getGroups() {
+        JsonObject responseJson = groupEJB.getGroups();
         if (responseJson == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -46,8 +47,8 @@ public class TypeGroupController {
     @POST
     @Path("/create")
     @Secured(Role.CHIEF)
-    public Response createGroupType(TypeGroup typeGroup) {
-        if (typeGroupEJB.addGroupType(typeGroup)) {
+    public Response createGroup(Group group) {
+        if (groupEJB.addGroup(group)) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -57,8 +58,8 @@ public class TypeGroupController {
     @POST
     @Path("/update")
     @Secured(Role.CHIEF)
-    public Response updateGroupType(TypeGroup typeGroup) {
-        if (typeGroupEJB.updateGroupType(typeGroup)) {
+    public Response updateGroup(Group group) {
+        if (groupEJB.updateGroup(group)) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -68,8 +69,8 @@ public class TypeGroupController {
     @POST
     @Path("/remove")
     @Secured(Role.CHIEF)
-    public Response removeGroupType(long id) {
-        if (typeGroupEJB.removeGroupType(id)) {
+    public Response removeGroup(long id) {
+        if (groupEJB.removeGroup(id)) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
