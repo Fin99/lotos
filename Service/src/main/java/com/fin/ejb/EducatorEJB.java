@@ -39,7 +39,7 @@ public class EducatorEJB {
         Client client = clientRepository.findByUsername(educatorUsername);
         Educator educator = (Educator) employeeRepository.findByClient(client);
         List<GradeBook> gradeBooks = educator.getGradeBookList().stream().filter(gradeBook -> {
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
             return fmt.format(gradeBook.getDate()).equals(fmt.format(date));
         }).collect(Collectors.toList());
         if (gradeBooks.size() == 0) {

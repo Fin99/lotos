@@ -39,7 +39,7 @@ public class EducatorController {
     @Secured(Role.EDUCATOR)
     public Response getGradeBook(String stringDate) {
         String username = securityContext.getUserPrincipal().getName();
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         Date date;
         try {
             date = fmt.parse(stringDate);
