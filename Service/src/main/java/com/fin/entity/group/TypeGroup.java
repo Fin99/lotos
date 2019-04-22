@@ -1,5 +1,6 @@
 package com.fin.entity.group;
 
+import com.fin.entity.Jsonable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor
-public class TypeGroup implements Serializable {
+public class TypeGroup implements Serializable, Jsonable {
     @Id
     @SequenceGenerator(name = "type_group_id", sequenceName = "type_group_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_group_id")
@@ -33,13 +34,14 @@ public class TypeGroup implements Serializable {
     @Column
     private boolean intellectual;
 
+    @Override
     public JsonObject toJson() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
         builder.add("id", id)
-                .add("numberGroup", numberGroup)
-                .add("maxNumberGroup", maxNumberGroup)
-                .add("maxNumberChildren", maxNumberChildren)
+               // .add("numberGroup", numberGroup)
+               // .add("maxNumberGroup", maxNumberGroup)
+               // .add("maxNumberChildren", maxNumberChildren)
                 .add("speech", speech)
                 .add("intellectual", intellectual);
 
