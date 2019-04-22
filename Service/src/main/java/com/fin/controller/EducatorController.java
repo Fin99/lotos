@@ -51,7 +51,7 @@ public class EducatorController {
     }
 
     @POST
-    @Path("/add-grade-book-entries")
+    @Path("/fill-grade-book")
     @Secured(Role.EDUCATOR)
     public Response addGradeBookEntries(List<GradeBookEntryDto> gradeBookEntryDtoList) {
         String username = securityContext.getUserPrincipal().getName();

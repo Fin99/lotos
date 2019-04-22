@@ -1,5 +1,6 @@
 package com.fin.controller;
 
+import com.fin.dto.DiaryDto;
 import com.fin.ejb.TeacherEJB;
 import com.fin.security.Role;
 import com.fin.security.Secured;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Path("/teacher")
 @Secured
@@ -37,7 +39,6 @@ public class TeacherController {
     @Path("/get-diaries")
     @Secured(Role.TEACHER)
     public Response getDiaries(String stringDate) {
-        String teacherUsername = securityContext.getUserPrincipal().getName();
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         Date date;
         try {
@@ -45,6 +46,15 @@ public class TeacherController {
         } catch (ParseException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.ok(teacherEJB.getDiaries(teacherUsername, date)).build();
+        return Response.ok(teacherEJB.getDiaries(date)).build();
     }
+
+    @POST
+    @Path("/fill-diaries")
+    @Secured(Role.TEACHER)
+    public Response fillDiaries(List<DiaryDto> diaryDtoList) {
+        teacherEJB.fillDiaryList(diaryDtoList);
+        return Response.ok().build();
+    }
+
 }

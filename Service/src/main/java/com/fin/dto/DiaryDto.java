@@ -10,17 +10,11 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GradeBookEntryDto {
+public class DiaryDto {
 
     private long id;
 
-    private boolean attend;
-
-    private int eatingScore;
-
-    private int behavior;
-
-    private String note;
+    private int assessment;
 
     @JsonbDateFormat("dd-MM-yyyy")
     private Date date;
