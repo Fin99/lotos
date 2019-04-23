@@ -17,10 +17,7 @@ import com.fin.security.Role;
 import com.fin.security.Secured;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -56,6 +53,18 @@ public class RegistrationController {
         return Response.ok(parent.toJson()).build();
     }
 
+    private Parent validateParent(Parent parent) {
+        if (parent != null) {
+            Parent received = mainRepository.find(Parent.class, parent.getId());
+            if (received == null) {
+                throw new NotFoundException("Parent not found in db");
+            }
+            return received;
+        } else {
+            return null;
+        }
+    }
+
     @POST
     @Path("/child")
     public Response registrationChildren(Child child) {
@@ -64,19 +73,12 @@ public class RegistrationController {
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        if (child.getParent1() != null && child.getParent2().getId() != 0) {
-            Parent parent = mainRepository.find(Parent.class, child.getParent1().getId());
-            if (parent == null) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
-            child.setParent1(parent);
-        }
-        if (child.getParent2() != null && child.getParent2().getId() != 0) {
-            Parent parent = mainRepository.find(Parent.class, child.getParent2().getId());
-            if (parent == null) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
-            child.setParent2(parent);
+        try {
+            child.setParent1(validateParent(child.getParent1()));
+            child.setParent2(validateParent(child.getParent2()));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         MedicalBook medicalBook = new MedicalBook();
