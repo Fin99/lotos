@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.ejb.EJB;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,7 +21,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 @Path("/group")
-@Secured
+@Secured(Role.CHIEF)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Getter
@@ -35,9 +36,8 @@ public class GroupController {
 
     @POST
     @Path("/get-all")
-    @Secured(Role.CHIEF)
     public Response getGroups() {
-        JsonObject responseJson = groupEJB.getGroups();
+        JsonArray responseJson = groupEJB.getGroups();
         if (responseJson == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -46,7 +46,6 @@ public class GroupController {
 
     @POST
     @Path("/create")
-    @Secured(Role.CHIEF)
     public Response createGroup(Group group) {
         if (groupEJB.addGroup(group)) {
             return Response.ok().build();
@@ -57,7 +56,6 @@ public class GroupController {
 
     @POST
     @Path("/update")
-    @Secured(Role.CHIEF)
     public Response updateGroup(Group group) {
         if (groupEJB.updateGroup(group)) {
             return Response.ok().build();
@@ -68,7 +66,6 @@ public class GroupController {
 
     @POST
     @Path("/remove")
-    @Secured(Role.CHIEF)
     public Response removeGroup(long id) {
         if (groupEJB.removeGroup(id)) {
             return Response.ok().build();

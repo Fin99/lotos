@@ -46,6 +46,9 @@ public class FightEJB {
     private List<Bet> bets;
 
     public Fight getLastFight() {
+        if (lastFight == null) {
+            return null;
+        }
         if (isBetTaken) {
             return lastFight;
         }

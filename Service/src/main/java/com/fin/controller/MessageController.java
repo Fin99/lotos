@@ -9,6 +9,8 @@ import com.fin.repository.ClientRepository;
 import com.fin.repository.MainRepository;
 import com.fin.repository.MessageRepository;
 import com.fin.security.Secured;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -20,9 +22,11 @@ import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Path("/message")
-@Secured
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Getter
+@Setter
+@Secured
 public class MessageController {
     @Context
     SecurityContext securityContext;
@@ -51,7 +55,7 @@ public class MessageController {
         return Response.ok(Jsonable.wrapList(messages)).build();
     }
 
-    @GET
+    @POST
     @Path("/is-unread-exist")
     public Response isUnreadMessagesExist(Client senderWithId) {
         Client receiver = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());
@@ -76,7 +80,7 @@ public class MessageController {
         return Response.ok().build();
     }
 
-    @GET
+    @POST
     @Path("/get-unread")
     public Response getUnreadMessages(Client senderWithId) {
         Client receiver = clientRepository.findByUsername(securityContext.getUserPrincipal().getName());

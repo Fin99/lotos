@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class TypeGroupEJB {
     @Inject
     private TypeGroupRepository typeGroupRepository;
 
-    public JsonObject getGroupTypes() {
+    public JsonArray getGroupTypes() {
         List<TypeGroup> groupTypes = mainRepository.findAll(TypeGroup.class);
-        return Jsonable.wrapList(groupTypes).asJsonObject();
+        return Jsonable.wrapList(groupTypes);
     }
 
     public boolean addGroupType(TypeGroup typeGroup) {
